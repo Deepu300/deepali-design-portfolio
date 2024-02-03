@@ -9,6 +9,11 @@
   --accent-pink: #C08FCF;
 }
 
+[data-theme="dark"] {
+  --primary-color: #363636;
+  --secondary-color: #EEF0EB;
+}
+
 @media (prefers-color-scheme: dark) {
 }
 

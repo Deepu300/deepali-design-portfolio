@@ -4,10 +4,12 @@ import { avigeaFont } from "@/utils/fonts";
 import { navList } from "@/constants/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTheme } from 'next-themes'
 import "./navbar.css";
 
 const Navbar = ({ isOpen, setIsOpen }) => {
   const pathname = usePathname();
+  const { theme, setTheme } = useTheme()
 
   return (
     <nav
@@ -19,13 +21,14 @@ const Navbar = ({ isOpen, setIsOpen }) => {
 
       <ul className={`nav-list hidden md:flex gap-7`}>
         {navList.map((link, idx) => (
-          <Link href={link.path} key={idx}>
+          <Link href={link.path} key={idx} onClick={() => link.path == '/about' ? setTheme('dark') : setTheme('light')}>
             <li
               style={
                 pathname == link.path
                   ? { backgroundColor: `${link.color}` }
                   : {}
               }
+              
               className={`nav-list__item px-8 py-1 rounded-3xl md:text-lg`}
             >
               {link.title}

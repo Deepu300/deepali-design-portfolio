@@ -1,6 +1,5 @@
 .hero-header {
     height: 80svh;
-    /* border: 1px solid rebeccapurple; */
 
     .hero-header__wrapper {
         .header__heading {
@@ -14,8 +13,7 @@
 
             .svg__wrapper {
                 width: 400px;
-                /* border: 1px solid red; */
-
+                
                 svg {
                     scale: 1.1;
                     position: absolute;
