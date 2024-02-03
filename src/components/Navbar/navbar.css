@@ -1,0 +1,37 @@
+nav {
+    border-color: var(--secondary-color);
+    border-bottom-width: 3px;
+
+    .nav-list {
+        height: min-content;
+
+        .nav-list__item {
+            border-color: var(--secondary-color);
+            border-width: 1.82px;
+        }
+    }
+
+    .ham-btn {
+        width: 1rem;
+        height: 1rem;
+        align-items: center;
+        justify-content: center;
+
+        .ham-burger-open,
+        .ham-burger-close {
+            svg {
+                width: 100%;
+            }
+        }
+    }
+
+    .nav-list-mobile {
+        /* border: 1px solid red; */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    nav {
+        border-bottom-width: 1px;
+    }
+}

@@ -1,0 +1,119 @@
+.hero-header {
+    height: 80svh;
+    /* border: 1px solid rebeccapurple; */
+
+    .hero-header__wrapper {
+        .header__heading {
+            h1 {
+                line-height: 1;
+            }
+        }
+
+        .header__animation {
+            width: 100%;
+
+            .svg__wrapper {
+                width: 400px;
+                /* border: 1px solid red; */
+
+                svg {
+                    scale: 1.1;
+                    position: absolute;
+                }
+            }
+        }
+    }
+
+    .hero-infinite-scroll {
+        --gap: 1.5rem;
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+
+        ul {
+            animation: horizontal-scroll 20s infinite linear;
+
+            li {
+                svg {
+                    display: inline;
+                }
+            }
+        }
+    }
+}
+
+@keyframes horizontal-scroll {
+    from {
+        transform: translateX(0%);
+    }
+
+    to {
+        transform: translateX(calc(-50% - var(--gap)));
+    }
+}
+
+@media screen and (max-width: 1280px) {
+    .hero-header {
+        .hero-header__wrapper {
+            .header__animation {
+                .svg__wrapper {
+                    width: 250px;
+
+                    svg {
+                        scale: .8;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .hero-header {
+        .hero-header__wrapper {
+            .header__animation {
+                .svg__wrapper {
+                    width: 200px;
+                }
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .hero-header {
+        height: 30svh;
+
+
+        .hero-header__wrapper {
+
+            .header__animation {
+                .svg__wrapper {
+                    svg {
+                        scale: 0.4;
+                    }
+                }
+            }
+        }
+
+        .hero-infinite-scroll {
+            --gap: .5rem;
+            
+        }
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .hero-header {
+        .hero-header__wrapper {
+            .header__animation {
+                .svg__wrapper {
+                    width: 100px;
+
+                    svg {
+                        scale: .35;
+                    }
+                }
+            }
+        }
+    }
+}
