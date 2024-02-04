@@ -15,8 +15,6 @@ const Provider = ({ children, ...props }) => {
     },
   });
 
-  console.log(children[1]);
-
   return (
     <ThemeProvider storageKey = 'portfolio-theme' defaultTheme="light" forcedTheme={children[1].theme || null}>
       {newElement}

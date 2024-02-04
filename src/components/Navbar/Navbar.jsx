@@ -21,14 +21,13 @@ const Navbar = ({ isOpen, setIsOpen }) => {
 
       <ul className={`nav-list hidden md:flex gap-7`}>
         {navList.map((link, idx) => (
-          <Link href={link.path} key={idx} onClick={() => link.path == '/about' ? setTheme('dark') : setTheme('light')}>
+          <Link href={link.path} key={idx}>
             <li
               style={
                 pathname == link.path
                   ? { backgroundColor: `${link.color}` }
                   : {}
               }
-              
               className={`nav-list__item px-8 py-1 rounded-3xl md:text-lg`}
             >
               {link.title}
@@ -52,12 +51,12 @@ const Navbar = ({ isOpen, setIsOpen }) => {
             >
               <path
                 d="M23.4373 1.37695H0.450195"
-                stroke="#363636"
+                stroke="var(--secondary-color)"
                 strokeWidth="1.76824"
               />
               <path
                 d="M23.4373 17.2915H0.450195"
-                stroke="#363636"
+                stroke="var(--secondary-color)"
                 strokeWidth="1.76824"
               />
             </svg>
@@ -71,8 +70,8 @@ const Navbar = ({ isOpen, setIsOpen }) => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M19 1L1 18" stroke="#363636" stroke-width="1.76824" />
-              <path d="M19 18L1 1" stroke="#363636" stroke-width="1.76824" />
+              <path d="M19 1L1 18" stroke="var(--secondary-color)" stroke-width="1.76824" />
+              <path d="M19 18L1 1" stroke="var(--secondary-color)" stroke-width="1.76824" />
             </svg>
           </div>
         )}
