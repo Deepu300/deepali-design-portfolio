@@ -1,0 +1,59 @@
+.work {
+    section {
+        position: relative;
+        width: 65%;
+        margin: auto;
+
+        /* border: 1px solid red; */
+        &::after {
+            position: absolute;
+            content: '';
+            width: 35%;
+            height: 3px;
+            bottom: 0;
+            background-color: var(--accent-purple);
+            transform: translateX(-50%);
+        }
+
+        .section-content {
+            /* font-size: 16px; */
+            line-height: 2;
+
+            p {
+                span {
+                    color: var(--accent-purple);
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .thanks {
+            color: var(--accent-purple);
+        }
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .work {
+        .project-header-img {
+            height: 30svh;
+            object-fit: cover;
+        }
+
+        section {
+            width: 90%;
+
+            &::after {
+                height: 2px;
+            }
+
+            .section-content {
+                line-height: 1.5;
+
+                .avatar {
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
