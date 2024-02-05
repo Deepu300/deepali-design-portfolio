@@ -4,7 +4,7 @@ import "./about.css";
 const About = () => {
   return (
     <main className="m-auto about max-w-screen-2xl">
-      <div className="flex flex-col-reverse items-center justify-center w-10/12 gap-3 m-auto md:w-9/12 about__content md:flex-row md:gap-0">
+      <div className="flex flex-col-reverse items-center justify-center w-10/12 gap-3 m-auto md:max-lg:w-11/12 md:w-9/12 about__content md:flex-row md:gap-0">
         <div className="flex flex-col gap-8 pl-8 md:w-1/2 about__text">
           <h2 className={`${avigeaFont.className} text-2xl md:text-5xl italic`}>
             Hey fellow
@@ -34,12 +34,12 @@ const About = () => {
           <img src="/img-3.png" className="" alt="Hi&#44; this is Deepali." />
         </div>
       </div>
-      <section className="flex flex-col w-9/12 m-auto my-24 text-base border about__background md:flex-row">
-        <div className="flex flex-col w-full md:border-r md:w-2/5 section-item grow">
-          <div className="px-10 py-8 text-2xl border-b md:py-12 md:px-14 section-title">
+      <section className="flex flex-col w-9/12 m-auto my-24 text-base border md:max-lg:w-11/12 about__background md:flex-row">
+        <div className="flex flex-col w-full md:border-r md:w-2/5 md:max-lg:w-43 section-item grow">
+          <div className="px-10 py-8 text-2xl border-b md:max-lg:py-6 md:max-lg:px-7 md:py-12 md:px-14 section-title">
             <h3 className={`${avigeaFont.className}`}>Skills and Interests</h3>
           </div>
-          <div className="flex flex-col gap-8 px-10 py-10 text-xs md:py-20 md:px-14 section-description md:text-base">
+          <div className="flex flex-col gap-8 px-10 py-10 text-xs md:py-20 md:max-lg:py-10 md:max-lg:px-7 md:px-14 section-description md:text-base">
             <p>
               I like exploring the emotional versatality of humans with
               technology&#44; aiming to explore the profound impact that
@@ -60,10 +60,10 @@ const About = () => {
           </div>
         </div>
         <div className="flex flex-col md:border-r section-item grow">
-          <div className="px-10 py-8 text-2xl border-t border-b md:py-12 md:border-t-0 md:px-14 section-title">
+          <div className="px-10 py-8 text-2xl border-t border-b md:py-12 md:border-t-0 md:px-14 md:max-lg:py-6 md:max-lg:px-7 section-title">
             <h3 className={`${avigeaFont.className}`}>Education</h3>
           </div>
-          <div className="px-10 py-10 text-xs md:py-20 md:px-14 section-description md:text-base">
+          <div className="px-10 py-10 text-xs md:py-20 md:px-14 md:max-lg:py-10 md:max-lg:px-7 section-description md:text-base">
             <div className="description-item">
               <div className="title">Delhi Technological University</div>
               <div className="mb-8 details">
@@ -80,10 +80,10 @@ const About = () => {
           </div>
         </div>
         <div className="flex flex-col section-item grow">
-          <div className="px-10 py-8 text-2xl border-t border-b md:py-12 md:px-14 md:border-t-0 section-title">
+          <div className="px-10 py-8 text-2xl border-t border-b md:py-12 md:px-14 md:border-t-0 md:max-lg:py-6 md:max-lg:px-7 section-title">
             <h3 className={`${avigeaFont.className}`}>Experience</h3>
           </div>
-          <div className="px-10 py-10 text-xs md:py-20 md:px-14 section-description md:text-base">
+          <div className="px-10 py-10 text-xs md:py-20 md:px-14 md:max-lg:py-10 md:max-lg:px-7 section-description md:text-base">
             <div className="description-item">
               <div className="title">HDFC</div>
               <div className="mb-8 details">

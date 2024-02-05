@@ -5,13 +5,13 @@
     border-color: var(--secondary-color);
     position: relative;
 
-    &::before,
+    /* &::before,
     &::after {
         position: absolute;
         content: '';
         background-color: var(--secondary-color);
         z-index: 1;
-    }
+    } */
 
     &::after {
         height: 100%;
@@ -30,15 +30,25 @@
     .project-card {
         .project-image {
             transition: all .3s ease-in-out;
+        }
 
+        &:nth-child(1),
+        &:nth-child(2) {
+            border-bottom: var(--line-thickness) solid var(--secondary-color);
+        }
+
+        &:nth-child(2n+1) {
+            border-right: var(--line-thickness) solid var(--secondary-color);
         }
 
         .project-btns {
+
             /* border: 1px solid blue; */
             .view {
                 background-color: var(--secondary-color);
                 color: var(--primary-color);
             }
+
             .like {
                 /* border: 1px solid red; */
 
@@ -47,7 +57,7 @@
                 height: 78px;
                 background-image: url('../../../public/Group\ 62.png');
                 background-position: left;
-              
+
 
                 &.active {
                     animation: heart-bursts .5s steps(17) forwards;
@@ -65,15 +75,15 @@
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
     .project__wrapper {
         --line-thickness: 0px;
 
         .project-card {
-            border-bottom: 1px solid var(--secondary-color);
+            border-bottom: 1px solid var(--secondary-color) !important;
 
             &:last-of-type {
-                border: none;
+                border: none !important;
             }
 
             .project-btns {

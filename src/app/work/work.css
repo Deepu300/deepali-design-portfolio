@@ -70,6 +70,20 @@
     }
 }
 
+@media screen and (1024px >=width >=640px) {
+    .work {
+        section {
+            width: 80%;
+
+            .section-content {
+                .avatar {
+                    width: 50%;
+                }
+            }
+        }
+    }
+}
+
 @media screen and (max-width: 640px) {
     .work {
         .project-header-img {
@@ -108,14 +122,14 @@
 
                         &:nth-child(3) {
                             .bar__box {
-                                
+
                                 padding-bottom: 6rem;
                             }
                         }
 
                         &:nth-child(4) {
                             .bar__box {
-                                
+
                                 padding-bottom: 3rem;
 
                             }

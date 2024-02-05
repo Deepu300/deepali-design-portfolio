@@ -4,7 +4,6 @@ import { avigeaFont } from "@/utils/fonts";
 import { navList } from "@/constants/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from "next-themes";
 import "./navbar.css";
 import { motion as m } from "framer-motion";
 
