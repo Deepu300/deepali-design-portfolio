@@ -5,6 +5,14 @@ import { useState } from "react";
 import { motion as m } from "framer-motion";
 
 const Project = ({ data }) => {
+  const ISSERVER = typeof window === "undefined";
+  
+  const [isActive, setIsActive] = useState(ISSERVER ? null : localStorage.hasOwnProperty(data.id) ? true : false);
+
+  const setLike = (val) => {
+    val && !ISSERVER ? localStorage.setItem(data.id, "") : localStorage.removeItem(data.id);
+  };
+
   return (
     <div className="relative flex flex-col w-full p-5 md:w-1/2 md:p-10 project-card">
       <div className="relative project-image">
@@ -27,24 +35,33 @@ const Project = ({ data }) => {
           }}
         />
       </div>
-      {/* <div className="flex flex-col justify-between project-details"> */}
-        <div
-          className={`project-item project-title ${avigeaFont.className} text-xl pt-6 pb-3 lg:text-4xl`}
-        >
-          {data.projectTitle}
-        </div>
-        
-        <div className="pb-3 text-xs project-item grow md:text-xl project-desc">
-          <p>{data.projectDesc}</p>
-        </div>
+      <div
+        className={`project-item project-title ${avigeaFont.className} text-xl pt-6 pb-3 lg:text-4xl`}
+      >
+        {data.projectTitle}
+      </div>
 
-        <div className="project-itemmt-8 project-btns">
-          <div className="px-8 py-1 text-sm md:text-xl rounded-3xl view w-min">
-            <Link href={data.link}>View</Link>
-          </div>
-          <div className="like"></div>
+      <div className="pb-3 text-xs project-item grow md:text-xl project-desc">
+        <p>{data.projectDesc}</p>
+      </div>
+
+      <div className="flex items-center justify-between project-itemmt-8 project-btns">
+        <div className="px-8 py-1 text-sm md:text-xl rounded-3xl view h-min w-min">
+          <Link
+            href={data.link}
+            target={data.link.includes("behance") ? "_blank" : ""}
+          >
+            View
+          </Link>
         </div>
-      {/* </div> */}
+        <div
+          className={isActive ? "active like " : "like cursor-pointer"}
+          onClick={() => {
+            setIsActive(!isActive);
+            setLike(!isActive);
+          }}
+        ></div>
+      </div>
     </div>
   );
 };

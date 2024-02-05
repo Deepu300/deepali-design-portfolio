@@ -33,20 +33,35 @@
 
         }
 
-
-        .project-item {
-            /* border: 1px solid red; */
-        }
-
         .project-btns {
+            /* border: 1px solid blue; */
             .view {
                 background-color: var(--secondary-color);
                 color: var(--primary-color);
             }
+            .like {
+                /* border: 1px solid red; */
+
+                scale: .8;
+                width: 97.5px;
+                height: 78px;
+                background-image: url('../../../public/Group\ 62.png');
+                background-position: left;
+              
+
+                &.active {
+                    animation: heart-bursts .5s steps(17) forwards;
+                }
+            }
         }
 
 
-        /* border: 1px solid blue; */
+    }
+}
+
+@keyframes heart-bursts {
+    to {
+        background-position: right;
     }
 }
 
@@ -59,6 +74,13 @@
 
             &:last-of-type {
                 border: none;
+            }
+
+            .project-btns {
+                .like {
+                    margin-right: -1.5rem;
+                    scale: .5;
+                }
             }
         }
     }
