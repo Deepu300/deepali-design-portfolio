@@ -4,12 +4,12 @@ import { avigeaFont } from "@/utils/fonts";
 import { navList } from "@/constants/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useTheme } from 'next-themes'
+import { useTheme } from "next-themes";
 import "./navbar.css";
+import { motion as m } from "framer-motion";
 
 const Navbar = ({ isOpen, setIsOpen }) => {
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme()
 
   return (
     <nav
@@ -70,16 +70,28 @@ const Navbar = ({ isOpen, setIsOpen }) => {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path d="M19 1L1 18" stroke="var(--secondary-color)" stroke-width="1.76824" />
-              <path d="M19 18L1 1" stroke="var(--secondary-color)" stroke-width="1.76824" />
+              <path
+                d="M19 1L1 18"
+                stroke="var(--secondary-color)"
+                stroke-width="1.76824"
+              />
+              <path
+                d="M19 18L1 1"
+                stroke="var(--secondary-color)"
+                stroke-width="1.76824"
+              />
             </svg>
           </div>
         )}
       </div>
 
       {isOpen && (
-        <ul
+        <m.ul
           className={`nav-list-mobile md:hidden absolute top-16 h-full w-full flex flex-col items-center gap-10 pt-12 ${avigeaFont.className}`}
+          initial={{height: 0}}
+          animate={{height: '100%'}}
+          exit={{height: 0}}
+          transition={{duration: 5}}
         >
           <Link href={"/"} onClick={() => setIsOpen(false)}>
             <div className="text-4xl nav-list__item">Home</div>
@@ -89,7 +101,7 @@ const Navbar = ({ isOpen, setIsOpen }) => {
               <li className={`nav-list__item text-4xl`}>{link.title}</li>
             </Link>
           ))}
-        </ul>
+        </m.ul>
       )}
     </nav>
   );

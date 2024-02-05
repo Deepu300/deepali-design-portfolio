@@ -1,4 +1,9 @@
 nav {
+    &.dark {
+        --primary-color: #363636;
+        --secondary-color: #EEF0EB;
+    }
+
     border-color: var(--secondary-color);
     border-bottom-width: 3px;
 
@@ -25,9 +30,7 @@ nav {
         }
     }
 
-    .nav-list-mobile {
-       
-    }
+    .nav-list-mobile {}
 }
 
 @media screen and (max-width: 768px) {

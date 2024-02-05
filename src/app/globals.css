@@ -13,7 +13,7 @@
   --accent-tan: #E7DCC8;
 }
 
-:root:has(.about) {
+[data-theme="dark"] {
   --primary-color: #363636;
   --secondary-color: #EEF0EB;
 }
