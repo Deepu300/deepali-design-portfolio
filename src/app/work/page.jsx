@@ -1,8 +1,10 @@
 import Image from "next/image";
 import "./work.css";
 import { avigeaFont } from "@/utils/fonts";
+import { barGraph } from "@/constants/projects";
 
 const Work = () => {
+  let i = 0;
   return (
     <div className="my-16 text-center work">
       <div className="project">
@@ -14,7 +16,12 @@ const Work = () => {
             Internship Project | May&apos;23 - July&apos;23
           </div>
         </div>
-        <Image className="project-header-img" src={"/project-header.png"} width={1968.01} height={678.55} />
+        <Image
+          className="project-header-img"
+          src={"/project-header.png"}
+          width={1968.01}
+          height={678.55}
+        />
 
         <section className="pb-12 after:w-1/6">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
@@ -33,7 +40,7 @@ const Work = () => {
           </div>
         </section>
 
-        <section className="pb-24">
+        <section className="pb-12 md:pb-24">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             <Image
               className="m-auto"
@@ -45,16 +52,16 @@ const Work = () => {
           </div>
           <div className="text-sm text-justify md:text-xl section-content">
             <p>
-              Over the years, shape tools haven&apos;t looked much different from MS
-              Paint days, but technology has changed a lot. We now want these
-              advanced technologies to make our creative work faster and better
-              with improved tools. It&apos;s time to upgrade and add new features to
-              the shape tools we&apos;re used to.
+              Over the years, shape tools haven&apos;t looked much different
+              from MS Paint days, but technology has changed a lot. We now want
+              these advanced technologies to make our creative work faster and
+              better with improved tools. It&apos;s time to upgrade and add new
+              features to the shape tools we&apos;re used to.
             </p>
           </div>
         </section>
 
-        <section className="pb-24">
+        <section className="pb-12 md:pb-24">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             Process
           </div>
@@ -77,7 +84,7 @@ const Work = () => {
           </div>
         </section>
 
-        <section className="pb-24">
+        <section className="pb-12 md:pb-24">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             Deep Dive
           </div>
@@ -102,7 +109,7 @@ const Work = () => {
           </div>
         </section>
 
-        <section className="pb-24">
+        <section className="pb-12 md:pb-24">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             Insights
           </div>
@@ -139,7 +146,7 @@ const Work = () => {
           </div>
         </section>
 
-        <section className="pb-24">
+        <section className="pb-12 md:pb-24">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             <Image
               className="m-auto"
@@ -153,9 +160,9 @@ const Work = () => {
             <p className="text-justify">
               The most critical phase was the process of pinpointing the diverse
               challenges and obstacles encountered by users. This step was of
-              paramount importance as it laid the foundation for the project&apos;s
-              final stages setting the stage for a comprehensive understanding
-              of the issues users were facing.
+              paramount importance as it laid the foundation for the
+              project&apos;s final stages setting the stage for a comprehensive
+              understanding of the issues users were facing.
             </p>
             <Image
               src={"/project-img-4.png"}
@@ -166,7 +173,7 @@ const Work = () => {
           </div>
         </section>
 
-        <section className="pb-24">
+        <section className="pb-12 md:pb-24">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             <Image
               className="m-auto"
@@ -226,7 +233,7 @@ const Work = () => {
           </div>
         </section>
 
-        <section className="pb-24">
+        <section className="pb-12 md:pb-24">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             Explorations
           </div>
@@ -247,7 +254,7 @@ const Work = () => {
         </section>
 
         {/* NEEDS SOME CHANGES */}
-        <section className="pb-24">
+        <section className="pb-12 md:pb-24">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             Concepts
           </div>
@@ -265,7 +272,7 @@ const Work = () => {
             </p>
             <Image
               src={"/illust-4.png"}
-              className="m-auto"
+              className="m-auto avatar"
               width={400}
               height={400}
             />
@@ -287,15 +294,66 @@ const Work = () => {
               width={1024}
               height={243}
             />
-            <p className="text-xs italic md:text-base opacity-60">
+            <div className="flex items-end pt-16 bar-graph">
+              {barGraph.map((bar, idx) => (
+                <div className="w-1/4 bar" key={idx}>
+                  <div
+                    className={`bar__title text-xs md:text-xl ${avigeaFont.className}`}
+                  >
+                    {bar.title}
+                  </div>
+                  <ul
+                    className="flex flex-col px-2 py-5 text-xs font-bold text-left md:py-10 md:text-lg md:px-7 bar__box"
+                    style={{ backgroundColor: `var(--accent-${bar.color})` }}
+                  >
+                    {bar.concepts.map((concept, idxC) => (
+                      <li key={idxC} className="pb-3 italic md:pb-8">
+                        <span
+                          className={`${avigeaFont.className} not-italic font-normal`}
+                        >
+                          Concept {++i == 10 ? 10 : `0${i}`}:
+                        </span>
+                        {"  "}
+                        {concept}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+            <svg
+              width="1181"
+              height="69"
+              viewBox="0 0 1181 69"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-11/12 m-auto mt-5"
+            >
+              <path
+                d="M2.32709 3C5.32709 24.25 36.0771 66.75 135.077 66.75C258.827 66.75 540.827 6 590.327 66.75"
+                stroke="#714C8F"
+                strokeWidth="4.5"
+                strokeLinecap="round"
+              />
+              <path
+                d="M1178.33 3C1175.33 24.25 1144.58 66.75 1045.58 66.75C921.827 66.75 639.827 6 590.327 66.75"
+                stroke="#714C8F"
+                strokeWidth="4.5"
+                strokeLinecap="round"
+              />
+            </svg>
+            <p className={`${avigeaFont.className} uppercase`}>
+              discoverability
+            </p>
+            <p className="mt-10 text-xs italic md:text-base opacity-60">
               Note: The details of each of the concept in the Tool Properties
-              Panel has been omitted as it falls under NDA. For further
+              Panel has been omitted as it <u>falls under NDA</u>. For further
               discussion on the solutions, feel free to reach out :&#41;
             </p>
           </div>
         </section>
 
-        <section className="pb-24 after:hidden">
+        <section className="pb-12 md:pb-24 after:hidden">
           <div className="mt-12 mb-5 text-lg font-bold md:mb-10 md:text-3xl section-title">
             Conclusion
           </div>
@@ -328,7 +386,9 @@ const Work = () => {
         </section>
 
         <section className="after:hidden">
-          <div className={`${avigeaFont.className} thanks text-2xl md:text-4xl capitalize`}>
+          <div
+            className={`${avigeaFont.className} thanks text-2xl md:text-4xl capitalize`}
+          >
             A heartfelt thanks to
           </div>
           <div className="section-content">
@@ -344,7 +404,7 @@ const Work = () => {
                   width={300}
                   height={300}
                   className="m-auto mb-5 border-2 rounded-full grayscale brightness-100 contrast-150 avatar"
-                  style={{borderColor: 'var(--secondary-color)'}}
+                  style={{ borderColor: "var(--secondary-color)" }}
                 />
                 <p className="font-bold">RAKESH BAIDYA</p>
                 <p>Staff Experience Designer</p>
@@ -356,7 +416,7 @@ const Work = () => {
                   width={300}
                   height={300}
                   className="m-auto mb-5 border-2 rounded-full grayscale avatar"
-                  style={{borderColor: 'var(--secondary-color)'}}
+                  style={{ borderColor: "var(--secondary-color)" }}
                 />
                 <p className="font-bold">MRINALINI SARDAR</p>
                 <p>Design Leadership</p>
@@ -367,7 +427,7 @@ const Work = () => {
         </section>
 
         <div className="project-footer">
-          <Image src={'/project-footer.png'} width={1920} height={250} />
+          <Image src={"/project-footer.png"} width={1920} height={250} />
         </div>
       </div>
     </div>

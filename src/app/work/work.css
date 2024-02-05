@@ -25,6 +25,43 @@
                     font-weight: bold;
                 }
             }
+
+            .bar-graph {
+                .bar {
+                    .bar__box {
+                        border: 1.5px solid var(--secondary-color);
+                    }
+
+                    &:nth-child(1) {
+                        .bar__box {
+                            border-right: none;
+                            padding-bottom: 8rem;
+                        }
+                    }
+
+                    &:nth-child(2) {
+                        .bar__box {
+                            padding-bottom: 5rem;
+                        }
+                    }
+
+                    &:nth-child(3) {
+                        .bar__box {
+                            border-left: none;
+                            padding-bottom: 12rem;
+                        }
+                    }
+
+                    &:nth-child(4) {
+                        .bar__box {
+                            border-left: none;
+                            padding-bottom: 6rem;
+
+                        }
+                    }
+
+                }
+            }
         }
 
         .thanks {
@@ -50,8 +87,41 @@
             .section-content {
                 line-height: 1.5;
 
+
                 .avatar {
                     width: 50%;
+                }
+
+                .bar-graph {
+                    .bar {
+                        &:nth-child(1) {
+                            .bar__box {
+                                padding-bottom: 3rem;
+                            }
+                        }
+
+                        &:nth-child(2) {
+                            .bar__box {
+                                padding-bottom: 1rem;
+                            }
+                        }
+
+                        &:nth-child(3) {
+                            .bar__box {
+                                
+                                padding-bottom: 6rem;
+                            }
+                        }
+
+                        &:nth-child(4) {
+                            .bar__box {
+                                
+                                padding-bottom: 3rem;
+
+                            }
+                        }
+
+                    }
                 }
             }
         }

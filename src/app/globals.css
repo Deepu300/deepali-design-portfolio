@@ -7,7 +7,10 @@
   --secondary-color: #363636;
   --accent-blue: #BCCBEA;
   --accent-pink: #C08FCF;
+  --accent-pink-2: #E3CAEB;
   --accent-purple: #714C8F;
+  --accent-green: #BECFBC;
+  --accent-tan: #E7DCC8;
 }
 
 :root:has(.about) {
