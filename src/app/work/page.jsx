@@ -45,11 +45,11 @@ const Work = () => {
           </div>
           <div className="text-sm text-justify md:text-xl section-content">
             <p>
-              Over the years, shape tools haven't looked much different from MS
+              Over the years, shape tools haven&apos;t looked much different from MS
               Paint days, but technology has changed a lot. We now want these
               advanced technologies to make our creative work faster and better
-              with improved tools. It's time to upgrade and add new features to
-              the shape tools we're used to.
+              with improved tools. It&apos;s time to upgrade and add new features to
+              the shape tools we&apos;re used to.
             </p>
           </div>
         </section>
@@ -96,7 +96,7 @@ const Work = () => {
               followed by a thorough analysis of the competition, and culminated
               in conducting four in-depth user interviews. These sequential
               steps provided us with clarity and a foundational understanding of
-              the project's landscape, setting a strong groundwork for our
+              the project&apos;s landscape, setting a strong groundwork for our
               design endeavors.
             </p>
           </div>
@@ -153,7 +153,7 @@ const Work = () => {
             <p className="text-justify">
               The most critical phase was the process of pinpointing the diverse
               challenges and obstacles encountered by users. This step was of
-              paramount importance as it laid the foundation for the project's
+              paramount importance as it laid the foundation for the project&apos;s
               final stages setting the stage for a comprehensive understanding
               of the issues users were facing.
             </p>
