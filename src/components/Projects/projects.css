@@ -76,6 +76,14 @@
 }
 
 @media screen and (max-width: 767px) {
+    .projects-container {
+        h1 {
+            img {
+                top: .15rem;
+                left: .79rem;
+            }
+        }
+    }
     .project__wrapper {
         --line-thickness: 0px;
 

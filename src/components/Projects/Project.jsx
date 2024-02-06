@@ -1,14 +1,17 @@
 "use client";
 import { avigeaFont } from "@/utils/fonts";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion as m } from "framer-motion";
 
 const Project = ({ data }) => {
   const ISSERVER = typeof window === "undefined";
   
-  const [isActive, setIsActive] = useState(ISSERVER ? null : localStorage.hasOwnProperty(data.id) ? true : false);
+  const [isActive, setIsActive] = useState(false);
 
+  useEffect(() => {
+    setIsActive(localStorage.hasOwnProperty(data.id))
+  }, [])
   const setLike = (val) => {
     val && !ISSERVER ? localStorage.setItem(data.id, "") : localStorage.removeItem(data.id);
   };
