@@ -5,7 +5,7 @@ export const ProjectsList = [
     projectTitle: "Adobe Internship Project",
     projectDesc:
       "Exploring how we can extend the capabilities of Shape tools in Illustrator Desktop.",
-    link: "/work",
+    link: "/adobe-internship-project",
   },
   {
     id: "h69mos",

@@ -12,9 +12,9 @@ const Navbar = ({ isOpen, setIsOpen }) => {
 
   return (
     <nav
-      className={`max-w-screen-2xl w-11/12 flex items-center justify-between m-auto pt-6 pb-2 md:pt-14 md:pb-8 relative`}
+      className={`max-w-screen-2xl w-11/12 flex items-center justify-between m-auto pt-6 pb-2 md:pt-12 md:pb-6 relative`}
     >
-      <div className={`${avigeaFont.className} brand-logo md:text-5xl text-lg`}>
+      <div className={`${avigeaFont.className} brand-logo md:text-4xl text-lg`}>
         <Link href="/">Deepali.</Link>
       </div>
 
@@ -106,7 +106,7 @@ const Navbar = ({ isOpen, setIsOpen }) => {
               target={link.path.includes("https") ? "_blank" : ""}
               onClick={() => setIsOpen(false)}
             >
-              <li className={`nav-list__item text-4xl`}>{link.title}</li>
+              <li className={`nav-list__item text-4xl`}>{idx == 0 ? "Projects" : link.title}</li>
             </Link>
           ))}
         </m.ul>

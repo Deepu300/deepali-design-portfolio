@@ -5,15 +5,15 @@ import Project from "./Project";
 
 const Projects = () => {
   return (
-    <div className="w-11/12 m-auto my-10 md:my-20 projects-container max-w-screen-2xl">
+    <div className="w-11/12 m-auto my-24 md:my-32 projects-container max-w-screen-2xl" id="projects">
       <h1
-        className={`${avigeaFont.className} text-center text-3xl md:text-10xl mb-6 md:mb-12 relative w-fit m-auto`}
+        className={`${avigeaFont.className} text-center text-3xl md:text-10xl leading-none mb-6 md:mb-12 relative w-fit mx-auto`}
       >
         {" "}
         <img
           src="/tag.png"
           style={{ transform: "translateX(-100%)" }}
-          className="absolute w-14 md:left-10 md:-top-10 md:w-auto left-3"
+          className="absolute w-14 md:left-10 md:-top-1 md:w-auto left-3"
         />{" "}
         Projects
       </h1>

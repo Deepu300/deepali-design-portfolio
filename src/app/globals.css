@@ -11,6 +11,7 @@
   --accent-purple: #714C8F;
   --accent-green: #BECFBC;
   --accent-tan: #E7DCC8;
+  --hover: #D2D6CC;
 }
 
 [data-theme="dark"] {
@@ -51,6 +52,7 @@ body::-webkit-scrollbar-thumb
 body {
   color: var(--secondary-color);
   background-color: var(--primary-color);
+  scroll-behavior: smooth;
 }
 
 @layer utilities {

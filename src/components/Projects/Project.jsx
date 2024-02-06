@@ -6,14 +6,16 @@ import { motion as m } from "framer-motion";
 
 const Project = ({ data }) => {
   const ISSERVER = typeof window === "undefined";
-  
+
   const [isActive, setIsActive] = useState(false);
 
   useEffect(() => {
-    setIsActive(localStorage.hasOwnProperty(data.id))
-  }, [])
+    setIsActive(localStorage.hasOwnProperty(data.id));
+  }, []);
   const setLike = (val) => {
-    val && !ISSERVER ? localStorage.setItem(data.id, "") : localStorage.removeItem(data.id);
+    val && !ISSERVER
+      ? localStorage.setItem(data.id, "")
+      : localStorage.removeItem(data.id);
   };
 
   return (
@@ -49,14 +51,14 @@ const Project = ({ data }) => {
       </div>
 
       <div className="flex items-center justify-between project-itemmt-8 project-btns">
-        <div className="px-8 py-1 text-sm md:text-xl rounded-3xl view h-min w-min">
-          <Link
-            href={data.link}
-            target={data.link.includes("behance") ? "_blank" : ""}
-          >
+        <Link
+          href={data.link}
+          target={data.link.includes("behance") ? "_blank" : ""}
+        >
+          <div className="px-8 py-1 text-sm md:text-xl rounded-3xl view h-min w-min">
             View
-          </Link>
-        </div>
+          </div>
+        </Link>
         <div
           className={isActive ? "active like " : "like cursor-pointer"}
           onClick={() => {

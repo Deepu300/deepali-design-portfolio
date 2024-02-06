@@ -28,15 +28,15 @@ const HeroHeader = () => {
     "One Pixel at a Time",
   ];
   return (
-    <div className="flex flex-col items-center w-full m-auto mb-4 hero-header">
+    <div className="flex flex-col items-center w-full m-auto my-6 hero-header">
       <div className="flex justify-between w-11/12 m-auto max-w-screen-2xl lg:gap-10 hero-header__wrapper">
         <div className="header__heading">
           <h1
-            className={`${avigeaFont.className} lg:text-13xl xl:text-15xl md:text-10xl text-5xl`}
+            className={`${avigeaFont.className} lg:text-12xl md:text-8xl text-4xl leading-tight`}
           >
             Experience <br></br>Designer.
           </h1>
-          <h3 className="mt-6 text-sm md:mt-8 md:text-3xl">
+          <h3 className="mt-6 text-xs md:mt-9 md:text-3xl">
             Currently <Link href={"https://www.hdfcbank.com/"} target="_blank">@HDFC</Link>,
             Previously <Link href={"https://www.adobe.com/in/"} target="_blank">@Adobe</Link>
           </h3>
@@ -54,7 +54,7 @@ const HeroHeader = () => {
               viewBox="0 0 257 253"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="z-20 -left-32 -bottom-1/3 lg:top-0 lg:-left-16 xl:-left-5 xl:top-0 md:top-0 md:-left-28 sm:-left-12"
+              className="z-20 -left-full -top-24 md:-top-10 md:-left-24 xl:-left-26 "
               variants={svgVar}
             >
               <path
@@ -73,7 +73,7 @@ const HeroHeader = () => {
               viewBox="0 0 222 159"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="-top-4 -right-18 xl:top-16 xl:right-0 lg:-right-14 lg:top-14 md:top-14 md:-right-16 sm:-right-16 sm:-top-5"
+              className="-left-8 -top-11 md:top-3 md:left-12 xl:left-24 xl:top-4"
               variants={svgVar}
             >
               <path
@@ -93,7 +93,7 @@ const HeroHeader = () => {
               viewBox="0 0 244 216"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="z-10 -bottom-16 -left-22 xl:bottom-5 xl:left-1/4 lg:bottom-3 lg:left-6 md:-bottom-14 md:-left-4 sm:-bottom-18 sm:left-0"
+              className="z-10 -top-10 -left-16 md:top-16 md:-left-2 xl:top-24 xl:left-4"
               variants={svgVar}
             >
               <path

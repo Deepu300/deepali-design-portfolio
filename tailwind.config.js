@@ -15,12 +15,12 @@ module.exports = {
         "10xl": "100px",
       },
       spacing: {
-        '18': '4.5rem',
-        '22': '5.5rem'
+        18: "4.5rem",
+        22: "5.5rem",
       },
-      width : {
-        '43': '43%'
-      }
+      width: {
+        43: "43%",
+      },
     },
   },
   plugins: [],

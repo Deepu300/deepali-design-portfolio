@@ -298,12 +298,12 @@ const Work = () => {
               {barGraph.map((bar, idx) => (
                 <div className="w-1/4 bar" key={idx}>
                   <div
-                    className={`bar__title text-xs md:text-xl ${avigeaFont.className}`}
+                    className={`bar__title text-[11px] md:text-xl ${avigeaFont.className}`}
                   >
                     {bar.title}
                   </div>
                   <ul
-                    className="flex flex-col px-2 py-5 text-xs font-bold text-left md:py-10 md:text-lg md:px-7 bar__box"
+                    className="flex flex-col px-2 py-5 text-[8px] font-bold text-left md:py-10 md:text-lg md:px-7 bar__box"
                     style={{ backgroundColor: `var(--accent-${bar.color})` }}
                   >
                     {bar.concepts.map((concept, idxC) => (

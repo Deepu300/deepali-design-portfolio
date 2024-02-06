@@ -4,14 +4,14 @@ import "./about.css";
 const About = () => {
   return (
     <main className="m-auto about max-w-screen-2xl">
-      <div className="flex flex-col-reverse items-center justify-center w-10/12 gap-3 m-auto md:max-lg:w-11/12 md:w-9/12 about__content md:flex-row md:gap-0">
+      <div className="flex flex-col-reverse items-center justify-center w-10/12 gap-3 mx-auto md:my-8 md:max-lg:w-11/12 md:w-9/12 about__content md:flex-row md:gap-0">
         <div className="flex flex-col gap-8 pl-8 md:w-1/2 about__text">
-          <h2 className={`${avigeaFont.className} text-2xl md:text-5xl italic`}>
+          <h2 className={`${avigeaFont.className} text-2xl md:text-4xl italic`}>
             Hey fellow
             <br />
             human bean!
           </h2>
-          <div className="flex flex-col gap-4 text-xs md:gap-6 md:w-3/4 md:text-base">
+          <div className="flex flex-col gap-4 text-xs md:gap-6 md:w-3/4 md:text-lg">
             <p>
               I&apos;m Deepali Babuta&#44; an Experience Designer based in New
               Delhi&#44; currently in my final year of undergrad at DTU.
@@ -125,7 +125,5 @@ const About = () => {
     </main>
   );
 };
-
-About.theme = "dark";
 
 export default About;

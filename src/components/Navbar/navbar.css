@@ -13,6 +13,11 @@ nav {
         .nav-list__item {
             border-color: var(--secondary-color);
             border-width: 1.82px;
+            transition: .2s all;
+            
+            &:hover {
+                background-color: var(--hover);
+            }
         }
     }
 

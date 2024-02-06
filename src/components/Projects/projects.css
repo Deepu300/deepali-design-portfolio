@@ -60,7 +60,7 @@
 
 
                 &.active {
-                    animation: heart-bursts .5s steps(17) forwards;
+                    animation: heart-bursts .9s steps(17) forwards;
                 }
             }
         }

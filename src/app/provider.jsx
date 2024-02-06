@@ -23,7 +23,7 @@ const Provider = ({ children, ...props }) => {
       {newElement}
       {isOpen ? (
         <></>
-      ) : pathname == "/work" ? (
+      ) : pathname == "/adobe-internship-project" ? (
         children[1]
       ) : (
         children.slice(1, 3)

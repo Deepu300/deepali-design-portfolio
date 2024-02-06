@@ -4,12 +4,13 @@
     .hero-header__wrapper {
         .header__heading {
             h1 {
-                line-height: 1;
+                /* line-height: 1; */
             }
         }
 
         .header__animation {
-            width: 100%;
+            width: 45%;
+            /* border: 1px solid blue; */
 
             .svg__wrapper {
                 width: 400px;
@@ -79,7 +80,8 @@
 
 @media screen and (max-width: 767px) {
     .hero-header {
-        height: 30svh;
+        height: 35svh;
+        /* border: 1px solid red; */
 
 
         .hero-header__wrapper {
@@ -105,7 +107,7 @@
         .hero-header__wrapper {
             .header__animation {
                 .svg__wrapper {
-                    width: 100px;
+                    width: 105px;
 
                     svg {
                         scale: .35;

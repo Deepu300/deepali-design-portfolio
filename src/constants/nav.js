@@ -1,7 +1,7 @@
 export const navList = [
   {
     title: "Work",
-    path: "/work",
+    path: "/#projects",
     color: "rgba(188, 203, 234, .75)",
   },
   {
