@@ -20,7 +20,11 @@ const Navbar = ({ isOpen, setIsOpen }) => {
 
       <ul className={`nav-list hidden md:flex gap-7`}>
         {navList.map((link, idx) => (
-          <Link href={link.path} key={idx}>
+          <Link
+            href={link.path}
+            key={idx}
+            target={link.path.includes("https") ? "_blank" : ""}
+          >
             <li
               style={
                 pathname == link.path
@@ -87,16 +91,21 @@ const Navbar = ({ isOpen, setIsOpen }) => {
       {isOpen && (
         <m.ul
           className={`nav-list-mobile md:hidden absolute top-16 h-full w-full flex flex-col items-center gap-10 pt-12 ${avigeaFont.className}`}
-          initial={{height: 0}}
-          animate={{height: '100%'}}
-          exit={{height: 0}}
-          transition={{duration: 5}}
+          initial={{ height: 0 }}
+          animate={{ height: "100%" }}
+          exit={{ height: 0 }}
+          transition={{ duration: 5 }}
         >
           <Link href={"/"} onClick={() => setIsOpen(false)}>
             <div className="text-4xl nav-list__item">Home</div>
           </Link>
           {navList.map((link, idx) => (
-            <Link href={link.path} key={idx} onClick={() => setIsOpen(false)}>
+            <Link
+              href={link.path}
+              key={idx}
+              target={link.path.includes("https") ? "_blank" : ""}
+              onClick={() => setIsOpen(false)}
+            >
               <li className={`nav-list__item text-4xl`}>{link.title}</li>
             </Link>
           ))}
