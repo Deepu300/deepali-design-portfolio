@@ -79,11 +79,12 @@
     .projects-container {
         h1 {
             img {
-                top: .15rem;
+                top: -.10rem;
                 left: .79rem;
             }
         }
     }
+
     .project__wrapper {
         --line-thickness: 0px;
 
