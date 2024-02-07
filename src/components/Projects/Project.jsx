@@ -8,6 +8,7 @@ const Project = ({ data }) => {
   const ISSERVER = typeof window === "undefined";
 
   const [isActive, setIsActive] = useState(false);
+  const [isHovered, setHovered] = useState(false);
 
   useEffect(() => {
     setIsActive(localStorage.hasOwnProperty(data.id));
@@ -27,9 +28,12 @@ const Project = ({ data }) => {
         />
         <m.img
           src={`/${data.thumbnail[1]}`}
-          className="absolute top-0 z-10 w-full ounded-xl md:rounded-3xl"
+          className="absolute top-0 z-10 w-full rounded-xl md:rounded-3xl"
           initial="hidden"
           whileHover="visible"
+          onTouchStart={() => setHovered(true)}
+          onTouchEnd={() => setHovered(false)}
+          animate={isHovered ? "visible" : ""}
           variants={{
             hidden: {
               opacity: 0,

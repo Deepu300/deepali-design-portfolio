@@ -49,10 +49,13 @@ body::-webkit-scrollbar-thumb
 @media (prefers-color-scheme: dark) {
 }
 
+html {
+  scroll-behavior: smooth !important;
+}
+
 body {
   color: var(--secondary-color);
   background-color: var(--primary-color);
-  scroll-behavior: smooth;
 }
 
 @layer utilities {
