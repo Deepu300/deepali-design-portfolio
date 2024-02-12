@@ -55,12 +55,12 @@
                 scale: .8;
                 width: 97.5px;
                 height: 78px;
-                background-image: url('../../../public/heart-frames.png');
+                background-image: url('../../../public/heart-frames-fast.png');
                 background-position: left;
 
 
                 &.active {
-                    animation: heart-bursts .9s steps(20) forwards;
+                    animation: heart-bursts .9s steps(14) forwards;
                 }
             }
         }
