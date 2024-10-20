@@ -37,8 +37,9 @@ const HeroHeader = () => {
             Experience <br></br>Designer.
           </h1>
           <h3 className="mt-6 text-xs md:mt-9 md:text-3xl">
-            Currently <Link href={"https://www.hdfcbank.com/"} target="_blank">@HDFC</Link>,
-            Previously <Link href={"https://www.adobe.com/in/"} target="_blank">@Adobe</Link>
+
+            Currently MS <Link href={"https://www.nyu.edu/"} target="_blank">@NYU</Link>,
+            Previously <Link href={"https://www.adobe.com/in/"} target="_blank">@Adobe</Link> <Link href={"https://www.bosch.com/"} target="_blank">@Bosch</Link> <Link href={"https://www.hdfcbank.com/"} target="_blank">@HDFC</Link>
           </h3>
         </div>
         <div className="header__animation">

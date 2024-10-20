@@ -8,6 +8,22 @@ export const ProjectsList = [
     link: "/adobe-internship-project",
   },
   {
+    id: "fm9b4k",
+    thumbnail: ["haptics1.png", "haptics2.png"],
+    projectTitle: "Enhancing Haptics",
+    projectDesc:
+      "Enhancing haptic feedback in standard devices to create joyful, real life and user-friendly experiences",
+    link: "https://www.figma.com/proto/A7Blr1IZoZN7eLYtcCPHIf/TACTILE-FEEDBACK?page-id=0%3A1&node-id=63-179&node-type=frame&viewport=-1686%2C930%2C0.15&t=mUDPyY98WHdv3GjE-1&scaling=contain&content-scaling=fixed",
+  },
+  {
+    id: "sd3n2f",
+    thumbnail: ["bosch1.png", "bosch2.png"],
+    projectTitle: "Bosch Internship Project",
+    projectDesc:
+      "User Experience Research Project on Smart Parking Solutions for Indian Region",
+    link: "https://www.figma.com/proto/vb8zV5ddvhzQbdmx3YDp0x/Bosch-M%2FNXT?page-id=0%3A1&node-id=31-39&node-type=frame&viewport=-12099%2C927%2C0.29&t=qLkvaT5J7VpMDmyo-1&scaling=scale-down-width&content-scaling=fixed",
+  },
+  {
     id: "h69mos",
     thumbnail: ["unclouded1.png", "unclouded2.png"],
     projectTitle: "Unclouded",
