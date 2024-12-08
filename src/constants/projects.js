@@ -5,7 +5,7 @@ export const ProjectsList = [
     projectTitle: "Adobe Internship Project",
     projectDesc:
       "Exploring how we can extend the capabilities of Shape tools in Illustrator Desktop.",
-    link: "/adobe-internship-project",
+    link: "https://www.figma.com/proto/L6J5sBpmHLgxwUjNO07XF3/My-Website?page-id=0%3A1&node-id=424-252&node-type=frame&viewport=303%2C198%2C0.09&t=m805N1dIZtigGRH7-1&scaling=scale-down-width&content-scaling=fixed",
   },
   {
     id: "fm9b4k",
