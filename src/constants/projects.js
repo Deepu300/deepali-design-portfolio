@@ -13,7 +13,7 @@ export const ProjectsList = [
     projectTitle: "Enhancing Haptics",
     projectDesc:
       "Enhancing haptic feedback in standard devices to create joyful, real life and user-friendly experiences",
-    link: "https://www.figma.com/proto/A7Blr1IZoZN7eLYtcCPHIf/TACTILE-FEEDBACK?page-id=0%3A1&node-id=63-179&node-type=frame&viewport=-1686%2C930%2C0.15&t=mUDPyY98WHdv3GjE-1&scaling=contain&content-scaling=fixed",
+    link: "https://www.figma.com/proto/A7Blr1IZoZN7eLYtcCPHIf/TACTILE-FEEDBACK?page-id=0%3A1&node-id=63-179&viewport=43%2C149%2C0.04&t=tt1NyfoOa03Jgi1F-1&scaling=scale-down-width&content-scaling=fixed",
   },
   {
     id: "sd3n2f",
@@ -21,7 +21,7 @@ export const ProjectsList = [
     projectTitle: "Bosch Internship Project",
     projectDesc:
       "User Experience Research Project on Smart Parking Solutions for Indian Region",
-    link: "https://www.figma.com/proto/vb8zV5ddvhzQbdmx3YDp0x/Bosch-M%2FNXT?page-id=0%3A1&node-id=31-39&node-type=frame&viewport=-12099%2C927%2C0.29&t=qLkvaT5J7VpMDmyo-1&scaling=scale-down-width&content-scaling=fixed",
+    link: "https://www.figma.com/proto/vb8zV5ddvhzQbdmx3YDp0x/Bosch-M%2FNXT?page-id=0%3A1&node-id=31-39&viewport=-2107%2C236%2C0.06&t=8mH01y4mKizDrgAa-1&scaling=scale-down-width&content-scaling=fixed",
   },
   {
     id: "h69mos",
