@@ -11,6 +11,6 @@ export const navList = [
   },
   {
     title: "Resume",
-    path: "https://drive.google.com/file/d/182re3gbgsZwbVYTFjo0pqAUjdOo94SUm/view?usp=drivesdk",
+    path: "https://drive.google.com/file/d/1mu1f2F0DZpfI9OOF-7Qmq7IRn3VAzwIr/view?usp=drivesdk",
   },
 ];
