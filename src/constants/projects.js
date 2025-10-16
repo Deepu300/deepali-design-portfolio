@@ -2,25 +2,25 @@ export const ProjectsList = [
   {
     id: "4bl0n1",
     thumbnail: ["adobe1.png", "adobe2.png"],
-    projectTitle: "Adobe Internship Project",
+    projectTitle: "Rethinking Ai Shape Tools",
     projectDesc:
-      "Exploring how we can extend the capabilities of Shape tools in Illustrator Desktop.",
+      "Collaborated with the CC Illustrator Team and redesigned Adobe Illustrator’s Shapes Panel ",
     link: "https://www.figma.com/proto/uw9EU3vdvDtMzm0HjxYn9U/My-Website-(Copy)?page-id=0%3A1&node-id=424-252&viewport=517%2C184%2C0.05&t=jVAzHcjL4dowjyU4-1&scaling=scale-down-width&content-scaling=fixed",
   },
   {
     id: "fm9b4k",
     thumbnail: ["haptics1.png", "haptics2.png"],
-    projectTitle: "Enhancing Haptics",
+    projectTitle: "Haptic Wallpapers",
     projectDesc:
-      "Enhancing haptic feedback in standard devices to create joyful, real life and user-friendly experiences",
-    link: "https://www.figma.com/proto/A7Blr1IZoZN7eLYtcCPHIf/TACTILE-FEEDBACK?page-id=0%3A1&node-id=63-179&viewport=43%2C149%2C0.04&t=tt1NyfoOa03Jgi1F-1&scaling=scale-down-width&content-scaling=fixed",
+      "Interactive wallpapers that respond to your touch with realistic vibrations and textures.",
+    link: "https://www.behance.net/gallery/236555915/Haptic-Wallpapers",
   },
   {
     id: "sd3n2f",
     thumbnail: ["bosch1.png", "bosch2.png"],
-    projectTitle: "Bosch Internship Project",
+    projectTitle: "Gesture Based Authentication System",
     projectDesc:
-      "User Experience Research Project on Smart Parking Solutions for Indian Region",
+      "A gesture based authentication system that allows users to seamlessly login using hand gestures.",
     link: "https://www.figma.com/proto/vb8zV5ddvhzQbdmx3YDp0x/Bosch-M%2FNXT?page-id=0%3A1&node-id=31-39&viewport=-2107%2C236%2C0.06&t=8mH01y4mKizDrgAa-1&scaling=scale-down-width&content-scaling=fixed",
   },
   {

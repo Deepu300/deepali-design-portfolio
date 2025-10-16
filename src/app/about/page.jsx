@@ -13,19 +13,15 @@ const About = () => {
           </h2>
           <div className="flex flex-col gap-4 text-xs md:gap-6 md:w-3/4 md:text-lg">
             <p>
-              I&apos;m Deepali Babuta&#44; an Experience Designer based in New
-              Delhi&#44; currently in my final year of undergrad at DTU.
+              I&apos;m Deepali Babuta&#44; a Product Designer based in New
+              York&#44; currently in my final year of MS in Integrated Design and Media at NYU.
+
             </p>
             <p>
               I&apos;m a creative individual passionate about crafting
-              meaningful experiences that stir emotions. Additionally&#44; I
-              identify as a storyteller&#44; and my primary focus lies in the
-              realm of emotional design.
+              meaningful experiences that stir emotions. When not designing you’ll find me hanging out at an  overpriced coffee place, petting dogs or painting eyes (yes v specific :) )
             </p>
-            <p>
-              As a Gen Z professional&#44; I bring a contemporary perspective
-              and a fresh approach to my work.
-            </p>
+            
           </div>
         </div>
         <div className="relative w-full h-full mt-10 md:w-1/2 about__img md:mt-0">
@@ -122,6 +118,12 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* <section className="flex flex-col w-9/12 m-auto my-4 text-base md:max-lg:w-11/12 about__background md:flex-row">
+      <h2 className={`${avigeaFont.className} text-2xl md:text-4xl italic`}>
+            What Differentiates me as a Designer ?
+          </h2>
+      </section> */}
     </main>
   );
 };

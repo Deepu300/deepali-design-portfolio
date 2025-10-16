@@ -41,7 +41,9 @@
 }
 
 .about__background {
-    border-color: var(--secondary-color);
+    border-color: var(--primary-color);
+
+
 
     .section-item {
         border-color: inherit;

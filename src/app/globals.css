@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --primary-color: #EEF0EB;
   --secondary-color: #363636;
@@ -12,6 +13,7 @@
   --accent-green: #BECFBC;
   --accent-tan: #E7DCC8;
   --hover: #D2D6CC;
+  --font-afacad: "Afacad", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
 }
 
 [data-theme="dark"] {
@@ -55,7 +57,7 @@ html {
 
 body {
   color: var(--secondary-color);
-  background-color: var(--primary-color);
+  /* background-color: var(--secondary-color); */
 }
 
 @layer utilities {
