@@ -43,7 +43,7 @@ const HeroHeader = () => {
                 2. Added responsive Tailwind classes for font size and color.
               */}
               <p className="text-4xl text-[#363636] md:text-5xl lg:text-4xl font-normal leading-normal md:leading-snug">
-                I'm <span
+                {"I'm"} <span
                   style={{
                     // This custom styling for the name is fine
                     color: '#363636',
