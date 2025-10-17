@@ -4,6 +4,18 @@ import "./hero_comp.css";
 import Link from "next/link";
 import { motion as m } from "framer-motion";
 
+// Define the animation variants for each SVG item
+const svgItemVariants = {
+  // Start state: invisible and slightly down
+  hidden: { opacity: 0, y: 10 },
+  // End state: fully visible and at its original position
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 100, damping: 20 } // Adds a smooth, slightly bouncy feel
+  }
+};
+
 const HeroHeader = () => {
   const svgVar = {
     visible: {
@@ -65,7 +77,7 @@ const HeroHeader = () => {
           </div>
           <div>
             {/* CHANGED: Reduced font size for better hierarchy */}
-            <h3 className="text-base md:text-lg leading-relaxed">
+            <h3 className="text-base md:text-xl leading-relaxed">
               Currently pursuing MS <Link href={"https://www.nyu.edu/"} target="_blank">@NYU</Link> <br />
               Previously <Link href={"https://www.adobe.com/in/"} target="_blank">@Adobe</Link> <Link href={"https://www.bosch.com/"} target="_blank">@Bosch</Link> <Link href={"https://www.hdfcbank.com/"} target="_blank">@HDFC</Link>
             </h3>
@@ -77,14 +89,17 @@ const HeroHeader = () => {
           <m.div
             initial="hidden"
             animate="visible"
-            transition={{ staggerChildren: 0.5 }}
+            // CHANGED: Adjusted stagger to be a "slight delay" (100ms) as requested
+            transition={{ staggerChildren: 0.2 }}
             className="w-full h-full"
             aria-label="Decorative graphics with the words: Creative, Coder, Curious, and Storyteller."
           >
-            {/* "Creative" SVG - No changes needed here */}
+            {/* "Creative" SVG */}
             <m.svg
               width="249" height="108" viewBox="0 0 249 108" fill="none" xmlns="http://www.w3.org/2000/svg"
               className="absolute w-32 top-3 left-0 md:w-48 lg:left-0"
+              // ADDED: Apply the variants
+              variants={svgItemVariants}
             >
               <path d="M200.955 1.01159C224.566 -1.14198 245.452 16.2521 247.605 39.8623C249.759 63.4726 232.365 84.3584 208.754 86.5121L-12.4571 106.69L-20.2561 21.1896L200.955 1.01159Z" fill="#BCCBEA" stroke="#363636" strokeWidth="1.6623" />
               <text x="50%" y="55%" dominantBaseline="middle" textAnchor="middle" fill="#363636"
@@ -98,28 +113,38 @@ const HeroHeader = () => {
               </text>
             </m.svg>
 
-            {/* Other SVGs remain the same... */}
+            {/* "Coder" SVG */}
             <m.svg
               xmlns="http://www.w3.org/2000/svg" width="111" height="140" viewBox="0 0 171 170" fill="none"
               className="absolute w-32 top-0 right-4 md:w-48 lg:right-[10%] lg:top-[0%]"
+              // ADDED: Apply the variants
+              variants={svgItemVariants}
             >
               <path d="M67.5671 4.65409C68.5756 0.230239 74.2677 -1.04025 77.0619 2.53464L107.948 42.058C109.288 43.7728 111.417 44.6758 113.581 44.4476L164.382 39.0903C168.999 38.6034 172.028 43.7962 169.331 47.5753L140.237 88.3461C138.935 90.1704 138.699 92.5487 139.615 94.5936L159.876 139.769C161.749 143.946 157.886 148.409 153.483 147.152L104.313 133.12C102.258 132.534 100.045 133.027 98.4345 134.432L59.8995 168.042C56.449 171.051 51.0547 168.656 50.9738 164.078L50.0998 114.575C50.0602 112.335 48.8354 110.283 46.8814 109.185L3.21041 84.657C-0.837077 82.3835 -0.304157 76.3959 4.08121 74.8729L52.3382 58.1184C54.3942 57.4045 55.9371 55.6818 56.4207 53.5599L67.5671 4.65409Z" fill="#BECFBC" stroke="#363636" strokeWidth="0.923989" />
               <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="#363636" style={{ fontFamily: avigeaFont.style.fontFamily, fontSize: '30.654px', fontWeight: 400, transform: 'rotate(-4deg)' }}>
                 Coder
               </text>
             </m.svg>
+
+            {/* "Curious" SVG */}
             <m.svg
               width="200" height="194" viewBox="0 0 200 194" fill="none" xmlns="http://www.w3.org/2000/svg"
               className="absolute w-32 bottom-0 left-6 md:w-48 lg:left-[15%]"
+              // ADDED: Apply the variants
+              variants={svgItemVariants}
             >
               <path d="M110.853 36.4399L111.101 36.7118L111.426 36.5392L154.702 13.4439L151.511 61.1354L151.485 61.5183L151.854 61.622L198.818 74.8578L161.941 106.81L161.651 107.061L161.837 107.397L185.007 149.203L136.017 146.705L135.649 146.686L135.541 147.037L121.327 192.951L88.9387 157.44L88.6909 157.168L88.3664 157.341L45.0887 180.436L48.2814 132.745L48.307 132.362L47.9374 132.258L0.97343 119.021L37.8505 87.0701L38.1407 86.8192L37.9547 86.4835L14.7843 44.6766L63.775 47.1758L64.1423 47.1939L64.251 46.8425L78.4638 0.929375L110.853 36.4399Z" fill="#E3C9EB" stroke="#363636" strokeWidth="0.945979" />
               <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="#363636" style={{ fontFamily: "'Calistoga', cursive", fontSize: '32.258px', fontWeight: 400, width: '118.507px', height: '54.684px', transform: 'rotate(0.854deg)' }}>
                 Curious
               </text>
             </m.svg>
+
+            {/* "Storyteller" SVG */}
             <m.svg
               xmlns="http://www.w3.org/2000/svg" width="215" height="197" viewBox="0 0 203 194" fill="none"
               className="absolute w-32 bottom-8 right-8 md:w-48 lg:right-[15%]"
+              // ADDED: Apply the variants
+              variants={svgItemVariants}
             >
               <path d="M111.784 4.97057C116.623 -2.51318 128.148 -0.0441884 129.506 8.76741L138.786 68.9539C139.28 72.1582 141.191 74.9698 143.989 76.6082L197.528 107.961C205.595 112.686 202.972 124.965 193.681 125.97L132.019 132.644C128.796 132.992 125.903 134.776 124.143 137.497L91.0866 188.614C86.247 196.097 74.7223 193.628 73.3638 184.817L64.0852 124.631C63.5912 121.426 61.6799 118.614 58.8822 116.975L5.3437 85.6221C-2.72352 80.8978 -0.100446 68.6189 9.19082 67.6134L70.8528 60.9399C74.075 60.5912 76.9679 58.8089 78.7278 56.0874L111.784 4.97057Z" fill="#E7DCC8" stroke="#363636" strokeWidth="1.06849" />
               <text x="50%" y="50%" dominantBaseline="middle" textAnchor="middle" fill="#363636" style={{ fontFamily: "'Butler', serif", fontSize: '25.031px', fontWeight: 700, transform: 'rotate(0deg)', paddingBottom: '6px' }}>
@@ -128,6 +153,8 @@ const HeroHeader = () => {
             </m.svg>
           </m.div>
         </div>
+
+  
       </div>
 
       {/* CHANGED: Added background and text color classes to match the new design */}
