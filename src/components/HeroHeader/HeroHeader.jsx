@@ -28,7 +28,7 @@ const HeroHeader = () => {
     "One Pixel at a Time",
   ];
   return (
-    <div className="flex flex-col items-center w-full m-auto my-6 hero-header">
+    <div className="flex flex-col items-center w-full m-auto my-12 hero-header">
       {/* MAIN WRAPPER: This structure is good */}
       <div className="relative flex flex-col items-center justify-center w-full min-h-[50vh] gap-12 md:gap-16 my-12 md:my-20 hero-header__wrapper">
 
@@ -131,7 +131,7 @@ const HeroHeader = () => {
       </div>
 
       {/* CHANGED: Added background and text color classes to match the new design */}
-      <div className="w-full py-1 overflow-hidden md:py-5 hero-infinite-scroll bg-[#363636] text-gray-200">
+      <div className="w-full py-3 overflow-hidden md:py-9 hero-infinite-scroll bg-[#363636] text-gray-200">
         <ul className={`${avigeaFont.className} flex text-xs md:text-2xl gap-4 md:gap-12 tracking-wider w-max`}>
           {infinite_scroll.map((item, idx) => (
             <li key={`${idx}`} className="flex items-center gap-4 md:gap-12 whitespace-nowrap">
