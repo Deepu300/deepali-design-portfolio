@@ -1,5 +1,6 @@
 import { avigeaFont } from "@/utils/fonts";
 import "./about.css";
+// import about from "../../assets/about.png";
 
 const About = () => {
   return (
@@ -13,7 +14,7 @@ const About = () => {
           </h2>
           <div className="flex flex-col gap-4 text-xs md:gap-6 md:w-3/4 md:text-lg">
             <p>
-              I&apos;m Deepali Babuta&#44; a Product Designer based in New
+              I&apos;m <a href="https://www.youtube.com/watch?v=Mvg79yrgatY&t=3s" target="_blank">Deepali Babuta</a>&#44; a Product Designer based in New
               York&#44; currently in my final year of MS in Integrated Design and Media at NYU.
 
             </p>
@@ -21,7 +22,7 @@ const About = () => {
               I&apos;m a creative individual passionate about crafting
               meaningful experiences that stir emotions. When not designing you’ll find me hanging out at an  overpriced coffee place, petting dogs or painting eyes (yes v specific :) )
             </p>
-            
+
           </div>
         </div>
         <div className="relative w-full h-full mt-10 md:w-1/2 about__img md:mt-0">
@@ -30,6 +31,15 @@ const About = () => {
           <img src="/img-3.png" className="" alt="Hi&#44; this is Deepali." />
         </div>
       </div>
+
+      {/* <section className="flex flex-col gap-8 pl-8 md:w-1/2 about__text differentiators-section"> */}
+
+        {/* <h2 className={`${avigeaFont.className} text-2xl md:text-4xl italic`}>What Differentiates me as a Designer?</h2> */}
+
+        {/* <img src="/about.png" alt="about bubbles" /> */}
+      {/* </section> */}
+
+
       <section className="flex flex-col w-9/12 m-auto my-24 text-base border md:max-lg:w-11/12 about__background md:flex-row">
         <div className="flex flex-col w-full md:border-r md:w-2/5 md:max-lg:w-43 section-item grow">
           <div className="px-10 py-8 text-2xl border-b md:max-lg:py-6 md:max-lg:px-7 md:py-12 md:px-14 section-title">
@@ -118,12 +128,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
-      {/* <section className="flex flex-col w-9/12 m-auto my-4 text-base md:max-lg:w-11/12 about__background md:flex-row">
-      <h2 className={`${avigeaFont.className} text-2xl md:text-4xl italic`}>
-            What Differentiates me as a Designer ?
-          </h2>
-      </section> */}
     </main>
   );
 };

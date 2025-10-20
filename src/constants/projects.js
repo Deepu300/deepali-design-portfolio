@@ -9,7 +9,7 @@ export const ProjectsList = [
   },
   {
     id: "fm9b4k",
-    thumbnail: ["haptics1.png", "haptics2.png"],
+    thumbnail: ["haptics1.png", "haptics2var.png"],
     projectTitle: "Haptic Wallpapers",
     projectDesc:
       "Interactive wallpapers that respond to your touch with realistic vibrations and textures.",

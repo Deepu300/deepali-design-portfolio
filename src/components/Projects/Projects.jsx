@@ -17,7 +17,7 @@ const Projects = () => {
         <img
           src="/tag.png"
           style={{ transform: "translateX(-100%)" }}
-          className="absolute w-14 md:left-10 md:-top-1 md:w-auto "
+          className="absolute w-14 md:left-10 md:ā-top-1 md:w-auto "
         />{" "} */}
         Projects
       </h1>
