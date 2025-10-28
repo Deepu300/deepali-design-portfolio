@@ -1,123 +1,117 @@
-@import url('https://fonts.googleapis.com/css2?family=Calistoga&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Calistoga&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap");
 
 .hero-header {
-    height: 80svh;
-
-    .hero-header__wrapper {
-        .header__heading {
-            h1 {
-                /* line-height: 1; */
-            }
-        }
-
-        .header__animation {
-            /* width: 45%; */
-            /* border: 1px solid blue; */
-
-            .svg__wrapper {
-                width: 400px;
-                
-                svg {
-                    scale: 1.1;
-                    position: absolute;
-                }
-            }
-        }
+  .hero-header__wrapper {
+    .header__heading {
+      h1 {
+        /* line-height: 1; */
+      }
     }
 
-    .hero-infinite-scroll {
-        --gap: 1.5rem;
-        background-color: var(--secondary-color);
-        color: var(--primary-color);
+    .header__animation {
+      /* width: 45%; */
+      /* border: 1px solid blue; */
 
-        ul {
-            animation: horizontal-scroll 20s infinite linear;
+      .svg__wrapper {
+        width: 400px;
 
-            li {
-                svg {
-                    display: inline;
-                }
-            }
+        svg {
+          scale: 1.1;
+          position: absolute;
         }
+      }
     }
+  }
+
+  .hero-infinite-scroll {
+    --gap: 1.5rem;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+
+    ul {
+      animation: horizontal-scroll 20s infinite linear;
+
+      li {
+        svg {
+          display: inline;
+        }
+      }
+    }
+  }
 }
 
 @keyframes horizontal-scroll {
-    from {
-        transform: translateX(0%);
-    }
+  from {
+    transform: translateX(0%);
+  }
 
-    to {
-        transform: translateX(calc(-50% - var(--gap)));
-    }
+  to {
+    transform: translateX(calc(-50% - var(--gap)));
+  }
 }
 
 @media screen and (max-width: 1280px) {
-    .hero-header {
-        .hero-header__wrapper {
-            .header__animation {
-                .svg__wrapper {
-                    width: 250px;
+  .hero-header {
+    .hero-header__wrapper {
+      .header__animation {
+        .svg__wrapper {
+          width: 250px;
 
-                    svg {
-                        scale: .8;
-                    }
-                }
-            }
+          svg {
+            scale: 0.8;
+          }
         }
+      }
     }
+  }
 }
 
 @media screen and (max-width: 1024px) {
-    .hero-header {
-        .hero-header__wrapper {
-            .header__animation {
-                .svg__wrapper {
-                    width: 200px;
-                }
-            }
+  .hero-header {
+    .hero-header__wrapper {
+      .header__animation {
+        .svg__wrapper {
+          width: 200px;
         }
+      }
     }
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .hero-header {
-        height: 35svh;
-        /* border: 1px solid red; */
+  .hero-header {
+    height: 35svh;
+    /* border: 1px solid red; */
 
-
-        .hero-header__wrapper {
-
-            .header__animation {
-                .svg__wrapper {
-                    svg {
-                        scale: 0.4;
-                    }
-                }
-            }
+    .hero-header__wrapper {
+      .header__animation {
+        .svg__wrapper {
+          svg {
+            scale: 0.4;
+          }
         }
-
-        .hero-infinite-scroll {
-            --gap: .5rem;
-            
-        }
+      }
     }
+
+    .hero-infinite-scroll {
+      --gap: 0.5rem;
+    }
+  }
 }
 
 @media screen and (max-width: 640px) {
-    .hero-header {
-        .hero-header__wrapper {
-            .header__animation {
-                .svg__wrapper {
-                    width: 105px;
+  .hero-header {
+    .hero-header__wrapper {
+      .header__animation {
+        .svg__wrapper {
+          width: 105px;
 
-                    svg {
-                        scale: .35;
-                    }
-                }
-            }
+          svg {
+            scale: 0.35;
+          }
         }
+      }
     }
+  }
 }
-

@@ -9,7 +9,10 @@ const Footer = () => {
       <div className="flex justify-center gap-4 socials">
         {/* <Link href={'/'}><Image src={'/linkedin_icon.svg'} width={40} height={40}/></Link>
         <Link href={'/'}><Image src={'/behance_icon.svg'} width={40} height={40}/></Link> */}
-        <Link href={"https://www.linkedin.com/in/deepali-babuta-33165920a/"} target="_blank">
+        <Link
+          href={"https://www.linkedin.com/in/deepali-babuta-33165920a/"}
+          target="_blank"
+        >
           <FaLinkedin className="text-3xl social-icons md:text-4xl" />
         </Link>
         <Link href={"https://www.behance.net/deepalibabuta"} target="_blank">
@@ -18,7 +21,7 @@ const Footer = () => {
       </div>
       <div className="flex flex-col gap-1 details md:gap-3">
         <div>
-          Phone: <Link href={"tel:7428332443"}>+91 7428332443</Link>
+          Phone: <Link href={"tel:201-993-6070"}>+1 201-993-6070</Link>
         </div>
         <div>
           Email:{" "}

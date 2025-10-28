@@ -1,11 +1,11 @@
 .project__wrapper {
-    --line-thickness: 2px;
-    --line-color: var(--secondary-color);
+  --line-thickness: 2px;
+  --line-color: var(--secondary-color);
 
-    border-color: var(--secondary-color);
-    position: relative;
+  border-color: var(--secondary-color);
+  position: relative;
 
-    /* &::before,
+  /* &::before,
     &::after {
         position: absolute;
         content: '';
@@ -13,96 +13,91 @@
         z-index: 1;
     } */
 
-    &::after {
-        height: 100%;
-        width: var(--line-thickness);
-        left: 50%;
+  &::after {
+    height: 100%;
+    width: var(--line-thickness);
+    left: 50%;
+  }
+
+  &::before {
+    height: var(--line-thickness);
+    width: 100%;
+    transform: translateY(-50%);
+    top: 50%;
+  }
+
+  .project-card {
+    .project-image {
+      transition: all 0.3s ease-in-out;
     }
 
-
-    &::before {
-        height: var(--line-thickness);
-        width: 100%;
-        transform: translateY(-50%);
-        top: 50%;
+    &:nth-child(1),
+    &:nth-child(2),
+    &:nth-child(3),
+    &:nth-child(4) {
+      border-bottom: var(--line-thickness) solid var(--secondary-color);
     }
 
-    .project-card {
-        .project-image {
-            transition: all .3s ease-in-out;
-        }
-
-        &:nth-child(1),
-        &:nth-child(2),
-        &:nth-child(3),
-        &:nth-child(4) {
-            border-bottom: var(--line-thickness) solid var(--secondary-color);
-        }
-
-        &:nth-child(2n+1) {
-            border-right: var(--line-thickness) solid var(--secondary-color);
-        }
-
-        .project-btns {
-
-            /* border: 1px solid blue; */
-            .view {
-                background-color: var(--secondary-color);
-                color: var(--primary-color);
-            }
-
-            .like {
-                /* border: 1px solid red; */
-
-                scale: .8;
-                width: 97.5px;
-                height: 78px;
-                background-image: url('../../../public/heart-frames-fast.png');
-                background-position: left;
-
-
-                &.active {
-                    animation: heart-bursts 600ms steps(14) forwards;
-                }
-            }
-        }
-
-
+    &:nth-child(2n + 1) {
+      border-right: var(--line-thickness) solid var(--secondary-color);
     }
+
+    .project-btns {
+      /* border: 1px solid blue; */
+      .view {
+        background-color: var(--secondary-color);
+        color: var(--primary-color);
+      }
+
+      .like {
+        /* border: 1px solid red; */
+
+        scale: 0.8;
+        width: 97.5px;
+        height: 78px;
+        background-image: url("../../../public/heart-frames-fast.png");
+        background-position: left;
+
+        &.active {
+          animation: heart-bursts 600ms steps(14) forwards;
+        }
+      }
+    }
+  }
 }
 
 @keyframes heart-bursts {
-    to {
-        background-position: right;
-    }
+  to {
+    background-position: right;
+  }
 }
 
 @media screen and (max-width: 767px) {
-    .projects-container {
-        h1 {
-            img {
-                top: -.10rem;
-                left: .79rem;
-            }
-        }
+  .projects-container {
+    h1 {
+      img {
+        top: -0.1rem;
+        left: 0.79rem;
+      }
     }
+  }
 
-    .project__wrapper {
-        --line-thickness: 0px;
+  .project__wrapper {
+    --line-thickness: 0px;
 
-        .project-card {
-            border-bottom: 1px solid var(--secondary-color) !important;
+    .project-card {
+      border-bottom: 1px solid var(--secondary-color) !important;
 
-            &:last-of-type {
-                /* border: none !important; */
-            }
+      &:last-of-type {
+        border: none !important;
+      }
 
-            .project-btns {
-                .like {
-                    margin-right: -1.5rem;
-                    scale: .5;
-                }
-            }
+      .project-btns {
+        .like {
+          margin-right: -1.5rem;
+          scale: 0.5;
         }
+      }
     }
+  }
 }

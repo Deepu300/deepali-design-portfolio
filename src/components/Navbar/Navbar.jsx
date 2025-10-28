@@ -9,6 +9,7 @@ import { motion as m } from "framer-motion";
 
 const Navbar = ({ isOpen, setIsOpen }) => {
   const pathname = usePathname();
+  console.log(pathname);
 
   return (
     <nav
@@ -27,7 +28,7 @@ const Navbar = ({ isOpen, setIsOpen }) => {
           >
             <li
               style={
-                pathname == link.path
+                pathname.split("/").includes(link.activeScreen)
                   ? { backgroundColor: `${link.color}` }
                   : {}
               }
@@ -106,7 +107,9 @@ const Navbar = ({ isOpen, setIsOpen }) => {
               target={link.path.includes("https") ? "_blank" : ""}
               onClick={() => setIsOpen(false)}
             >
-              <li className={`nav-list__item text-4xl`}>{idx == 0 ? "Projects" : link.title}</li>
+              <li className={`nav-list__item text-4xl`}>
+                {idx == 0 ? "Projects" : link.title}
+              </li>
             </Link>
           ))}
         </m.ul>
