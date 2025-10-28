@@ -37,6 +37,7 @@ const Footer = () => {
           src={"/heart.png"}
           width={16}
           height={16}
+          alt=""
         />
       </div>
     </footer>

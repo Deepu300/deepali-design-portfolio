@@ -21,6 +21,7 @@ const Work = () => {
           src={"/project-header.png"}
           width={1968.01}
           height={678.55}
+          alt=""
         />
 
         <section className="pb-12 after:w-1/6">
@@ -47,6 +48,7 @@ const Work = () => {
               src={"/illust-1.png"}
               width={80}
               height={80}
+              alt=""
             />
             But why extend the capabilities of shape tools?
           </div>
@@ -72,6 +74,7 @@ const Work = () => {
               className="m-auto my-10"
               width={700}
               height={243}
+              alt=""
             />
             <p className="text-justify">
               Initially, we embarked on a journey of exploration and
@@ -95,6 +98,7 @@ const Work = () => {
               className="m-auto my-10"
               width={700}
               height={243}
+              alt=""
             />
             <p className="text-justify">
               The initial phase of our research involved an extensive
@@ -120,6 +124,7 @@ const Work = () => {
               className="m-auto my-10"
               width={1024}
               height={243}
+              alt=""
             />
             <p className="mb-8 text-justify">
               The first pertains to <span>DISCOVERABILITY</span>. Our research
@@ -153,6 +158,7 @@ const Work = () => {
               src={"/illust-2.png"}
               width={80}
               height={80}
+              alt=""
             />
             Finding Problems
           </div>
@@ -169,6 +175,7 @@ const Work = () => {
               className="m-auto my-10"
               width={1024}
               height={243}
+              alt=""
             />
           </div>
         </section>
@@ -180,6 +187,7 @@ const Work = () => {
               src={"/illust-3.png"}
               width={80}
               height={80}
+              alt=""
             />
             Identifying Similar Patterns
           </div>
@@ -193,6 +201,7 @@ const Work = () => {
               className="m-auto my-10"
               width={1024}
               height={243}
+              alt=""
             />
             <p className="mb-6 text-justify">
               All these patterns that were recognized became the key pillars
@@ -249,6 +258,7 @@ const Work = () => {
               className="m-auto my-10"
               width={1024}
               height={243}
+              alt=""
             />
           </div>
         </section>
@@ -275,12 +285,14 @@ const Work = () => {
               className="m-auto avatar"
               width={400}
               height={400}
+              alt=""
             />
             <Image
               src={"/project-img-7.png"}
               className="m-auto my-10"
               width={1024}
               height={243}
+              alt=""
             />
             <p className="text-justify">
               The Tool Properties Panel incorporates elements from 10 distinct
@@ -293,6 +305,7 @@ const Work = () => {
               className="m-auto my-10"
               width={1024}
               height={243}
+              alt=""
             />
             <div className="flex items-end pt-16 bar-graph">
               {barGraph.map((bar, idx) => (
@@ -374,12 +387,14 @@ const Work = () => {
                 className="m-auto avatar"
                 width={500}
                 height={243}
+                alt=""
               />
               <Image
                 src={"/project-img-10.png"}
                 className="m-auto my-10 avatar"
                 width={500}
                 height={243}
+                alt=""
               />
             </div>
           </div>
@@ -403,6 +418,7 @@ const Work = () => {
                   src={"/rakesh.jpeg"}
                   width={300}
                   height={300}
+                  alt=""
                   className="m-auto mb-5 border-2 rounded-full grayscale brightness-100 contrast-150 avatar"
                   style={{ borderColor: "var(--secondary-color)" }}
                 />
@@ -415,6 +431,7 @@ const Work = () => {
                   src={"/mrin.jpeg"}
                   width={300}
                   height={300}
+                  alt=""
                   className="m-auto mb-5 border-2 rounded-full grayscale avatar"
                   style={{ borderColor: "var(--secondary-color)" }}
                 />
@@ -427,7 +444,7 @@ const Work = () => {
         </section>
 
         <div className="project-footer">
-          <Image src={"/project-footer.png"} width={1920} height={250} />
+          <Image src={"/project-footer.png"} width={1920} height={250} alt="" />
         </div>
       </div>
     </div>
