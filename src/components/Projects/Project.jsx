@@ -21,7 +21,7 @@ const Project = ({ data }) => {
 
   return (
     <div className="relative flex flex-col w-full p-5 md:w-1/2 md:p-6 lg:p-10 project-card">
-      <div className="relative project-image">
+      <div className="relative project-image" data-aos="fade-in">
         <img
           src={`/${data.thumbnail[0]}`}
           className="w-full rounded-xl md:rounded-3xl"

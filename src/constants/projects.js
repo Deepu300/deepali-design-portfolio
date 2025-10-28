@@ -5,24 +5,25 @@ export const ProjectsList = [
     projectTitle: "Rethinking Ai Shape Tools",
     projectDesc:
       "Collaborated with the CC Illustrator Team and redesigned Adobe Illustrator’s Shapes Panel ",
-    link: "https://www.figma.com/proto/uw9EU3vdvDtMzm0HjxYn9U/My-Website-(Copy)?page-id=0%3A1&node-id=424-252&viewport=517%2C184%2C0.05&t=jVAzHcjL4dowjyU4-1&scaling=scale-down-width&content-scaling=fixed",
+    link: "/work/rethink-ai-shapes",
+  },
+  {
+    id: "sd3n2f",
+    thumbnail: ["gesture-1.png", "gesture-2.png"],
+    projectTitle: "Gesture Based Authentication System",
+    projectDesc:
+      "A gesture based authentication system that allows users to seamlessly login using hand gestures.",
+    link: "work/gesture-based-authentication",
   },
   {
     id: "fm9b4k",
-    thumbnail: ["haptics1.png", "haptics2var.png"],
+    thumbnail: ["haptics.jpg", "haptics2.png"],
     projectTitle: "Haptic Wallpapers",
     projectDesc:
       "Interactive wallpapers that respond to your touch with realistic vibrations and textures.",
     link: "https://www.behance.net/gallery/236555915/Haptic-Wallpapers",
   },
-  {
-    id: "sd3n2f",
-    thumbnail: ["bosch1.png", "bosch2.png"],
-    projectTitle: "Gesture Based Authentication System",
-    projectDesc:
-      "A gesture based authentication system that allows users to seamlessly login using hand gestures.",
-    link: "https://www.figma.com/proto/vb8zV5ddvhzQbdmx3YDp0x/Bosch-M%2FNXT?page-id=0%3A1&node-id=31-39&viewport=-2107%2C236%2C0.06&t=8mH01y4mKizDrgAa-1&scaling=scale-down-width&content-scaling=fixed",
-  },
+
   {
     id: "h69mos",
     thumbnail: ["unclouded1.png", "unclouded2.png"],

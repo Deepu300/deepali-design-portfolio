@@ -2,6 +2,8 @@ import "./globals.css";
 import { Footer, Navbar } from "@/components";
 import Provider from "./provider";
 import { louisGeorgeCafeFont } from "@/utils/fonts";
+import PageTransition from "../components/PageTransition";
+import AOSWrapper from "@/components/AOSWrapper";
 
 export const metadata = {
   title: "Deepali Babuta | Experience Designer",
@@ -12,10 +14,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={louisGeorgeCafeFont.className}>
+      <body className={louisGeorgeCafeFont.className + " bg-main"}>
         <Provider>
+          <AOSWrapper />
           <Navbar />
-          {children}
+          <PageTransition>{children}</PageTransition>
           <Footer />
         </Provider>
       </body>
