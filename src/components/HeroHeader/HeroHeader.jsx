@@ -45,7 +45,7 @@ const HeroHeader = () => {
       <div className="relative flex flex-col items-center justify-center w-full h-[70%] lg:min-h-[50vh] gap-12 md:gap-16 my-12 md:my-20 hero-header__wrapper">
         {/* TEXT CONTAINER: This remains constrained for readability */}
         {/* CHANGED: Removed the outer div with the problematic fixed width. Added padding here. */}
-        <div className="max-w-5xl px-4 text-center">
+        <div className="max-w-5xl px-4 text-center z-50">
           {/* CHANGED: Removed the hardcoded width and height styles from this div */}
           <div className="flex-shrink-0">
             {/* CHANGED: 
@@ -54,46 +54,36 @@ const HeroHeader = () => {
               */}
             <p className="text-2xl text-[#363636] md:text-4xl lg:text-[2.5rem] font-normal line-height-small mt-24">
               {"I'm"}{" "}
-              <m.span
-                initial={{
-                  fontStyle: "normal",
-                  fontWeight: 200,
-                  textDecorationLine: "none",
-                }}
-                animate={{
-                  fontStyle: "italic",
-                  fontWeight: 300,
-                  transition: { delay: 1.5, duration: 0.6 },
-                  textDecorationLine: "underline",
-                }}
-                style={{
-                  color: "#363636",
-                  fontFamily: avigeaFont.style.fontFamily,
-                  textDecorationLine: "underline",
-                  textDecorationStyle: "solid",
-                  textDecorationSkipInk: "none",
-                  textDecorationColor: "#FFC240",
-                  textDecorationThickness: "12.5%",
-                  textUnderlineOffset: "19.5%",
-                  textUnderlinePosition: "from-font",
-                  display: "inline-block",
-                }}
+              <a
+                href="https://www.youtube.com/watch?v=Mvg79yrgatY&t=3s"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block z-50"
               >
-                <a
-                  href="https://www.youtube.com/watch?v=Mvg79yrgatY&t=3s"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className=""
+                <m.span
+                  initial={{ fontStyle: "normal", fontWeight: 200 }}
+                  animate={{
+                    fontStyle: "italic",
+                    fontWeight: 300,
+                    transition: { delay: 1.5, duration: 0.6 },
+                  }}
+                  style={{
+                    color: "#363636",
+                    fontFamily: avigeaFont.style.fontFamily,
+                    textDecorationLine: "underline",
+                    textDecorationColor: "#FFC240",
+                    zIndex: 50,
+                  }}
                 >
                   Deepali Babuta
-                </a>
-              </m.span>{" "}
+                </m.span>
+              </a>
               — a Product Designer who bridges tech, psychology, and playful
               interaction.
             </p>
           </div>
         </div>
-        <div className="text-center">
+        <div className="text-center z-50">
           {/* CHANGED: Reduced font size for better hierarchy */}
           <h3 className="text-base md:text-2xl lg:mt-20 line-height-large-between">
             Currently pursuing MS{" "}
