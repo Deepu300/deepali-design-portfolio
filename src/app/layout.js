@@ -16,8 +16,8 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={louisGeorgeCafeFont.className + " bg-main"}>
         <Provider>
-          <AOSWrapper />
           <Navbar />
+          <AOSWrapper />
           <PageTransition>{children}</PageTransition>
           <Footer />
         </Provider>

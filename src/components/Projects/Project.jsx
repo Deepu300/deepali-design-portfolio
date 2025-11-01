@@ -24,11 +24,11 @@ const Project = ({ data }) => {
       <div className="relative project-image" data-aos="fade-in">
         <img
           src={`/${data.thumbnail[0]}`}
-          className="w-full rounded-xl md:rounded-3xl"
+          className="w-full h-full rounded-xl md:rounded-3xl"
         />
         <m.img
           src={`/${data.thumbnail[1]}`}
-          className="absolute top-0 z-10 w-full rounded-xl md:rounded-3xl"
+          className="absolute top-0 z-10 w-full h-full rounded-xl md:rounded-3xl"
           initial="hidden"
           whileHover="visible"
           onTouchStart={() => setHovered(true)}
