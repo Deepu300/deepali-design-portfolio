@@ -7,9 +7,13 @@ import { usePathname } from "next/navigation";
 import "./navbar.css";
 import { motion as m } from "framer-motion";
 
-const Navbar = ({ isOpen, setIsOpen }) => {
+const Navbar = ({ isOpen, setIsOpen, hidden }) => {
   const pathname = usePathname();
   console.log(pathname);
+
+  if (hidden) {
+    return null;
+  }
 
   return (
     <nav

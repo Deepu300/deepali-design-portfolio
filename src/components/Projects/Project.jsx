@@ -10,6 +10,27 @@ const Project = ({ data }) => {
   const [isActive, setIsActive] = useState(false);
   const [isHovered, setHovered] = useState(false);
 
+  const colorMap = {
+    1: { text: "#883737", bg: "#DEC2C2" },
+    2: { text: "#556354", bg: "#BECFBC" },
+    3: { text: "#714C8F", bg: "#714C8F" },
+    4: { text: "#4D5F86", bg: "#BCCBEA" },
+  };
+
+  const getTagStyle = (tagObj) => {
+    // Prefer explicit colors provided in project metadata.
+    const text =
+      tagObj.text ||
+      (tagObj.colorId && colorMap[tagObj.colorId]?.text) ||
+      "#252525";
+    const bg =
+      tagObj.bg ||
+      (tagObj.colorId && colorMap[tagObj.colorId]?.bg) ||
+      "#f2f2f2";
+    const textColor = text === bg ? "#ffffff" : text;
+    return { backgroundColor: bg, color: textColor };
+  };
+
   useEffect(() => {
     setIsActive(localStorage.hasOwnProperty(data.id));
   }, []);
@@ -44,8 +65,22 @@ const Project = ({ data }) => {
           }}
         />
       </div>
+      {data.tags?.length ? (
+        <div className="project-item project-tags flex flex-wrap gap-2 pb-3">
+          {data.tags.map((tag, idx) => (
+            <span
+              key={`${tag.label}-${idx}`}
+              className="project-tag"
+              style={getTagStyle(tag)}
+            >
+              {tag.label}
+            </span>
+          ))}
+        </div>
+      ) : null}
+
       <div
-        className={`project-item project-title ${avigeaFont.className} text-xl pt-6 pb-3 lg:text-4xl`}
+        className={`project-item project-title ${avigeaFont.className} text-xl pt-2 pb-3 lg:text-4xl`}
       >
         {data.projectTitle}
       </div>

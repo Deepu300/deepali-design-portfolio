@@ -1,5 +1,6 @@
 import "./globals.css";
-import { Footer, Navbar } from "@/components";
+import { Footer } from "@/components";
+import RootNavbar from "@/components/RootNavbar";
 import Provider from "./provider";
 import { louisGeorgeCafeFont } from "@/utils/fonts";
 import PageTransition from "../components/PageTransition";
@@ -14,9 +15,17 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+        <link
+          href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400..700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <body className={louisGeorgeCafeFont.className + " bg-main"}>
         <Provider>
-          <Navbar />
+          <RootNavbar />
           <AOSWrapper />
           <PageTransition>{children}</PageTransition>
           <Footer />
