@@ -120,12 +120,6 @@ export default function SoundscapeNav() {
       {/* HERO SECTION MODULE */}
       <header className={styles.hero}>
         <div className={styles.wrap}>
-          <div
-            ref={addToRevealRefs}
-            className={`${styles.kicker} ${styles.reveal}`}
-          >
-            Google Maps · Concept · 0→1 Feature · 2 Designers, 1 PM
-          </div>
           <h1 ref={addToRevealRefs} className={styles.reveal}>
             Navigation you <em>hear</em>, not just stare at.
           </h1>

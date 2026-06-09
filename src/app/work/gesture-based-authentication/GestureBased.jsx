@@ -121,12 +121,6 @@ export default function GestureBased() {
       {/* HERO */}
       <header className={styles.hero}>
         <div className={styles.wrap}>
-          <div
-            ref={addToRevealRefs}
-            className={`${styles.kicker} ${styles.reveal}`}
-          >
-            UX × AI · NYU Final Project · End-to-End
-          </div>
           <h1 ref={addToRevealRefs} className={styles.reveal}>
             Proving you're human with a <em>wave</em>, not a password.
           </h1>
@@ -155,6 +149,17 @@ export default function GestureBased() {
               <span>Tools</span>
               <strong>ML5.js · Figma</strong>
             </div>
+          </div>
+          <div
+            ref={addToRevealRefs}
+            className={`${styles.gstrip} ${styles.reveal}`}
+            style={{ marginTop: "40px" }}
+          >
+            <img
+              src="/images/gesture-based-authentication/cover.gif"
+              alt="Gesture demo"
+              style={{ width: "100%", maxWidth: "480px", borderRadius: "12px" }}
+            />
           </div>
           <div
             ref={addToRevealRefs}
