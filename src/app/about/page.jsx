@@ -144,7 +144,7 @@ const About = () => {
           <h2 className={`${avigeaFont.className} text-2xl md:text-4xl italic`}>
             What Differentiates me as a Designer ?
           </h2>
-          <div className="relative w-fit" data-aos="fade-in">
+          <div className="relative w-fit" data-aos="fade-up">
             {/* Speech Bubble */}
             <div className="grid grid-cols-1 lg:grid-cols-2 bg-[#BECFBC] rounded-2xl p-8 relative z-20 lg:gap-0 gap-2">
               <div className="flex flex-row items-center gap-4">
@@ -196,7 +196,7 @@ const About = () => {
               />
             </svg>
           </div>
-          <div className="relative w-fit" data-aos="fade-in">
+          <div className="relative w-fit" data-aos="fade-up">
             {/* Speech Bubble */}
             <div className="grid  grid-cols-1 lg:grid-cols-2 bg-[#DEC2C2] rounded-2xl p-8 relative z-20  lg:gap-0 gap-2">
               <div className="flex flex-row items-center gap-4">
@@ -246,7 +246,7 @@ const About = () => {
               />
             </svg>
           </div>
-          <div className="relative w-fit" data-aos="fade-in">
+          <div className="relative w-fit" data-aos="fade-up">
             {/* Speech Bubble */}
             <div className="grid  grid-cols-1 lg:grid-cols-2 bg-[#BECFBC] rounded-2xl p-8 relative z-20  lg:gap-0 gap-2">
               <div className="flex flex-row items-center gap-4">

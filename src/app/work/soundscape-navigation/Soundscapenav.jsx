@@ -1,67 +1,39 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "./SoundscapeNav.module.css"; // Adjust import path to map your Next repository structural architecture
 
 export default function SoundscapeNav() {
   const [activeSection, setActiveSection] = useState("");
-  const revealElementsRef = useRef([]);
 
-  // Handles smooth compilation mapping for scroll transformation layout boxes
-  const addToRevealRefs = (el) => {
-    if (el && !revealElementsRef.current.includes(el)) {
-      revealElementsRef.current.push(el);
-    }
-  };
 
   useEffect(() => {
-    // 1. Intersection Observer layout hook configuration
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.revealIn);
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    revealElementsRef.current.forEach((el, i) => {
-      if (el) {
-        el.style.transitionDelay = `${(i % 4) * 55}ms`;
-        io.observe(el);
-      }
-    });
-
-    // 2. Active Header tracking context sync pipeline
     const handleScroll = () => {
-      const strategicSections = ["problem", "research", "solution", "impact"];
-      let currentSelectionId = "";
+      const sectionIds = ["problem", "research", "solution", "impact"];
+      let currentSection = "";
 
-      strategicSections.forEach((id) => {
+      sectionIds.forEach((id) => {
         const element = document.getElementById(id);
         if (element) {
-          const boundingRectangle = element.getBoundingClientRect();
-          if (boundingRectangle.top < 200) {
-            currentSelectionId = id;
+          const rect = element.getBoundingClientRect();
+          if (rect.top < 200) {
+            currentSection = id;
           }
         }
       });
 
-      setActiveSection(currentSelectionId);
+      setActiveSection(currentSection);
     };
 
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      io.disconnect();
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
 
   return (
     <div className={styles.bodyContainer}>
@@ -120,17 +92,17 @@ export default function SoundscapeNav() {
       {/* HERO SECTION MODULE */}
       <header className={styles.hero}>
         <div className={styles.wrap}>
-          <h1 ref={addToRevealRefs} className={styles.reveal}>
+          <h1>
             Navigation you <em>hear</em>, not just stare at.
           </h1>
-          <p ref={addToRevealRefs} className={`${styles.sub} ${styles.reveal}`}>
+          <p className={styles.sub}>
             A mindful audio layer for Google Maps that lets people walk a city
             by ear — staying present, rebuilding their sense of direction, and
             finally looking up from the blue dot.
           </p>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.facts} ${styles.reveal}`}
+
+            className={styles.facts} data-aos="fade-up"
           >
             <div>
               <span>My Role</span>
@@ -150,8 +122,8 @@ export default function SoundscapeNav() {
             </div>
           </div>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.reveal}`}
+
+            data-aos="fade-up"
             style={{ padding: "2.5rem 0" }}
           >
             <div
@@ -186,8 +158,8 @@ export default function SoundscapeNav() {
       {/* OVERVIEW SUMMARY GRID */}
       <div className={styles.wrap} style={{ paddingBottom: "30px" }}>
         <div
-          ref={addToRevealRefs}
-          className={`${styles.summary} ${styles.reveal}`}
+
+          className={styles.summary} data-aos="fade-up"
         >
           <h2>The 30-second version</h2>
           <div className={styles.sgrid}>
@@ -227,20 +199,20 @@ export default function SoundscapeNav() {
       <section id="problem" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             01 — The Problem
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             We outsourced our sense of direction to a blue dot.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             Maps have guided human movement for millennia — people read
             landscapes and built their own internal compass. GPS does that work
@@ -252,8 +224,8 @@ export default function SoundscapeNav() {
             help people orient, feel present, and connect to where they are.
           </p>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.stats} ${styles.reveal}`}
+
+            className={styles.stats} data-aos="fade-up"
           >
             <div className={styles.stat}>
               <div className={styles.n}>21M+</div>
@@ -284,20 +256,20 @@ export default function SoundscapeNav() {
       <section className={`${styles.band} ${styles.bandSage}`} id="research">
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             02 — Research
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             I asked people how they actually find their way.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             A competitive teardown of Maps, Waze, and Apple Maps plus a user
             survey surfaced one consistent friction: people don't trust the
@@ -306,8 +278,9 @@ export default function SoundscapeNav() {
           </p>
           <div className={styles.insights}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.icard} ${styles.reveal}`}
+              className={styles.icard}
+              data-aos="fade-up"
+              data-aos-delay="0"
             >
               <div className={styles.ico}>🧭</div>
               <div className={styles.big}>83% struggle to orient</div>
@@ -317,8 +290,9 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.icard} ${styles.reveal}`}
+              className={styles.icard}
+              data-aos="fade-up"
+              data-aos-delay="100"
             >
               <div className={styles.ico}>🏛️</div>
               <div className={styles.big}>50% navigate by landmark</div>
@@ -328,8 +302,9 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.icard} ${styles.reveal}`}
+              className={styles.icard}
+              data-aos="fade-up"
+              data-aos-delay="200"
             >
               <div className={styles.ico}>📡</div>
               <div className={styles.big}>58% lose trust offline</div>
@@ -346,8 +321,8 @@ export default function SoundscapeNav() {
       <section className={`${styles.band} ${styles.bandNavy}`}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.quote} ${styles.reveal}`}
+
+            className={styles.quote} data-aos="fade-up"
           >
             <blockquote>
               "I just want to confidently say I know where I'm going, without
@@ -362,21 +337,21 @@ export default function SoundscapeNav() {
       <section id="gap" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             03 — The Gap
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             Maps had a voice. It didn't have an audio layer that built
             awareness.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             Existing voice nav is purely functional — "turn left in 400 feet."
             It never helps you understand <strong>where</strong> you are.
@@ -385,8 +360,8 @@ export default function SoundscapeNav() {
           </p>
           <div className={styles.ba}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.col} ${styles.before} ${styles.reveal}`}
+
+              className={`${styles.col} ${styles.before}`} data-aos="fade-up"
             >
               <h4>What existed</h4>
               <ul>
@@ -398,8 +373,8 @@ export default function SoundscapeNav() {
               </ul>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.col} ${styles.after} ${styles.reveal}`}
+
+              className={`${styles.col} ${styles.after}`} data-aos="fade-up"
             >
               <h4>The opportunity</h4>
               <ul>
@@ -418,20 +393,20 @@ export default function SoundscapeNav() {
       <section className={`${styles.band} ${styles.bandTan}`} id="solution">
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             04 — The Solution
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             Soundscape Mode: walk by ear, not just by screen.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
             style={{ color: "#4a4434" }}
           >
             <strong style={{ color: "var(--navy)" }}>
@@ -444,8 +419,8 @@ export default function SoundscapeNav() {
           </p>
           <div className={styles.modes}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mode} ${styles.reveal}`}
+
+              className={styles.mode} data-aos="fade-up"
             >
               <div className={styles.top}>
                 <div className={styles.md}>🔉</div>
@@ -461,8 +436,8 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mode} ${styles.reveal}`}
+
+              className={styles.mode} data-aos="fade-up"
             >
               <div className={styles.top}>
                 <div className={styles.md}>🏛️</div>
@@ -478,8 +453,8 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mode} ${styles.reveal}`}
+
+              className={styles.mode} data-aos="fade-up"
             >
               <div className={styles.top}>
                 <div className={styles.md}>🌆</div>
@@ -494,8 +469,8 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mode} ${styles.reveal}`}
+
+              className={styles.mode} data-aos="fade-up"
             >
               <div className={styles.top}>
                 <div className={styles.md}>♿</div>
@@ -518,21 +493,21 @@ export default function SoundscapeNav() {
       <section id="process" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             05 — How I Got There
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             From a debate about audio to four validated modes.
           </h2>
           <div className={styles.phases}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.phase} ${styles.reveal}`}
+
+              className={styles.phase} data-aos="fade-up"
             >
               <div>
                 <span className={styles.pn}>01</span>
@@ -549,8 +524,8 @@ export default function SoundscapeNav() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.phase} ${styles.reveal}`}
+
+              className={styles.phase} data-aos="fade-up"
             >
               <div>
                 <span className={styles.pn}>02</span>
@@ -566,8 +541,8 @@ export default function SoundscapeNav() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.phase} ${styles.reveal}`}
+
+              className={styles.phase} data-aos="fade-up"
             >
               <div>
                 <span className={styles.pn}>03</span>
@@ -583,8 +558,8 @@ export default function SoundscapeNav() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.phase} ${styles.reveal}`}
+
+              className={styles.phase} data-aos="fade-up"
             >
               <div>
                 <span className={styles.pn}>04</span>
@@ -607,29 +582,29 @@ export default function SoundscapeNav() {
       <section className={`${styles.band} ${styles.bandCream2}`} id="impact">
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             06 — Impact
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             It changed how people held the phone — and how they thought about
             the walk.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             As a concept project, impact splits into what testing proved and
             what the feature is positioned to deliver at scale.
           </p>
           <div className={styles.impact}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.ibox} ${styles.proven} ${styles.reveal}`}
+
+              className={`${styles.ibox} ${styles.proven}`} data-aos="fade-up"
             >
               <span className={styles.tag}>Proven in testing</span>
               <div className={styles.h}>Less screen-checking</div>
@@ -639,8 +614,8 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.ibox} ${styles.proven} ${styles.reveal}`}
+
+              className={`${styles.ibox} ${styles.proven}`} data-aos="fade-up"
             >
               <span className={styles.tag}>Proven in testing</span>
               <div className={styles.h}>All 4 modes legible</div>
@@ -651,8 +626,8 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.ibox} ${styles.proj} ${styles.reveal}`}
+
+              className={`${styles.ibox} ${styles.proj}`} data-aos="fade-up"
             >
               <span className={styles.tag}>Projected at scale</span>
               <div className={styles.h}>Exploration, not optimization</div>
@@ -663,8 +638,8 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.ibox} ${styles.proj} ${styles.reveal}`}
+
+              className={`${styles.ibox} ${styles.proj}`} data-aos="fade-up"
             >
               <span className={styles.tag}>Projected at scale</span>
               <div className={styles.h}>Accessibility-first</div>
@@ -682,21 +657,21 @@ export default function SoundscapeNav() {
       <section id="learnings" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             07 — Reflections
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             What I learned, and what I'd do next.
           </h2>
           <div className={styles.learn}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.lcard} ${styles.reveal}`}
+
+              className={styles.lcard} data-aos="fade-up"
             >
               <h4>Pacing is a feature</h4>
               <p>
@@ -705,8 +680,8 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.lcard} ${styles.reveal}`}
+
+              className={styles.lcard} data-aos="fade-up"
             >
               <h4>Design with, not for</h4>
               <p>
@@ -716,8 +691,8 @@ export default function SoundscapeNav() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.lcard} ${styles.reveal}`}
+
+              className={styles.lcard} data-aos="fade-up"
             >
               <h4>Prove the long game</h4>
               <p>

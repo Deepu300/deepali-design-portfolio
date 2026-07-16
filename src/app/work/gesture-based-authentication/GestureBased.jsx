@@ -1,43 +1,15 @@
 "use client";
 
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import styles from "./GestureAuth.module.css"; // Update this path to where your styles are stored
 
 export default function GestureBased() {
   const [activeSection, setActiveSection] = useState("");
-  const revealElementsRef = useRef([]);
 
-  // Setup refs collection for Intersection Observer
-  const addToRevealRefs = (el) => {
-    if (el && !revealElementsRef.current.includes(el)) {
-      revealElementsRef.current.push(el);
-    }
-  };
 
   useEffect(() => {
-    // 1. Intersection Observer logic for scroll animations
-    const io = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.revealIn);
-            io.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 },
-    );
-
-    revealElementsRef.current.forEach((el, i) => {
-      if (el) {
-        el.style.transitionDelay = `${(i % 4) * 55}ms`;
-        io.observe(el);
-      }
-    });
-
-    // 2. Window Scroll logic for navigation highlight tracking
     const handleScroll = () => {
       const sectionIds = ["problem", "research", "solution", "impact"];
       let currentSection = "";
@@ -57,12 +29,11 @@ export default function GestureBased() {
 
     window.addEventListener("scroll", handleScroll);
 
-    // Clean up observers and event listeners on unmount
     return () => {
-      io.disconnect();
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
 
   return (
     <div className={styles.bodyContainer}>
@@ -121,17 +92,17 @@ export default function GestureBased() {
       {/* HERO */}
       <header className={styles.hero}>
         <div className={styles.wrap}>
-          <h1 ref={addToRevealRefs} className={styles.reveal}>
+          <h1>
             Proving you're human with a <em>wave</em>, not a password.
           </h1>
-          <p ref={addToRevealRefs} className={`${styles.sub} ${styles.reveal}`}>
+          <p className={styles.sub}>
             A gesture-based authentication system that replaces frustrating
             CAPTCHAs and 2FA with simple hand gestures — AI-driven,
             password-less security that feels human.
           </p>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.facts} ${styles.reveal}`}
+
+            className={styles.facts} data-aos="fade-up"
           >
             <div>
               <span>My Role</span>
@@ -151,8 +122,8 @@ export default function GestureBased() {
             </div>
           </div>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.gstrip} ${styles.reveal}`}
+
+            className={styles.gstrip} data-aos="fade-up"
             style={{ marginTop: "40px" }}
           >
             <img
@@ -162,8 +133,8 @@ export default function GestureBased() {
             />
           </div>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.gstrip} ${styles.reveal}`}
+
+            className={styles.gstrip} data-aos="fade-up"
           >
             <div className={styles.gchip}>
               <span className={styles.e}>✌️</span>
@@ -192,8 +163,8 @@ export default function GestureBased() {
       {/* SUMMARY */}
       <div className={styles.wrap} style={{ paddingBottom: "30px" }}>
         <div
-          ref={addToRevealRefs}
-          className={`${styles.summary} ${styles.reveal}`}
+
+          className={styles.summary} data-aos="fade-up"
         >
           <h2>The 30-second version</h2>
           <div className={styles.sgrid}>
@@ -233,21 +204,21 @@ export default function GestureBased() {
       <section id="problem" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             01 — The Problem
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             If security is meant to make us feel safe, why does it make us feel
             so frustrated?
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             We verify our identity constantly — work accounts, university
             portals, even recipe sites. Each time we hit the same gatekeepers:
@@ -258,8 +229,8 @@ export default function GestureBased() {
             <strong>Security has become a chore we resent.</strong>
           </p>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.stats} ${styles.reveal}`}
+
+            className={styles.stats} data-aos="fade-up"
           >
             <div className={styles.stat}>
               <div className={styles.n}>90%</div>
@@ -290,20 +261,20 @@ export default function GestureBased() {
       <section className={`${styles.band} ${styles.bandSage}`} id="research">
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             02 — Research
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             I studied not just what failed, but how it made people feel.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             I combined user interviews, sentiment analysis of Reddit forums, and
             observation studies during real login sessions. Affinity mapping the
@@ -311,8 +282,9 @@ export default function GestureBased() {
           </p>
           <div className={styles.insights}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.icard} ${styles.reveal}`}
+              className={styles.icard}
+              data-aos="fade-up"
+              data-aos-delay="0"
             >
               <div className={styles.ico}>🔁</div>
               <div className={styles.big}>Over-friction</div>
@@ -322,8 +294,9 @@ export default function GestureBased() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.icard} ${styles.reveal}`}
+              className={styles.icard}
+              data-aos="fade-up"
+              data-aos-delay="100"
             >
               <div className={styles.ico}>📱</div>
               <div className={styles.big}>Device fragility</div>
@@ -333,8 +306,9 @@ export default function GestureBased() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.icard} ${styles.reveal}`}
+              className={styles.icard}
+              data-aos="fade-up"
+              data-aos-delay="200"
             >
               <div className={styles.ico}>🤖</div>
               <div className={styles.big}>CAPTCHA distrust</div>
@@ -345,8 +319,8 @@ export default function GestureBased() {
             </div>
           </div>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
             style={{
               marginTop: "40px",
               color: "var(--navy)",
@@ -366,8 +340,8 @@ export default function GestureBased() {
       <section className={`${styles.band} ${styles.bandNavy}`}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.quote} ${styles.reveal}`}
+
+            className={styles.quote} data-aos="fade-up"
           >
             <blockquote>
               "AI's role becomes one of contextual intelligence — learning when
@@ -382,20 +356,20 @@ export default function GestureBased() {
       <section id="gap" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             03 — The Gap
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             Every existing fix traded one frustration for another.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             CAPTCHAs are obsolete and infuriating. SMS 2FA is fragile and slow.
             App-based 2FA adds steps. None of them prove "I'm human" in a way
@@ -404,8 +378,8 @@ export default function GestureBased() {
           </p>
           <div className={styles.ba}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.col} ${styles.before} ${styles.reveal}`}
+
+              className={`${styles.col} ${styles.before}`} data-aos="fade-up"
             >
               <h4>What existed</h4>
               <ul>
@@ -417,8 +391,8 @@ export default function GestureBased() {
               </ul>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.col} ${styles.after} ${styles.reveal}`}
+
+              className={`${styles.col} ${styles.after}`} data-aos="fade-up"
             >
               <h4>The opportunity</h4>
               <ul>
@@ -437,21 +411,21 @@ export default function GestureBased() {
       <section id="ideation" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             04 — Ideation
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             Three AI directions. I pressure-tested each against real friction.
           </h2>
           <div className={styles.concepts}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.concept} ${styles.reveal}`}
+
+              className={styles.concept} data-aos="fade-up"
             >
               <div className={styles.ce}>📳</div>
               <h4>Haptic Signature</h4>
@@ -464,8 +438,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.concept} ${styles.reveal}`}
+
+              className={styles.concept} data-aos="fade-up"
             >
               <div className={styles.ce}>📍</div>
               <h4>Adaptive Context</h4>
@@ -478,8 +452,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.concept} ${styles.win} ${styles.reveal}`}
+
+              className={`${styles.concept} ${styles.win}`} data-aos="fade-up"
             >
               <div className={styles.badge}>Chosen</div>
               <div className={styles.ce}>✌️</div>
@@ -500,20 +474,20 @@ export default function GestureBased() {
       <section className={`${styles.band} ${styles.bandTan}`} id="solution">
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             05 — The Solution
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             GestureCAPTCHA: a wave to prove you're real.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             <strong style={{ color: "var(--navy)" }}>Why gestures?</strong> Gen
             Z communicates with them constantly — peace sign, thumbs up. They're
@@ -529,20 +503,20 @@ export default function GestureBased() {
       <section id="mental-models" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             06 — Designing Around Trust
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             Five user mental models shaped every screen.
           </h2>
           <p
-            ref={addToRevealRefs}
-            className={`${styles.secBody} ${styles.reveal}`}
+
+            className={styles.secBody} data-aos="fade-up"
           >
             Gesture input is novel, and novelty in a security flow breeds
             anxiety. I designed each decision against how users actually think
@@ -550,8 +524,8 @@ export default function GestureBased() {
           </p>
           <div className={styles.mm}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mrow} ${styles.reveal}`}
+
+              className={styles.mrow} data-aos="fade-up"
             >
               <div className={styles.quoteS}>
                 "If I'm using my camera for a security check, it could be
@@ -566,8 +540,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mrow} ${styles.reveal}`}
+
+              className={styles.mrow} data-aos="fade-up"
             >
               <div className={styles.quoteS}>
                 "I want to be the one to start the interaction — not have the
@@ -582,8 +556,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mrow} ${styles.reveal}`}
+
+              className={styles.mrow} data-aos="fade-up"
             >
               <div className={styles.quoteS}>
                 "If I don't know the name of a gesture, I can't be expected to
@@ -598,8 +572,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mrow} ${styles.reveal}`}
+
+              className={styles.mrow} data-aos="fade-up"
             >
               <div className={styles.quoteS}>
                 "If it opens in a new tab, it looks like spam."
@@ -613,8 +587,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.mrow} ${styles.reveal}`}
+
+              className={styles.mrow} data-aos="fade-up"
             >
               <div className={styles.quoteS}>
                 "I need to know what's about to happen before I'm asked to do
@@ -636,21 +610,21 @@ export default function GestureBased() {
       <section className={`${styles.band} ${styles.bandPeri}`} id="process">
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             07 — How I Built It
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             Two phases: design the trust, then train the model.
           </h2>
           <div className={styles.phases}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.phase} ${styles.reveal}`}
+
+              className={styles.phase} data-aos="fade-up"
             >
               <div>
                 <span className={styles.pn}>01</span>
@@ -666,8 +640,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.phase} ${styles.reveal}`}
+
+              className={styles.phase} data-aos="fade-up"
             >
               <div>
                 <span className={styles.pn}>02</span>
@@ -683,8 +657,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.phase} ${styles.reveal}`}
+
+              className={styles.phase} data-aos="fade-up"
             >
               <div>
                 <span className={styles.pn}>03</span>
@@ -700,8 +674,8 @@ export default function GestureBased() {
               </div>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.phase} ${styles.reveal}`}
+
+              className={styles.phase} data-aos="fade-up"
             >
               <div>
                 <span className={styles.pn}>04</span>
@@ -724,21 +698,21 @@ export default function GestureBased() {
       <section id="impact" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             08 — Impact
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             A concept that runs — and a clear answer to the friction problem.
           </h2>
           <div className={styles.impact}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.ibox} ${styles.proven} ${styles.reveal}`}
+
+              className={`${styles.ibox} ${styles.proven}`} data-aos="fade-up"
             >
               <span className={styles.tag}>Built & working</span>
               <div className={styles.h}>Live ML model</div>
@@ -748,8 +722,8 @@ export default function GestureBased() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.ibox} ${styles.proven} ${styles.reveal}`}
+
+              className={`${styles.ibox} ${styles.proven}`} data-aos="fade-up"
             >
               <span className={styles.tag}>Built & working</span>
               <div className={styles.h}>5 mental models → UI</div>
@@ -760,8 +734,8 @@ export default function GestureBased() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.ibox} ${styles.proj} ${styles.reveal}`}
+
+              className={`${styles.ibox} ${styles.proj}`} data-aos="fade-up"
             >
               <span className={styles.tag}>Projected at scale</span>
               <div className={styles.h}>No phone, no codes</div>
@@ -771,8 +745,8 @@ export default function GestureBased() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.ibox} ${styles.proj} ${styles.reveal}`}
+
+              className={`${styles.ibox} ${styles.proj}`} data-aos="fade-up"
             >
               <span className={styles.tag}>Projected at scale</span>
               <div className={styles.h}>Bot-resistant by design</div>
@@ -789,21 +763,21 @@ export default function GestureBased() {
       <section id="learnings" className={styles.section}>
         <div className={styles.wrap}>
           <div
-            ref={addToRevealRefs}
-            className={`${styles.secNum} ${styles.reveal}`}
+
+            className={styles.secNum} data-aos="fade-up"
           >
             09 — Reflections
           </div>
           <h2
-            ref={addToRevealRefs}
-            className={`${styles.secH} ${styles.reveal}`}
+
+            className={styles.secH} data-aos="fade-up"
           >
             What I learned designing security people don't hate.
           </h2>
           <div className={styles.learn}>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.lcard} ${styles.reveal}`}
+
+              className={styles.lcard} data-aos="fade-up"
             >
               <h4>Trust is the real UX</h4>
               <p>
@@ -812,8 +786,8 @@ export default function GestureBased() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.lcard} ${styles.reveal}`}
+
+              className={styles.lcard} data-aos="fade-up"
             >
               <h4>Design with AI, not for it</h4>
               <p>
@@ -823,8 +797,8 @@ export default function GestureBased() {
               </p>
             </div>
             <div
-              ref={addToRevealRefs}
-              className={`${styles.lcard} ${styles.reveal}`}
+
+              className={styles.lcard} data-aos="fade-up"
             >
               <h4>Accessibility next</h4>
               <p>

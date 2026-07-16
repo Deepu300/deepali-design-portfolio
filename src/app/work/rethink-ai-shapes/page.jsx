@@ -19,7 +19,7 @@ export default function page() {
       </div>
       <div
         className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col gap-4"
-        data-aos="fade-in"
+        data-aos="fade-up"
       >
         <h2 className="text-2xl lg:text-5xl text-center my-10">
           Project Overview
@@ -55,29 +55,29 @@ export default function page() {
           src="/images/rethink-ai-shapes/team.png"
           className="w-4/5 mx-auto"
           alt=""
-          data-aos="fade-in"
+          data-aos="fade-up"
         />
       </div>
       <img
         src="/images/rethink-ai-shapes/process.png"
         className="max-w-full"
         alt=""
-        data-aos="fade-in"
+        data-aos="fade-up"
       />
       <div
         className="w-full lg:p-10 grid grid-cols-1 lg:grid-cols-2 mx-auto"
-        data-aos="fade-in"
+        data-aos="fade-up"
       >
         <div className="flex flex-col gap-2 lg:gap-10 order-2 lg:order-1">
           <img
             src="/images/rethink-ai-shapes/youtube.png"
             alt="reddit comment 8"
             className="w-[100%]"
-            data-aos="fade-in"
+            data-aos="fade-up"
           />
           <div
             className=" mt-20 lg:mt-0 flex lg:flex-row flex-col gap-10 justify-between items-start pr-10"
-            data-aos="fade-in"
+            data-aos="fade-up"
             data-aos-delay="200"
           >
             <div className="border lg:w-96 text-base font-medium border-gray-900 p-6 gesture-card">
@@ -99,7 +99,7 @@ export default function page() {
               src="/images/rethink-ai-shapes/downward-arrow.png"
               alt="reddit comment 8"
               className="h-32 lg:h-96 mx-auto"
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
           </div>
         </div>
@@ -107,12 +107,12 @@ export default function page() {
           src="/images/rethink-ai-shapes/reddit.png"
           alt="reddit comment 8"
           className="lg:mt-60 order-1 lg:order-2"
-          data-aos="fade-in"
+          data-aos="fade-up"
         />
       </div>
       <div
         className="w-full mx-auto flex flex-col text-center"
-        data-aos="fade-in"
+        data-aos="fade-up"
       >
         <h2 className="text-4xl font-semibold my-12">Deep Dive</h2>
         <p className="text-center">The initial research was divided into</p>
@@ -120,11 +120,11 @@ export default function page() {
           src="/images/rethink-ai-shapes/rethink-ai-shapes-deep-dive.png"
           alt="Process"
           className="w-3/4 mx-auto"
-          data-aos="fade-in"
+          data-aos="fade-up"
         />
         <p
           className=" text-sm lg:text-lg text-left my-20 mx-auto max-w-5xl "
-          data-aos="fade-in"
+          data-aos="fade-up"
         >
           I began my deep dive with an audit of Illustrator’s Shape Tools to
           experience the pain points firsthand. Next, I conducted a competitive
@@ -137,14 +137,14 @@ export default function page() {
 
         <div
           className="text-center d-flex flex-col gap-4 items-center justify-center bg-secondary pb-10"
-          data-aos="fade-in"
+          data-aos="fade-up"
         >
           <div className="max-w-6xl mx-auto">
             <img
               src="/images/rethink-ai-shapes/avatar-wink.png"
               className="lg:w-32 mx-auto"
               alt=""
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
             <h2 className="text-3xl font-bold my-10">
               Listing down the Problems
@@ -152,7 +152,7 @@ export default function page() {
             <div>
               <p
                 className="p-2 text-xl text-left my-10 px-10"
-                data-aos="fade-in"
+                data-aos="fade-up"
               >
                 {" "}
                 In the next stage of the process, I compiled all the issues
@@ -166,7 +166,7 @@ export default function page() {
               src="/images/rethink-ai-shapes/rethink-ai-shapes-finding-problems.png"
               alt=""
               className="mx-auto w-3/4"
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
           </div>
         </div>
@@ -175,9 +175,9 @@ export default function page() {
         </div>
         <div
           className="text-center d-flex flex-col gap-4 items-center justify-center bg-secondary"
-          data-aos="fade-in"
+          data-aos="fade-up"
         >
-          <div className="mx-auto max-w-6xl" data-aos="fade-in">
+          <div className="mx-auto max-w-6xl" data-aos="fade-up">
             <img src="/illust-3.png" className="w-32 mx-auto" alt="" />
             <h2 className="text-3xl font-bold mb-10">
               Identifying Similar Patterns
@@ -193,14 +193,14 @@ export default function page() {
               src="/images/rethink-ai-shapes/rethink-ai-shapes-identifying-patterns.png"
               alt=""
               className="w-3/4 mx-auto"
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
           </div>
         </div>
         <div className="bg-secondary flex flex-col gap-20 pb-20 p-2 lg:p-0 lg:pb-20">
           <p
             className="my-10 lg:my-20 text-center px-10 text-xl "
-            data-aos="fade-in"
+            data-aos="fade-up"
           >
             All these patterns that were recognized became the{" "}
             <span className="font-bold italic">
@@ -212,11 +212,11 @@ export default function page() {
             src="/images/rethink-ai-shapes/rethink-ai-shapes-pillars.png"
             alt=""
             className="mx-auto w-3/4 lg:max-w-4xl"
-            data-aos="fade-in"
+            data-aos="fade-up"
           />
           <div
             className=" p-4 py-6 flex flex-row max-w-4xl mx-auto text-left gap-4 bg-quotation border border-slate-900"
-            data-aos="fade-in"
+            data-aos="fade-up"
           >
             <svg
               width="47"
@@ -242,7 +242,7 @@ export default function page() {
         </div>
 
         <div className="divider my-20"></div>
-        <div className="text-center mt-10" data-aos="fade-in">
+        <div className="text-center mt-10" data-aos="fade-up">
           <h2 className="text-2xl lg:text-4xl text-center font-bold mb-20">
             Random Word Brainstorming
           </h2>
@@ -256,7 +256,7 @@ export default function page() {
             src="/images/rethink-ai-shapes/rethink-ai-shapes-random-brainstorming.png"
             alt=""
             className="mb-20 mx-auto w-3/4 lg:max-w-6xl"
-            data-aos="fade-in"
+            data-aos="fade-up"
           />
           <p className="text-xl">
             During the ideation phase, so many ideas emerged that it was
@@ -287,25 +287,25 @@ export default function page() {
               src="/images/rethink-ai-shapes/rethink-ai-shapes-concepts-avatar.png"
               alt=""
               className="w-96 mx-auto my-20"
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
             <h4 className="text-3xl font-medium mb-10">Before</h4>
             <img
               src="/images/rethink-ai-shapes/rethink-ai-shapes-concepts-before.png"
               alt=""
               className="w-1/2 mx-auto"
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
             <h4 className="text-3xl font-medium mb-10 mt-20">After</h4>
             <img
               src="/images/rethink-ai-shapes/rethink-ai-shapes-concepts-after.png"
               alt=""
               className="w-3/4 mx-auto"
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
           </div>
         </div>
-        <div className="mx-auto max-w-6xl mt-20" data-aos="fade-in">
+        <div className="mx-auto max-w-6xl mt-20" data-aos="fade-up">
           <p className="text-left text-xl mb-20 line-height-large">
             The Tool Properties Panel incorporates elements from 10 distinct
             solutions, organized into four sections. As we delved into the
@@ -316,16 +316,16 @@ export default function page() {
             src="/images/rethink-ai-shapes/rethink-ai-shapes-final-concept.png"
             alt=""
             className="mb-40 w-3/4 mx-auto lg:w-auto"
-            data-aos="fade-in"
+            data-aos="fade-up"
           />
           <img
             src="/images/rethink-ai-shapes/rethink-ai-shapes-discoverability.png"
             alt=""
             className="w-3/4 lg:max-w-4xl mx-auto mb-40"
-            data-aos="fade-in"
+            data-aos="fade-up"
           />
         </div>
-        <div className="mx-auto max-w-6xl" data-aos="fade-in">
+        <div className="mx-auto max-w-6xl" data-aos="fade-up">
           <p className="text-2xl my-20">
             <span className="font-black">Concept 01:</span>
             <span className="italic font-bold">
@@ -337,7 +337,7 @@ export default function page() {
             src="/images/rethink-ai-shapes/rethink-ai-shapes-concept-01.png"
             alt=""
             className="w-3/4 mx-auto"
-            data-aos="fade-in"
+            data-aos="fade-up"
           />
           <p>Concept 02-10</p>
           <p className="text-2xl my-20">
@@ -364,11 +364,11 @@ export default function page() {
         </div>
         <div className="mt-40"></div>
         <div className="divider"></div>
-        <div className="mx-auto max-w-6xl lg:p-0 p-2" data-aos="fade-in">
+        <div className="mx-auto max-w-6xl lg:p-0 p-2" data-aos="fade-up">
           <h2 className="text-3xl font-bold mb-20">Conclusion</h2>
           <p
             className="text-sm lg:text-xl text-left my-10 font-light line-height-large"
-            data-aos="fade-in"
+            data-aos="fade-up"
           >
             The artworks showcased below can be exclusively crafted utilizing
             the tool properties panel within a mere 10-minute timeframe. This
@@ -384,18 +384,18 @@ export default function page() {
               src="/images/rethink-ai-shapes/rethink-ai-shapes-conclusion-1.png"
               alt="01"
               className="lg:w-full w-3/4 mx-auto"
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
             <img
               src="/images/rethink-ai-shapes/rethink-ai-shapes-conclusion-2.png"
               alt="02"
               className="lg:w-full w-3/4 mx-auto"
-              data-aos="fade-in"
+              data-aos="fade-up"
             />
           </div>
         </div>
 
-        <section className="after:hidden text-center" data-aos="fade-in">
+        <section className="after:hidden text-center" data-aos="fade-up">
           <div
             className={`${avigeaFont.className} accent-text text-2xl lg:text-4xl capitalize`}
           >

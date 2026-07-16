@@ -3,6 +3,39 @@
 @tailwind utilities;
 @import "aos/dist/aos.css";
 
+/* Progressive enhancement: content stays visible until JS opts into AOS */
+html:not(.aos-ready) [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  pointer-events: auto !important;
+}
+
+/* Respect prefers-reduced-motion — no fade / no transform */
+html.reduce-motion [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  pointer-events: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-aos] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    pointer-events: auto !important;
+  }
+}
+
+/* Softer rise (~20px) instead of AOS’s default 100px jump */
+html.aos-ready [data-aos="fade-up"] {
+  transform: translate3d(0, 20px, 0);
+}
+html.aos-ready [data-aos="fade-up"].aos-animate {
+  transform: translate3d(0, 0, 0);
+}
+
 :root {
   --primary-color: #eef0eb;
   --secondary-color: #363636;
