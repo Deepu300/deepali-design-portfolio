@@ -4,7 +4,16 @@ import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import styles from "./GestureAuth.module.css";
 
-const SECTION_IDS = ["problem", "research", "solution", "impact"];
+const RAIL_LINKS = [
+  { id: "scenario", label: "Scenario" },
+  { id: "problem", label: "Problem" },
+  { id: "research", label: "Research" },
+  { id: "solution", label: "Solution" },
+  { id: "decisions", label: "Design decisions" },
+  { id: "testing", label: "Testing" },
+  { id: "impact", label: "Impact" },
+  { id: "reflection", label: "Reflection" },
+];
 
 /* 21 hand landmarks from the trained ML5 model — bones then joints. */
 const HAND_BONES = [
@@ -134,10 +143,11 @@ export default function GestureBased() {
     const handleScroll = () => {
       setNavSolid(window.scrollY > 60);
 
+      // Highlight the last rail section whose top has passed 160px down-page.
       let current = "";
-      SECTION_IDS.forEach((id) => {
+      RAIL_LINKS.forEach(({ id }) => {
         const el = document.getElementById(id);
-        if (el && el.getBoundingClientRect().top < 200) current = id;
+        if (el && el.getBoundingClientRect().top <= 160) current = id;
       });
       setActiveSection(current);
     };
@@ -221,37 +231,32 @@ export default function GestureBased() {
 
   return (
     <div className={styles.bodyContainer} ref={rootRef}>
+      {/* Narrow screens get this bar; ≥1080px gets the side rail below. */}
       <nav className={cx(styles.nav, navSolid && styles.solid)}>
         <Link href="/" className={styles.logo}>
           Deepali
         </Link>
-        <div className={styles.links}>
-          <a
-            href="#problem"
-            className={activeSection === "problem" ? styles.active : ""}
-          >
-            Problem
-          </a>
-          <a
-            href="#research"
-            className={activeSection === "research" ? styles.active : ""}
-          >
-            Research
-          </a>
-          <a
-            href="#solution"
-            className={activeSection === "solution" ? styles.active : ""}
-          >
-            Solution
-          </a>
-          <a
-            href="#impact"
-            className={activeSection === "impact" ? styles.active : ""}
-          >
-            Impact
-          </a>
-        </div>
       </nav>
+
+      <aside className={styles.siderail}>
+        <Link href="/" className={styles.rlogo}>
+          Deepali
+        </Link>
+        <nav className={styles.rnav}>
+          {RAIL_LINKS.map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              className={cx(
+                styles.rlink,
+                activeSection === id && styles.active,
+              )}
+            >
+              {label}
+            </a>
+          ))}
+        </nav>
+      </aside>
 
       {/* HERO */}
       <header className={styles.hero}>
@@ -389,7 +394,7 @@ export default function GestureBased() {
       </div>
 
       {/* SCENARIO + FRICTION FLOW */}
-      <section className={styles.section}>
+      <section id="scenario" className={styles.section}>
         <div className={styles.wrap}>
           <div className={cx(styles.ey, styles.reveal)}>Scenario</div>
           <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
@@ -899,7 +904,7 @@ export default function GestureBased() {
       </section>
 
       {/* MENTAL MODELS */}
-      <section className={styles.section}>
+      <section id="decisions" className={styles.section}>
         <div className={styles.wrap}>
           <div className={cx(styles.ey, styles.reveal)}>Design decisions</div>
           <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
@@ -1223,7 +1228,7 @@ export default function GestureBased() {
       </section>
 
       {/* REFLECTION */}
-      <section className={styles.section}>
+      <section id="reflection" className={styles.section}>
         <div className={styles.wrap}>
           <div className={cx(styles.ey, styles.reveal)}>Reflection</div>
           <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>

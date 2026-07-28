@@ -4,7 +4,7 @@
   --ink: #23232a;
   --muted: #9a9aa2;
   --sub: #6a6a72;
-  --base: #f0f0f2;
+  --base: #eef0eb;
   --card: #ffffff;
   --dash: #d6d6db;
 
@@ -61,8 +61,9 @@
 }
 
 .section {
-  padding: 104px 0;
+  padding: 68px 0;
   position: relative;
+  scroll-margin-top: 48px;
 }
 
 .center {
@@ -82,10 +83,11 @@
 }
 
 .claim {
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(23px, 2.7vw, 32px);
-  line-height: 1.2;
-  letter-spacing: -0.4px;
+  line-height: 1.28;
+  letter-spacing: -0.2px;
+  color: #37343f;
   max-width: 32ch;
 }
 
@@ -95,8 +97,8 @@
 
 .lead {
   font-size: 19px;
-  line-height: 1.6;
-  color: var(--sub);
+  line-height: 1.68;
+  color: #55525f;
   max-width: 60ch;
   margin-top: 20px;
 }
@@ -220,27 +222,76 @@
   text-decoration: none;
 }
 
-.nav .links {
-  display: flex;
-  gap: 26px;
-  font-size: 14px;
-  font-weight: 600;
+/* ---- side rail (desktop nav) ---- */
+
+.siderail {
+  display: none;
 }
 
-.nav .links a {
-  color: var(--muted);
+.rlogo {
+  font-weight: 700;
+  font-size: 20px;
+  letter-spacing: -0.3px;
+  color: var(--ink);
   text-decoration: none;
-  transition: color 0.25s;
 }
 
-.nav .links a:hover,
-.nav .links a.active {
+.rnav {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin: auto 0;
+  /* components/Navbar/navbar.css sets a bare `nav { border-bottom-width: 3px }`
+     site-wide; this rail nests a <nav>, so opt out of that inherited border. */
+  border: 0;
+}
+
+.rlink {
+  font-size: 15px;
+  font-weight: 500;
+  color: #9a9aa2;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.rlink:hover {
   color: var(--ink);
 }
 
-@media (max-width: 760px) {
-  .nav .links {
+.rlink.active {
+  color: var(--blue-x);
+  font-weight: 600;
+}
+
+/* The reference offsets `body`; here the offset goes on the page container. */
+@media (min-width: 1080px) {
+  .nav {
     display: none;
+  }
+  .bodyContainer {
+    padding-left: 252px;
+  }
+  .siderail {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 252px;
+    padding: 40px 46px;
+    z-index: 40;
+    border-right: 1px solid #e3e4df;
+    background: var(--base);
+  }
+}
+
+@media (max-width: 1079px) {
+  .siderail {
+    display: none;
+  }
+  .nav {
+    display: flex;
   }
 }
 
@@ -350,7 +401,7 @@
 /* ---- hero ---- */
 
 .hero {
-  padding: 150px 0 96px;
+  padding: 118px 0 74px;
 }
 
 .hgrid {
@@ -361,10 +412,11 @@
 }
 
 .hero h1 {
-  font-weight: 700;
+  font-weight: 600;
   font-size: clamp(32px, 4.4vw, 50px);
   line-height: 1.08;
-  letter-spacing: -1.2px;
+  letter-spacing: -0.8px;
+  color: #2e2b37;
   max-width: 15ch;
 }
 
@@ -486,10 +538,10 @@
   aspect-ratio: 16 / 9;
   background: repeating-linear-gradient(
     135deg,
-    #f6f6f8,
-    #f6f6f8 14px,
-    #f1f1f4 14px,
-    #f1f1f4 28px
+    #f4f5f1,
+    #f4f5f1 14px,
+    #eeefea 14px,
+    #eeefea 28px
   );
   display: flex;
   flex-direction: column;
@@ -608,12 +660,13 @@
 }
 
 .pull {
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(20px, 2.4vw, 27px);
   line-height: 1.25;
   max-width: 24ch;
   margin: 36px 0 0;
   letter-spacing: -0.5px;
+  color: #37343f;
 }
 
 /* ---- solution ---- */
@@ -832,7 +885,7 @@
 }
 
 .reframe {
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(20px, 2.3vw, 26px);
   line-height: 1.3;
   max-width: 26ch;
@@ -910,13 +963,14 @@
 }
 
 .kicker {
-  font-weight: 600;
+  font-weight: 500;
   font-size: clamp(23px, 3vw, 34px);
   line-height: 1.18;
   max-width: 22ch;
   margin: 0;
   text-align: left;
   letter-spacing: -0.8px;
+  color: #2e2b37;
 }
 
 .footer {
