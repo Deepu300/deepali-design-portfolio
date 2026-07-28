@@ -1,695 +1,1062 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Head from "next/head";
+import React, { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import styles from "./GestureAuth.module.css"; // Update this path to where your styles are stored
+import styles from "./GestureAuth.module.css";
+
+const SECTION_IDS = ["problem", "research", "solution", "impact"];
+
+/* 21 hand landmarks from the trained ML5 model — bones then joints. */
+const HAND_BONES = [
+  [150, 340, 112, 308, 0.0],
+  [112, 308, 84, 282, 0.04],
+  [84, 282, 62, 258, 0.09],
+  [62, 258, 44, 236, 0.14],
+  [150, 340, 122, 258, 0.18],
+  [122, 258, 116, 198, 0.22],
+  [116, 198, 112, 158, 0.27],
+  [112, 158, 108, 122, 0.32],
+  [122, 258, 152, 250, 0.36],
+  [152, 250, 153, 184, 0.4],
+  [153, 184, 154, 138, 0.45],
+  [154, 138, 155, 98, 0.49],
+  [152, 250, 184, 254, 0.54],
+  [184, 254, 190, 196, 0.58],
+  [190, 196, 194, 156, 0.63],
+  [194, 156, 197, 122, 0.67],
+  [184, 254, 212, 266, 0.72],
+  [150, 340, 212, 266, 0.77],
+  [212, 266, 226, 222, 0.81],
+  [226, 222, 233, 192, 0.85],
+  [233, 192, 239, 164, 0.9],
+];
+
+const HAND_JOINTS = [
+  [150, 340, 0.25],
+  [112, 308, 0.29],
+  [84, 282, 0.33],
+  [62, 258, 0.37],
+  [44, 236, 0.41],
+  [122, 258, 0.45],
+  [116, 198, 0.49],
+  [112, 158, 0.53],
+  [108, 122, 0.57],
+  [152, 250, 0.61],
+  [153, 184, 0.65],
+  [154, 138, 0.69],
+  [155, 98, 0.73],
+  [184, 254, 0.77],
+  [190, 196, 0.81],
+  [194, 156, 0.85],
+  [197, 122, 0.89],
+  [212, 266, 0.93],
+  [226, 222, 0.97],
+  [233, 192, 1.01],
+  [239, 164, 1.05],
+];
+
+const FRICTION_STEPS = [
+  { ic: "🔑", fl: "Enter your password", fp: "done", d: styles.d1 },
+  { ic: "📱", fl: "Wait for a text code", fp: "+30s", d: styles.d1 },
+  { ic: "🏃", fl: "Phone is in the other room", fp: "detour", d: styles.d2 },
+  { ic: "⌛", fl: "The code expired", fp: "✗", d: styles.d3 },
+  { ic: "🧩", fl: "Now solve a CAPTCHA", fp: "bicycle?", d: styles.d3 },
+  { ic: "😩", fl: "Still not in", fp: "stuck", d: styles.d4, stuck: true },
+];
+
+const THEMES = [
+  { e: "🔁", t: "Over-friction", s: "logins feel like a chore", d: styles.d1 },
+  { e: "📱", t: "Device fragility", s: "lose the phone, lose access", d: styles.d1 },
+  { e: "🧩", t: "CAPTCHA frustration", s: "outdated & often fails first try", d: styles.d2 },
+  { e: "🔐", t: "Security paradox", s: "want safety, distrust the methods", d: styles.d2 },
+  { e: "⚠️", t: "Reliability gaps", s: "delays, fails, broken “remember me”", d: styles.d3 },
+];
+
+const JOURNEY = [
+  { je: "😐", n: "Stage 1", t: "Normal login", f: "“Let me quickly log in.”", d: styles.d1 },
+  { je: "😟", n: "Stage 2", t: "2FA challenge", f: "“Oh no… my phone's at home.”", d: styles.d1 },
+  { je: "😕", n: "Stage 3", t: "Tries a workaround", f: "“Is there no other way?”", d: styles.d2 },
+  { je: "😣", n: "Stage 4", t: "Alternative devices", f: "“Maybe I'm still logged in somewhere…”", d: styles.d2 },
+  { je: "😠", n: "Stage 5", t: "Stuck", f: "“This is wasting so much time.”", d: styles.d3 },
+  { je: "😩", n: "Stage 6", t: "Abandonment", f: "“I can't access my work.”", d: styles.d3 },
+];
+
+function cx(...parts) {
+  return parts.filter(Boolean).join(" ");
+}
+
+function HandSvg() {
+  return (
+    <svg
+      className={styles.hand}
+      viewBox="0 0 300 380"
+      xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="A hand skeleton drawn from the 21 landmarks the computer-vision model tracks"
+    >
+      <defs>
+        <linearGradient id="hg" x1="0" y1="1" x2="1" y2="0">
+          <stop offset="0" stopColor="#5B8DEF" />
+          <stop offset="1" stopColor="#5FB07B" />
+        </linearGradient>
+      </defs>
+      {HAND_BONES.map(([x1, y1, x2, y2, delay]) => (
+        <line
+          key={`bone-${x1}-${y1}-${x2}-${y2}`}
+          className={styles.hc}
+          x1={x1}
+          y1={y1}
+          x2={x2}
+          y2={y2}
+          style={{ animationDelay: `${delay}s` }}
+        />
+      ))}
+      {HAND_JOINTS.map(([cxp, cyp, delay]) => (
+        <circle
+          key={`joint-${cxp}-${cyp}`}
+          className={styles.hp}
+          cx={cxp}
+          cy={cyp}
+          r={6.5}
+          style={{ animationDelay: `${delay}s` }}
+        />
+      ))}
+    </svg>
+  );
+}
 
 export default function GestureBased() {
+  const rootRef = useRef(null);
   const [activeSection, setActiveSection] = useState("");
-
+  const [navSolid, setNavSolid] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const sectionIds = ["problem", "research", "solution", "impact"];
-      let currentSection = "";
+      setNavSolid(window.scrollY > 60);
 
-      sectionIds.forEach((id) => {
-        const element = document.getElementById(id);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top < 200) {
-            currentSection = id;
-          }
-        }
+      let current = "";
+      SECTION_IDS.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el && el.getBoundingClientRect().top < 200) current = id;
       });
-
-      setActiveSection(currentSection);
+      setActiveSection(current);
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root) return;
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const revealEls = Array.from(root.querySelectorAll(`.${styles.reveal}`));
+    const countEls = Array.from(
+      root.querySelectorAll(`.${styles.count}[data-count]`),
+    );
+
+    const countUp = (el) => {
+      const target = Number(el.getAttribute("data-count"));
+      let t0 = null;
+      const dur = 1100;
+      const step = (ts) => {
+        if (!t0) t0 = ts;
+        const p = Math.min((ts - t0) / dur, 1);
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) requestAnimationFrame(step);
+      };
+      requestAnimationFrame(step);
+    };
+
+    if (reduce) {
+      revealEls.forEach((el) => el.classList.add(styles.in));
+      countEls.forEach((c) => {
+        c.textContent = c.getAttribute("data-count");
+      });
+      return;
+    }
+
+    // Enable hide-until-reveal only when JS is running
+    root.classList.add(styles.enhanced);
+    countEls.forEach((c) => {
+      c.textContent = "0";
+    });
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add(styles.in);
+            io.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.15 },
+    );
+    revealEls.forEach((el) => io.observe(el));
+
+    const seen = new WeakSet();
+    const io2 = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting && !seen.has(e.target)) {
+            seen.add(e.target);
+            countUp(e.target);
+            io2.unobserve(e.target);
+          }
+        });
+      },
+      { threshold: 0.7 },
+    );
+    countEls.forEach((c) => io2.observe(c));
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
+      io.disconnect();
+      io2.disconnect();
     };
   }, []);
 
-
   return (
-    <div className={styles.bodyContainer}>
-      <Head>
-        <title>Gesture Authentication — Deepali Babuta</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Outfit:wght@300;400;500;600&display=swap"
-          rel="stylesheet"
-        />
-      </Head>
-
-      <nav className={styles.nav}>
-        <div className={styles.wrapWide}>
-          <div className={styles.navWrap}>
-            <Link href="/" className={styles.brand}>
-              Deepali<span>.</span>
-            </Link>
-            <div className={styles.navlinks}>
-              <a
-                href="#problem"
-                className={activeSection === "problem" ? styles.active : ""}
-              >
-                Problem
-              </a>
-              <a
-                href="#research"
-                className={activeSection === "research" ? styles.active : ""}
-              >
-                Research
-              </a>
-              <a
-                href="#solution"
-                className={activeSection === "solution" ? styles.active : ""}
-              >
-                Solution
-              </a>
-              <a
-                href="#impact"
-                className={activeSection === "impact" ? styles.active : ""}
-              >
-                Impact
-              </a>
-              <a href="#">Resume</a>
-            </div>
-          </div>
+    <div className={styles.bodyContainer} ref={rootRef}>
+      <nav className={cx(styles.nav, navSolid && styles.solid)}>
+        <Link href="/" className={styles.logo}>
+          Deepali
+        </Link>
+        <div className={styles.links}>
+          <a
+            href="#problem"
+            className={activeSection === "problem" ? styles.active : ""}
+          >
+            Problem
+          </a>
+          <a
+            href="#research"
+            className={activeSection === "research" ? styles.active : ""}
+          >
+            Research
+          </a>
+          <a
+            href="#solution"
+            className={activeSection === "solution" ? styles.active : ""}
+          >
+            Solution
+          </a>
+          <a
+            href="#impact"
+            className={activeSection === "impact" ? styles.active : ""}
+          >
+            Impact
+          </a>
         </div>
       </nav>
 
       {/* HERO */}
       <header className={styles.hero}>
         <div className={styles.wrap}>
-          <h1>
-            Proving you're human with a <em>wave</em>, not a password.
-          </h1>
-          <p className={styles.sub}>
-            A gesture-based authentication system that replaces frustrating
-            CAPTCHAs and 2FA with simple hand gestures — AI-driven,
-            password-less security that feels human.
-          </p>
-          <div
+          <div className={styles.hgrid}>
+            <div>
+              <div className={cx(styles.ey, styles.reveal)}>
+                Gesture-Based Human Verification
+              </div>
+              <h1 className={cx(styles.reveal, styles.d1)}>
+                Prove you&apos;re human with a{" "}
+                <span className={styles.cGreen}>wave</span> — not another
+                CAPTCHA.
+              </h1>
+              <p className={cx(styles.reveal, styles.d2)}>
+                A gesture-based way to prove a real person is there — swapping
+                the CAPTCHA-and-2FA gauntlet for one quick hand sign, read by a
+                computer-vision model.
+              </p>
+              <div className={cx(styles.metarow, styles.reveal, styles.d3)}>
+                <div>
+                  <div className={styles.k}>Role</div>
+                  <div className={styles.v}>
+                    UX Research, Interaction Design &amp; CV model
+                  </div>
+                </div>
+                <div>
+                  <div className={styles.k}>Context</div>
+                  <div className={styles.v}>NYU · UX &amp; AI final project</div>
+                </div>
+                <div>
+                  <div className={styles.k}>Scope</div>
+                  <div className={styles.v}>Research → working prototype</div>
+                </div>
+                <div>
+                  <div className={styles.k}>Built with</div>
+                  <div className={styles.v}>ML5.js · 21 landmarks</div>
+                </div>
+              </div>
+            </div>
 
-            className={styles.facts} data-aos="fade-up"
-          >
-            <div>
-              <span>My Role</span>
-              <strong>UX Research, Design & AI Model</strong>
-            </div>
-            <div>
-              <span>Course</span>
-              <strong>UX & AI · NYU</strong>
-            </div>
-            <div>
-              <span>Scope</span>
-              <strong>Research → Working Model</strong>
-            </div>
-            <div>
-              <span>Tools</span>
-              <strong>ML5.js · Figma</strong>
-            </div>
-          </div>
-          <div
+            <div className={styles.stack}>
+              <div
+                className={cx(styles.tix, styles.r, styles.reveal, styles.d1)}
+                style={{ transform: "rotate(-3deg) translateX(-6px)" }}
+              >
+                <div className={styles.thead}>
+                  <span>Password</span>
+                  <span>11:47 PM</span>
+                </div>
+                <div className={styles.trow}>
+                  <span className={styles.pill}>entered</span>
+                  <div className={styles.tt}>Type your password</div>
+                  <div className={styles.ts}>•••••••••••</div>
+                </div>
+              </div>
 
-            className={styles.gstrip} data-aos="fade-up"
-            style={{ marginTop: "40px" }}
-          >
-            <img
-              src="/images/gesture-based-authentication/cover.gif"
-              alt="Gesture demo"
-              style={{ width: "100%", maxWidth: "480px", borderRadius: "12px" }}
-            />
-          </div>
-          <div
+              <div
+                className={cx(styles.tix, styles.p, styles.reveal, styles.d2)}
+                style={{ transform: "rotate(2.5deg) translateX(10px)" }}
+              >
+                <div className={styles.thead}>
+                  <span>2FA</span>
+                  <span>+45s</span>
+                </div>
+                <div className={styles.trow}>
+                  <span className={styles.pill}>expired</span>
+                  <div className={styles.tt}>Text me a code</div>
+                  <div className={styles.ts}>phone&apos;s in the other room…</div>
+                </div>
+              </div>
 
-            className={styles.gstrip} data-aos="fade-up"
-          >
-            <div className={styles.gchip}>
-              <span className={styles.e}>✌️</span>
-              <div className={styles.t}>Peace</div>
-              <div className={styles.s}>Gesture 01</div>
-            </div>
-            <div className={styles.gchip}>
-              <span className={styles.e}>👍</span>
-              <div className={styles.t}>Thumbs Up</div>
-              <div className={styles.s}>Gesture 02</div>
-            </div>
-            <div className={styles.gchip}>
-              <span className={styles.e}>✋</span>
-              <div className={styles.t}>Open Palm</div>
-              <div className={styles.s}>Gesture 03</div>
-            </div>
-            <div className={styles.gchip}>
-              <span className={styles.e}>👌</span>
-              <div className={styles.t}>OK Sign</div>
-              <div className={styles.s}>Gesture 04</div>
+              <div
+                className={cx(styles.tix, styles.b, styles.reveal, styles.d3)}
+                style={{ transform: "rotate(-1.5deg) translateX(-4px)" }}
+              >
+                <div className={styles.thead}>
+                  <span>CAPTCHA</span>
+                  <span>try again</span>
+                </div>
+                <div className={styles.trow}>
+                  <span className={styles.pill}>✗</span>
+                  <div className={styles.tt}>Select all buses</div>
+                  <div className={styles.ts}>…is that a bicycle?</div>
+                </div>
+              </div>
+
+              <div
+                className={cx(
+                  styles.tix,
+                  styles.g,
+                  styles.pass,
+                  styles.reveal,
+                  styles.d4,
+                )}
+                style={{ transform: "rotate(1.5deg) translateX(8px)" }}
+              >
+                <div className={styles.thead}>
+                  <span>
+                    <b>GestureCAPTCHA</b>
+                  </span>
+                  <span>0.4s</span>
+                </div>
+                <div className={styles.trow}>
+                  <span className={styles.pill}>✓</span>
+                  <div className={styles.tt}>✌️ Peace sign</div>
+                  <div className={styles.ts}>Verified human.</div>
+                </div>
+              </div>
+
+              <div className={styles.cursor} aria-hidden="true">
+                👆
+              </div>
             </div>
           </div>
         </div>
       </header>
 
-      {/* SUMMARY */}
-      <div className={styles.wrap} style={{ paddingBottom: "30px" }}>
-        <div
-
-          className={styles.summary} data-aos="fade-up"
-        >
-          <h2>The 30-second version</h2>
-          <div className={styles.sgrid}>
-            <div className={styles.cell}>
-              <h3>The Problem</h3>
-              <p>
-                Passwords, CAPTCHAs, and 2FA make logging in exhausting —
-                security that frustrates the people it protects.
-              </p>
-            </div>
-            <div className={styles.cell}>
-              <h3>The Gap</h3>
-              <p>
-                Every fix adds friction or fragility. Nothing proves you're
-                human in a way that's fast, private, and human.
-              </p>
-            </div>
-            <div className={styles.cell}>
-              <h3>The Solution</h3>
-              <p>
-                GestureCAPTCHA: verify identity with intuitive hand gestures,
-                recognized locally by on-device AI.
-              </p>
-            </div>
-            <div className={styles.cell}>
-              <h3>The Impact</h3>
-              <p>
-                A working ML model + a flow designed around five real user
-                mental models around trust and consent.
-              </p>
-            </div>
+      {/* UI OVERVIEW */}
+      <div className={styles.wrap}>
+        <div className={cx(styles.uiframe, styles.reveal)}>
+          <div className={styles.uibar}>
+            <span className={styles.dot} />
+            <span className={styles.dot} />
+            <span className={styles.dot} />
+            <span className={styles.u}>gesturecaptcha · overview</span>
           </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            className={styles.uimedia}
+            src="/images/gesture-based-authentication/cover.gif"
+            alt="GestureCAPTCHA overview: a hand gesture being recognised live by the model"
+          />
         </div>
       </div>
+
+      {/* SCENARIO + FRICTION FLOW */}
+      <section className={styles.section}>
+        <div className={styles.wrap}>
+          <div className={cx(styles.ey, styles.reveal)}>Scenario</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            You just want to check your bank balance.
+          </h2>
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            It should take five seconds. Here is what actually happens.
+          </p>
+          <div className={styles.fricflow}>
+            {FRICTION_STEPS.map((s, i) => (
+              <React.Fragment key={s.fl}>
+                {i > 0 && (
+                  <div
+                    className={cx(styles.farr2, styles.reveal, s.d)}
+                    aria-hidden="true"
+                  >
+                    →
+                  </div>
+                )}
+                <div
+                  className={cx(
+                    styles.fnode,
+                    s.stuck && styles.stuck,
+                    styles.reveal,
+                    s.d,
+                  )}
+                >
+                  <div className={styles.ic} aria-hidden="true">
+                    {s.ic}
+                  </div>
+                  <div className={styles.fl}>{s.fl}</div>
+                  <span className={styles.fp}>{s.fp}</span>
+                </div>
+              </React.Fragment>
+            ))}
+          </div>
+          <p className={cx(styles.lead, styles.mt34, styles.reveal)}>
+            You were not hacked or careless. You just wanted{" "}
+            <span className={styles.cGreen}>in</span>.
+          </p>
+        </div>
+      </section>
 
       {/* PROBLEM */}
       <section id="problem" className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            01 — The Problem
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            If security is meant to make us feel safe, why does it make us feel
-            so frustrated?
+          <div className={cx(styles.ey, styles.reveal)}>Problem</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            We prove we&apos;re human dozens of times a day. It&apos;s
+            exhausting.
           </h2>
-          <p
-
-            className={styles.secBody} data-aos="fade-up"
-          >
-            We verify our identity constantly — work accounts, university
-            portals, even recipe sites. Each time we hit the same gatekeepers:
-            passwords, CAPTCHAs, and Two-Factor Authentication. Whether it's
-            hunting for your phone to enter a six-digit code or squinting at a
-            CAPTCHA that can't decide if there's a motorcycle in the image, the
-            process feels exhausting.{" "}
-            <strong>Security has become a chore we resent.</strong>
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            Work accounts. University portals. Recipe sites. Every login throws
+            up the same gates: passwords, codes, CAPTCHAs. Each one is a small
+            tax on your attention. Stack them across a day and security stops
+            feeling like safety — it starts feeling like a chore.
           </p>
-          <div
+          <div className={cx(styles.pull, styles.reveal)}>
+            Security is supposed to feel safe. Instead it feels like a chore.
+          </div>
+        </div>
+      </section>
 
-            className={styles.stats} data-aos="fade-up"
-          >
-            <div className={styles.stat}>
-              <div className={styles.n}>90%</div>
-              <p>
-                Of users get frustrated by the elaborate, time-consuming process
-                of logging into a simple website.
-              </p>
+      {/* GAP */}
+      <section className={styles.section}>
+        <div className={styles.wrap}>
+          <div className={cx(styles.ey, styles.reveal)}>The gap</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            Every check is built to stop bots — not to work for people.
+          </h2>
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            Each fix defends against the machine by handing more work to the
+            human:
+          </p>
+          <div className={styles.tgrid}>
+            <div className={cx(styles.tix, styles.r, styles.reveal, styles.d1)}>
+              <div className={styles.thead}>
+                <span>2FA</span>
+                <span>✗</span>
+              </div>
+              <div className={styles.trow}>
+                <div className={styles.tt}>One fragile object</div>
+                <div className={styles.ts}>
+                  Lose your phone and your whole life locks — bank, email, even
+                  the laundry app.
+                </div>
+              </div>
             </div>
-            <div className={styles.stat}>
-              <div className={styles.n}>70%</div>
-              <p>
-                Of CAPTCHA attempts need a second try — and many users just
-                close the browser and give up.
-              </p>
+            <div className={cx(styles.tix, styles.b, styles.reveal, styles.d2)}>
+              <div className={styles.thead}>
+                <span>CAPTCHA</span>
+                <span>✗</span>
+              </div>
+              <div className={styles.trow}>
+                <div className={styles.tt}>Harder for people</div>
+                <div className={styles.ts}>
+                  They barely slow bots. AI now solves them faster than we do.
+                </div>
+              </div>
             </div>
-            <div className={styles.stat}>
-              <div className={styles.n}>1 phone</div>
-              <p>
-                Lost or dead, and your entire digital life is locked — banking,
-                social, even laundry machines.
-              </p>
+            <div className={cx(styles.tix, styles.p, styles.reveal, styles.d3)}>
+              <div className={styles.thead}>
+                <span>“Remember me”</span>
+                <span>✗</span>
+              </div>
+              <div className={styles.trow}>
+                <div className={styles.tt}>It never does</div>
+                <div className={styles.ts}>
+                  So you log in again. And again. And again.
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* RESEARCH */}
-      <section className={`${styles.band} ${styles.bandSage}`} id="research">
+      <section id="research" className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            02 — Research
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            I studied not just what failed, but how it made people feel.
+          <div className={cx(styles.ey, styles.reveal)}>Research</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            I dug into why these checks fail — especially the CAPTCHA.
           </h2>
-          <p
-
-            className={styles.secBody} data-aos="fade-up"
-          >
-            I combined user interviews, sentiment analysis of Reddit forums, and
-            observation studies during real login sessions. Affinity mapping the
-            frustration surfaced five emerging themes — and one central tension.
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            I didn&apos;t start with gestures. I started by mapping the CAPTCHA
+            problem space and listening to people describe logging in — in
+            interviews, in observation during real logins, and across Reddit
+            threads where the frustration is raw.
           </p>
-          <div className={styles.insights}>
-            <div
-              className={styles.icard}
-              data-aos="fade-up"
-              data-aos-delay="0"
-            >
-              <div className={styles.ico}>🔁</div>
-              <div className={styles.big}>Over-friction</div>
-              <p>
-                Repeated codes, frequent logouts, and "remember me" that never
-                does turn logins into a constant chore.
-              </p>
+          <div className={cx(styles.methods, styles.reveal, styles.d2)}>
+            <div className={styles.method}>
+              <span className={styles.mn}>01</span> [N] user interviews
             </div>
-            <div
-              className={styles.icard}
-              data-aos="fade-up"
-              data-aos-delay="100"
-            >
-              <div className={styles.ico}>📱</div>
-              <div className={styles.big}>Device fragility</div>
-              <p>
-                A lost or dead phone locks people out of everything — 2FA ties
-                identity to a single fragile object.
-              </p>
+            <div className={styles.method}>
+              <span className={styles.mn}>02</span> Observation during real
+              logins
             </div>
-            <div
-              className={styles.icard}
-              data-aos="fade-up"
-              data-aos-delay="200"
-            >
-              <div className={styles.ico}>🤖</div>
-              <div className={styles.big}>CAPTCHA distrust</div>
-              <p>
-                Seen as outdated and ineffective — and AI is making them harder
-                for humans while easier for bots.
-              </p>
+            <div className={styles.method}>
+              <span className={styles.mn}>03</span> Reddit sentiment analysis
             </div>
           </div>
-          <p
+          <div className={cx(styles.todo, styles.reveal)}>
+            <b>Fill in:</b> your exact interview / participant counts. Replace
+            “[N]” above and in Testing below.
+          </div>
 
-            className={styles.secBody} data-aos="fade-up"
-            style={{
-              marginTop: "40px",
-              color: "var(--navy)",
-              fontFamily: "var(--display)",
-              fontStyle: "italic",
-              fontSize: "22px",
-              maxWidth: "34ch",
-            }}
+          <div
+            className={cx(
+              styles.tix,
+              styles.b,
+              styles.mt40,
+              styles.reveal,
+              styles.d1,
+            )}
           >
-            The core tension: convenience vs. security. Users want strong
-            protection but hate friction — especially when it feels irrelevant.
-          </p>
+            <div className={styles.thead}>
+              <span>
+                <b>What a CAPTCHA actually is</b>
+              </span>
+              <span>problem map</span>
+            </div>
+            <div className={styles.trow}>
+              <div className={cx(styles.ts, styles.trowNote)}>
+                A <b>C</b>ompletely <b>A</b>utomated <b>P</b>ublic <b>T</b>uring
+                test to tell Computers and Humans Apart — it leans entirely on{" "}
+                <b>sensory perception</b> (seeing distorted text, spotting
+                buses). That&apos;s the flaw: the audio alternative is so
+                degraded that even people without hearing loss struggle with it{" "}
+                <span className={styles.cite}>(Lazar et al., 2007)</span>, and
+                few sites ship a truly accessible option at all{" "}
+                <span className={styles.cite}>(Gadepally et al., 2018)</span>. A
+                test meant to include humans quietly excludes many of them.
+              </div>
+            </div>
+          </div>
+
+          <div className={cx(styles.ey, styles.mt56, styles.reveal)}>
+            What people told me
+          </div>
+          <div className={styles.quotes}>
+            <div className={cx(styles.quote, styles.reveal, styles.d1)}>
+              “Those text CAPTCHAs with distorted characters are hit or miss.
+              Bots probably solve these better than I can at this point.”
+              <span className={styles.src}>— Interview participant</span>
+            </div>
+            <div className={cx(styles.quote, styles.reveal, styles.d2)}>
+              “The ‘select all traffic lights’ ones… I end up clicking extra
+              squares just in case. I feel like I&apos;m in CAPTCHA jail, doing
+              it over and over.”
+              <span className={styles.src}>— Interview participant</span>
+            </div>
+          </div>
+
+          <div className={cx(styles.ey, styles.mt56, styles.reveal)}>
+            What I saw them do
+          </div>
+          <ul className={styles.obs}>
+            <li className={cx(styles.reveal, styles.d1)}>
+              Blurry, low-quality images caused hesitation and second-guessing.
+            </li>
+            <li className={cx(styles.reveal, styles.d1)}>
+              Every failed attempt re-triggered the CAPTCHA — repeats drove the
+              frustration, not the first try.
+            </li>
+            <li className={cx(styles.reveal, styles.d2)}>
+              Tiny targets were painful on phones; people pinch-zoomed just to
+              read them.
+            </li>
+            <li className={cx(styles.reveal, styles.d2)}>
+              When a check felt unnecessary or invasive, people distrusted — or
+              abandoned — the site.
+            </li>
+          </ul>
+          <div
+            className={cx(styles.callout, styles.calloutPink, styles.reveal)}
+          >
+            <b>Most surprising finding:</b> the audio CAPTCHAs available today
+            are so distorted they “sound like ghost voices” — the supposed
+            accessible fallback is barely usable.
+          </div>
         </div>
       </section>
 
-      {/* COGNITIVE OFFLOADING */}
-      <section className={`${styles.band} ${styles.bandNavy}`}>
+      {/* THEMES */}
+      <section className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.quote} data-aos="fade-up"
-          >
-            <blockquote>
-              "AI's role becomes one of contextual intelligence — learning when
-              to trust, while humans stay in charge of final consent."
-            </blockquote>
-            <cite>Insight from my Cognitive Offloading Map</cite>
+          <div className={cx(styles.ey, styles.reveal)}>Affinity mapping</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            Everything clustered into five themes.
+          </h2>
+          <div className={styles.themes}>
+            {THEMES.map((t) => (
+              <div
+                key={t.t}
+                className={cx(styles.theme, styles.reveal, t.d)}
+              >
+                <span aria-hidden="true">{t.e}</span> {t.t}{" "}
+                <em>{t.s}</em>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* GAP */}
-      <section id="gap" className={styles.section}>
+      {/* JOURNEY MAP */}
+      <section className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            03 — The Gap
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            Every existing fix traded one frustration for another.
+          <div className={cx(styles.ey, styles.reveal)}>Journey map</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            One blocked login, mapped start to finish.
           </h2>
-          <p
-
-            className={styles.secBody} data-aos="fade-up"
-          >
-            CAPTCHAs are obsolete and infuriating. SMS 2FA is fragile and slow.
-            App-based 2FA adds steps. None of them prove "I'm human" in a way
-            that's <strong>fast, private, and actually pleasant</strong>. That
-            was the opening.
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            Following a user through a 2FA lockout showed exactly where the
+            experience falls off a cliff — and where it never recovers.
           </p>
-          <div className={styles.ba}>
-            <div
+          <div className={styles.jmap}>
+            {JOURNEY.map((s) => (
+              <div
+                key={s.n}
+                className={cx(styles.jstage, styles.reveal, s.d)}
+              >
+                <div className={styles.je} aria-hidden="true">
+                  {s.je}
+                </div>
+                <div className={styles.jn}>{s.n}</div>
+                <div className={styles.jt}>{s.t}</div>
+                <div className={styles.jf}>{s.f}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              className={`${styles.col} ${styles.before}`} data-aos="fade-up"
-            >
-              <h4>What existed</h4>
-              <ul>
-                <li>CAPTCHAs that fail and feel irrelevant</li>
-                <li>2FA tied to a fragile, losable phone</li>
-                <li>Extra apps and tab-switching to approve</li>
-                <li>Six-digit codes entered over and over</li>
-                <li>Security that erodes the trust it needs</li>
-              </ul>
+      {/* TENSION / HMW */}
+      <section className={styles.section}>
+        <div className={styles.wrap}>
+          <div className={cx(styles.ey, styles.reveal)}>Insight</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            People want strong protection. They just hate friction that feels
+            pointless.
+          </h2>
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            Under every theme sat the same conflict — and it&apos;s the conflict
+            behind every auth product:
+          </p>
+          <div className={cx(styles.tension, styles.reveal, styles.d1)}>
+            <div className={styles.h}>
+              Convenience vs. security.
+              <br />
+              Nobody should have to pick.
             </div>
-            <div
-
-              className={`${styles.col} ${styles.after}`} data-aos="fade-up"
-            >
-              <h4>The opportunity</h4>
-              <ul>
-                <li>Prove humanity with something bots can't fake</li>
-                <li>Keep verification on-device and private</li>
-                <li>Use gestures Gen Z already does naturally</li>
-                <li>Make the moment fast, playful, and clear</li>
-                <li>Let the user start and consent to the check</li>
-              </ul>
+            <div className={styles.s}>
+              So I reframed the brief as one question
             </div>
+          </div>
+          <div className={cx(styles.reframe, styles.reveal)}>
+            How do we prove a real human is present —{" "}
+            <span className={styles.cBlue}>
+              without making that human do the work?
+            </span>
           </div>
         </div>
       </section>
 
       {/* IDEATION */}
-      <section id="ideation" className={styles.section}>
+      <section className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            04 — Ideation
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            Three AI directions. I pressure-tested each against real friction.
+          <div className={cx(styles.ey, styles.reveal)}>Ideation</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            I explored three ways to prove a human is there.
           </h2>
-          <div className={styles.concepts}>
-            <div
-
-              className={styles.concept} data-aos="fade-up"
-            >
-              <div className={styles.ce}>📳</div>
-              <h4>Haptic Signature</h4>
-              <p>
-                Mimic a personalized vibration pattern like a rhythm game — a
-                tactile password.
-              </p>
-              <div className={styles.verdict}>
-                Cut: needs supported hardware; hard to recall
-              </div>
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            I sketched three ways to prove a human is present, then weighed each
+            against friction, privacy, and how convincingly it separates a
+            person from a bot.
+          </p>
+          <div className={styles.opts}>
+            <div className={cx(styles.opt, styles.win)}>
+              <span className={styles.op}>✓ chosen</span>
+              <span className={styles.ot}>Gesture</span>A quick hand sign read
+              by a computer-vision model. Human, playful, on-device — and a bot
+              can&apos;t perform a live gesture convincingly.
             </div>
-            <div
-
-              className={styles.concept} data-aos="fade-up"
-            >
-              <div className={styles.ce}>📍</div>
-              <h4>Adaptive Context</h4>
-              <p>
-                Auto-login from trusted locations, network patterns, and
-                behavioral biometrics.
-              </p>
-              <div className={styles.verdict}>
-                Cut: passive, opaque — fails the consent test
-              </div>
+            <div className={styles.opt}>
+              <span className={styles.op}>✗</span>
+              <span className={styles.ot}>Haptic rhythm</span>A
+              vibration-pattern “signature.” Needed special hardware and was
+              hard to remember.
             </div>
-            <div
-
-              className={`${styles.concept} ${styles.win}`} data-aos="fade-up"
-            >
-              <div className={styles.badge}>Chosen</div>
-              <div className={styles.ce}>✌️</div>
-              <h4>Gesture Check</h4>
-              <p>
-                Verify with intuitive hand gestures recognized by on-device
-                computer vision.
-              </p>
-              <div className={styles.verdict}>
-                Won: human, playful, bot-resistant, private
-              </div>
+            <div className={styles.opt}>
+              <span className={styles.op}>✗</span>
+              <span className={styles.ot}>AI adaptive</span>Silent location /
+              behavioral signals. Powerful, but it happens <i>to</i> you — no
+              consent, no transparency.
             </div>
+          </div>
+          <div className={cx(styles.callout, styles.reveal)}>
+            <b>Fitts List thinking:</b> I mapped human vs. machine strengths (de
+            Winter &amp; Dodou, 2011; Google&apos;s People + AI Guidebook). Let
+            the machine do the repetitive verification it&apos;s good at; keep
+            the human in charge of the one thing they should own — <b>consent</b>
+            .
           </div>
         </div>
       </section>
 
       {/* SOLUTION */}
-      <section className={`${styles.band} ${styles.bandTan}`} id="solution">
+      <section id="solution" className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            05 — The Solution
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            GestureCAPTCHA: a wave to prove you're real.
+          <div className={cx(styles.ey, styles.reveal)}>Solution</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            GestureCAPTCHA: wave to prove you&apos;re human.
           </h2>
-          <p
+          <div className={styles.solgrid}>
+            <div
+              className={cx(
+                styles.tix,
+                styles.handcard,
+                styles.reveal,
+                styles.d1,
+              )}
+            >
+              <div className={styles.thead}>
+                <span>The model</span>
+                <span>21 points</span>
+              </div>
+              <HandSvg />
+              <div className={styles.cap}>
+                A CV model I trained reads 21 tracked points on your hand — live,
+                in the browser.
+              </div>
+            </div>
+            <div className={cx(styles.reveal, styles.d2)}>
+              <p className={cx(styles.lead, styles.mt0)}>
+                Instead of squinting at a distorted grid, you make one quick hand
+                gesture — a peace sign, a thumbs up — in front of your camera.
+                The model checks it&apos;s a real, live hand and waves you
+                through.
+              </p>
+              <p className={styles.bodyText}>
+                It replaces the <b>CAPTCHA</b>, and can stand in as a friendlier{" "}
+                <b>second factor</b>. The camera feed is processed on-device and
+                never saved.
+              </p>
+              <div className={styles.chips}>
+                <div className={styles.chip}>
+                  <span className={styles.gi} aria-hidden="true">
+                    ✌️
+                  </span>{" "}
+                  Peace sign
+                </div>
+                <div className={styles.chip}>
+                  <span className={styles.gi} aria-hidden="true">
+                    👍
+                  </span>{" "}
+                  Thumbs up
+                </div>
+                <div className={styles.chip}>
+                  <span className={styles.gi} aria-hidden="true">
+                    👋
+                  </span>{" "}
+                  Wave
+                </div>
+              </div>
+              {/* TODO: point this at the live ML5 demo once it has a public URL */}
+              <a className={styles.btn} href="#">
+                Try the live model →
+              </a>
+            </div>
+          </div>
 
-            className={styles.secBody} data-aos="fade-up"
-          >
-            <strong style={{ color: "var(--navy)" }}>Why gestures?</strong> Gen
-            Z communicates with them constantly — peace sign, thumbs up. They're
-            playful and familiar, yet bots can't perform human gestures
-            convincingly. So they solve the security problem and the frustration
-            problem at once. The user performs a short sequence; on-device AI
-            verifies it locally and never stores the image.
-          </p>
+          <div className={styles.flow}>
+            <div
+              className={cx(
+                styles.tix,
+                styles.b,
+                styles.fstep,
+                styles.reveal,
+                styles.d1,
+              )}
+            >
+              <div className={styles.thead}>
+                <span>Step 1</span>
+                <span>splash</span>
+              </div>
+              <div className={styles.stepTitle}>Start gesture check</div>
+              <div className={cx(styles.lock, styles.lockGap)}>
+                You&apos;re always in control.
+              </div>
+              <div className={styles.mini}>Start gesture check</div>
+            </div>
+            <div className={cx(styles.farr, styles.reveal, styles.d1)} aria-hidden="true">
+              →
+            </div>
+            <div
+              className={cx(
+                styles.tix,
+                styles.b,
+                styles.fstep,
+                styles.reveal,
+                styles.d2,
+              )}
+            >
+              <div className={styles.thead}>
+                <span>Step 2</span>
+                <span>🔒</span>
+              </div>
+              <div className={cx(styles.prev, styles.trowBlue)} aria-hidden="true">
+                📷
+              </div>
+              <div className={styles.lock}>Checked on device · never saved.</div>
+            </div>
+            <div className={cx(styles.farr, styles.reveal, styles.d2)} aria-hidden="true">
+              →
+            </div>
+            <div
+              className={cx(
+                styles.tix,
+                styles.g,
+                styles.fstep,
+                styles.reveal,
+                styles.d3,
+              )}
+            >
+              <div className={styles.thead}>
+                <span>Step 3</span>
+                <span>gesture</span>
+              </div>
+              <div className={cx(styles.prev, styles.trowGreen)} aria-hidden="true">
+                ✌️
+              </div>
+              <div className={styles.lock}>
+                Shown as an icon — never guess.
+              </div>
+            </div>
+            <div className={cx(styles.farr, styles.reveal, styles.d3)} aria-hidden="true">
+              →
+            </div>
+            <div
+              className={cx(
+                styles.tix,
+                styles.g,
+                styles.fstep,
+                styles.reveal,
+                styles.d4,
+              )}
+            >
+              <div className={styles.thead}>
+                <span>Step 4</span>
+                <span>done</span>
+              </div>
+              <div className={styles.ok} aria-hidden="true">
+                ✓
+              </div>
+              <div className={styles.stepTitleC}>Verified human.</div>
+              <div className={cx(styles.lock, styles.lockC)}>
+                No code. No grid.
+              </div>
+            </div>
+          </div>
+
+          <div className={cx(styles.pull, styles.reveal)}>
+            A wave, instead of a{" "}
+            <span className={styles.cGreen}>CAPTCHA</span>.
+          </div>
         </div>
       </section>
 
       {/* MENTAL MODELS */}
-      <section id="mental-models" className={styles.section}>
+      <section className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            06 — Designing Around Trust
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            Five user mental models shaped every screen.
+          <div className={cx(styles.ey, styles.reveal)}>Design decisions</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            Each design choice came from a user mental model.
           </h2>
-          <p
-
-            className={styles.secBody} data-aos="fade-up"
-          >
-            Gesture input is novel, and novelty in a security flow breeds
-            anxiety. I designed each decision against how users actually think
-            about being watched, surprised, and asked to act.
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            I mapped the assumptions people bring to a camera-based check, then
+            designed against each one.
           </p>
-          <div className={styles.mm}>
+          <div className={styles.mmgrid}>
             <div
-
-              className={styles.mrow} data-aos="fade-up"
+              className={cx(styles.tix, styles.mm, styles.reveal, styles.d1)}
             >
-              <div className={styles.quoteS}>
-                "If I'm using my camera for a security check, it could be
-                recording me — that feels risky."
+              <div className={styles.thead}>
+                <span>Mental model 01</span>
+                <span>clarity</span>
               </div>
-              <div className={styles.impl}>
-                <span>Design implication</span>
-                <p>
-                  A clear local-only disclaimer: "GestureCAPTCHA verifies your
-                  gesture locally and never stores your image."
-                </p>
+              <div className={styles.mq}>
+                <span className={styles.qi}>“</span>If I don&apos;t know a
+                gesture&apos;s name, I can&apos;t perform it.
+                <span className={styles.qi}>”</span>
+              </div>
+              <div className={styles.imp}>
+                <b>→</b> Show gestures as <b>icons and demos</b>, and let people
+                pick a gesture they already recognize.
               </div>
             </div>
             <div
-
-              className={styles.mrow} data-aos="fade-up"
+              className={cx(styles.tix, styles.mm, styles.reveal, styles.d1)}
             >
-              <div className={styles.quoteS}>
-                "I want to be the one to start the interaction — not have the
-                system surprise me."
+              <div className={styles.thead}>
+                <span>Mental model 02</span>
+                <span>privacy</span>
               </div>
-              <div className={styles.impl}>
-                <span>Design implication</span>
-                <p>
-                  An opt-in "Start Gesture Check" button instead of automatic
-                  detection — giving the user agency and consent.
-                </p>
+              <div className={styles.mq}>
+                <span className={styles.qi}>“</span>The camera could be
+                recording me.<span className={styles.qi}>”</span>
+              </div>
+              <div className={styles.imp}>
+                <b>→</b> Say the quiet part out loud: an{" "}
+                <b>on-device disclaimer</b> that the image is verified locally
+                and never stored.
               </div>
             </div>
             <div
-
-              className={styles.mrow} data-aos="fade-up"
+              className={cx(styles.tix, styles.mm, styles.reveal, styles.d2)}
             >
-              <div className={styles.quoteS}>
-                "If I don't know the name of a gesture, I can't be expected to
-                perform it correctly."
+              <div className={styles.thead}>
+                <span>Mental model 03</span>
+                <span>consent</span>
               </div>
-              <div className={styles.impl}>
-                <span>Design implication</span>
-                <p>
-                  Pair every gesture name with a visual demo, and let users pick
-                  gestures they already recognize.
-                </p>
+              <div className={styles.mq}>
+                <span className={styles.qi}>“</span>I want to start it — not be
+                surprised by it.<span className={styles.qi}>”</span>
+              </div>
+              <div className={styles.imp}>
+                <b>→</b> No auto-detection. A clear, opt-in{" "}
+                <b>“Start gesture check”</b> button hands control to the person.
               </div>
             </div>
             <div
-
-              className={styles.mrow} data-aos="fade-up"
+              className={cx(styles.tix, styles.mm, styles.reveal, styles.d2)}
             >
-              <div className={styles.quoteS}>
-                "If it opens in a new tab, it looks like spam."
+              <div className={styles.thead}>
+                <span>Mental model 04</span>
+                <span>trust</span>
               </div>
-              <div className={styles.impl}>
-                <span>Design implication</span>
-                <p>
-                  Keep the entire verification embedded in the same tab to
-                  preserve continuity and trust.
-                </p>
+              <div className={styles.mq}>
+                <span className={styles.qi}>“</span>A pop-up in a new tab looks
+                like spam.<span className={styles.qi}>”</span>
+              </div>
+              <div className={styles.imp}>
+                <b>→</b> Keep the whole check <b>in the same tab</b>, embedded in
+                the flow the user already trusts.
               </div>
             </div>
-            <div
-
-              className={styles.mrow} data-aos="fade-up"
-            >
-              <div className={styles.quoteS}>
-                "I need to know what's about to happen before I'm asked to do
-                something."
-              </div>
-              <div className={styles.impl}>
-                <span>Design implication</span>
-                <p>
-                  A brief splash screen prepares the user for what's expected,
-                  removing disorientation.
-                </p>
-              </div>
+          </div>
+          <div
+            className={cx(styles.tix, styles.mm, styles.mmWide, styles.reveal)}
+          >
+            <div className={styles.thead}>
+              <span>Mental model 05</span>
+              <span>readiness</span>
+            </div>
+            <div className={styles.mq}>
+              <span className={styles.qi}>“</span>I need to know what&apos;s
+              about to happen.<span className={styles.qi}>”</span>
+            </div>
+            <div className={styles.imp}>
+              <b>→</b> A short <b>splash screen</b> previews the gesture step, so
+              the camera never turns on cold.
             </div>
           </div>
         </div>
       </section>
 
-      {/* PROCESS */}
-      <section className={`${styles.band} ${styles.bandPeri}`} id="process">
+      {/* TESTING */}
+      <section id="testing" className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            07 — How I Built It
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            Two phases: design the trust, then train the model.
+          <div className={cx(styles.ey, styles.reveal)}>Testing</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            I put the gesture check in front of real people.
           </h2>
-          <div className={styles.phases}>
-            <div
-
-              className={styles.phase} data-aos="fade-up"
-            >
-              <div>
-                <span className={styles.pn}>01</span>
-                <div className={styles.ph}>Research</div>
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            The mental models above didn&apos;t come from a whiteboard — they
+            came from watching people meet a camera-based check for the first
+            time.
+          </p>
+          <div className={styles.tgrid}>
+            <div className={cx(styles.tix, styles.g, styles.reveal, styles.d1)}>
+              <div className={styles.thead}>
+                <span>Tested with</span>
+                <span>sessions</span>
               </div>
-              <div>
-                <h4>UX research & synthesis</h4>
-                <p>
-                  Interviews, Reddit sentiment analysis, and login observation,
-                  synthesized through affinity and cognitive-offloading maps to
-                  define where AI helps and where the human stays in control.
-                </p>
-              </div>
-            </div>
-            <div
-
-              className={styles.phase} data-aos="fade-up"
-            >
-              <div>
-                <span className={styles.pn}>02</span>
-                <div className={styles.ph}>Sketch</div>
-              </div>
-              <div>
-                <h4>UI sketches & flow</h4>
-                <p>
-                  Mapped the splash → consent → gesture sequence → verified
-                  flow, dividing clearly what the AI does from what the human
-                  decides.
-                </p>
+              <div className={styles.trow}>
+                <div className={cx(styles.numB, styles.cGreen)}>[N]</div>
+                <div className={cx(styles.tt, styles.ttGap)}>Participants</div>
+                <div className={styles.ts}>
+                  Watched them attempt the gesture flow cold, with no coaching.
+                </div>
               </div>
             </div>
-            <div
-
-              className={styles.phase} data-aos="fade-up"
-            >
-              <div>
-                <span className={styles.pn}>03</span>
-                <div className={styles.ph}>Prototype</div>
+            <div className={cx(styles.tix, styles.b, styles.reveal, styles.d2)}>
+              <div className={styles.thead}>
+                <span>Result</span>
+                <span>first-try</span>
               </div>
-              <div>
-                <h4>High-fidelity prototype</h4>
-                <p>
-                  Designed the embedded, single-tab experience with
-                  end-to-end-encryption cues, step counters, and gesture demos
-                  baked into each step.
-                </p>
-              </div>
-            </div>
-            <div
-
-              className={styles.phase} data-aos="fade-up"
-            >
-              <div>
-                <span className={styles.pn}>04</span>
-                <div className={styles.ph}>Build</div>
-              </div>
-              <div>
-                <h4>Working AI model</h4>
-                <p>
-                  Trained a gesture-recognition model in ML5.js and connected it
-                  to the flow — a functional proof that the concept runs in a
-                  real browser.
-                </p>
+              <div className={styles.trow}>
+                <div className={cx(styles.numB, styles.cBlue)}>[__]%</div>
+                <div className={cx(styles.tt, styles.ttGap)}>
+                  Passed on the first gesture
+                </div>
+                <div className={styles.ts}>
+                  Your first-try success rate — the number to beat the CAPTCHA
+                  with.
+                </div>
               </div>
             </div>
+            <div className={cx(styles.tix, styles.p, styles.reveal, styles.d3)}>
+              <div className={styles.thead}>
+                <span>Iteration</span>
+                <span>changed</span>
+              </div>
+              <div className={styles.trow}>
+                <div className={styles.tt}>What broke → what I fixed</div>
+                <div className={styles.ts}>
+                  e.g. “people didn&apos;t notice the start button, so I added a
+                  splash screen.”
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={cx(styles.todo, styles.reveal)}>
+            <b>Fill in:</b> your real testing numbers and one concrete “this
+            broke → I changed it” example. This section is where they turn the
+            study from a concept into evidence, so it&apos;s worth being
+            specific.
           </div>
         </div>
       </section>
@@ -697,133 +1064,195 @@ export default function GestureBased() {
       {/* IMPACT */}
       <section id="impact" className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            08 — Impact
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            A concept that runs — and a clear answer to the friction problem.
+          <div className={cx(styles.ey, styles.reveal)}>Impact</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            It&apos;s a working concept — here&apos;s what&apos;s real, and the
+            bar it&apos;s aiming at.
           </h2>
-          <div className={styles.impact}>
-            <div
-
-              className={`${styles.ibox} ${styles.proven}`} data-aos="fade-up"
-            >
-              <span className={styles.tag}>Built & working</span>
-              <div className={styles.h}>Live ML model</div>
-              <p>
-                A functioning gesture-recognition model in ML5.js, proving the
-                flow works end-to-end in a real browser — not just in mockups.
-              </p>
+          <div
+            className={cx(
+              styles.tix,
+              styles.g,
+              styles.mt12,
+              styles.reveal,
+              styles.d1,
+            )}
+          >
+            <div className={styles.thead}>
+              <span>
+                <b>What&apos;s real today</b>
+              </span>
+              <span>✓ working model</span>
             </div>
-            <div
-
-              className={`${styles.ibox} ${styles.proven}`} data-aos="fade-up"
-            >
-              <span className={styles.tag}>Built & working</span>
-              <div className={styles.h}>5 mental models → UI</div>
-              <p>
-                Every interaction decision maps to a documented user belief
-                about privacy, consent, and control — design grounded in
-                evidence.
-              </p>
+            <div className={styles.trow}>
+              <div className={cx(styles.ts, styles.trowNoteLg)}>
+                This isn&apos;t a mockup. The gesture check runs on an actual
+                computer-vision model I trained with <b>ML5.js</b>, reading a
+                live hand from <b>21 tracked points</b>, right in the browser. A
+                working thing — not a pretty picture of one.
+              </div>
             </div>
-            <div
-
-              className={`${styles.ibox} ${styles.proj}`} data-aos="fade-up"
-            >
-              <span className={styles.tag}>Projected at scale</span>
-              <div className={styles.h}>No phone, no codes</div>
-              <p>
-                Removes the device-dependency that locks people out —
-                verification needs only a camera the user already has.
-              </p>
+          </div>
+          <p
+            className={cx(
+              styles.bodyText,
+              styles.mt38,
+              styles.leadStrong,
+              styles.reveal,
+            )}
+          >
+            The bar to beat (today&apos;s CAPTCHA, for context):
+          </p>
+          <div className={cx(styles.tgrid, styles.mt20)}>
+            <div className={cx(styles.tix, styles.b, styles.reveal, styles.d1)}>
+              <div className={styles.thead}>
+                <span>Background</span>
+                <span>Baymard</span>
+              </div>
+              <div className={styles.trow}>
+                <div className={cx(styles.numB, styles.cBlue)}>
+                  <span className={styles.count} data-count="29">
+                    29
+                  </span>
+                  %
+                </div>
+                <div className={cx(styles.tt, styles.ttGap)}>
+                  Fail a CAPTCHA first try
+                </div>
+                <div className={styles.ts}>
+                  Industry benchmark — not my result. It&apos;s the failure rate
+                  a gesture check has to beat.
+                </div>
+              </div>
             </div>
-            <div
-
-              className={`${styles.ibox} ${styles.proj}`} data-aos="fade-up"
-            >
-              <span className={styles.tag}>Projected at scale</span>
-              <div className={styles.h}>Bot-resistant by design</div>
-              <p>
-                Human gestures are hard for bots to fake convincingly,
-                addressing the AI-vs-CAPTCHA arms race head-on.
-              </p>
+            <div className={cx(styles.tix, styles.p, styles.reveal, styles.d2)}>
+              <div className={styles.thead}>
+                <span>Background</span>
+                <span>Forrester</span>
+              </div>
+              <div className={styles.trow}>
+                <div className={cx(styles.numB, styles.cPink)}>
+                  <span className={styles.count} data-count="19">
+                    19
+                  </span>
+                  %
+                </div>
+                <div className={cx(styles.tt, styles.ttGap)}>
+                  Abandon a site over one
+                </div>
+                <div className={styles.ts}>
+                  Industry benchmark — the business cost of getting verification
+                  wrong.
+                </div>
+              </div>
+            </div>
+            <div className={cx(styles.tix, styles.g, styles.reveal, styles.d3)}>
+              <div className={styles.thead}>
+                <span>Mine</span>
+                <span>to add</span>
+              </div>
+              <div className={styles.trow}>
+                <div className={cx(styles.numB, styles.cGreen, styles.sm)}>
+                  [__]%
+                </div>
+                <div className={cx(styles.tt, styles.ttGap)}>
+                  My first-try success
+                </div>
+                <div className={styles.ts}>
+                  Pull this from Testing once filled in — this is the number
+                  that&apos;s actually yours.
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* LEARNINGS */}
-      <section id="learnings" className={styles.section}>
+      {/* LIMITATIONS */}
+      <section className={styles.section}>
         <div className={styles.wrap}>
-          <div
-
-            className={styles.secNum} data-aos="fade-up"
-          >
-            09 — Reflections
-          </div>
-          <h2
-
-            className={styles.secH} data-aos="fade-up"
-          >
-            What I learned designing security people don't hate.
+          <div className={cx(styles.ey, styles.reveal)}>Limitations</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            What this does — and pointedly doesn&apos;t — solve.
           </h2>
-          <div className={styles.learn}>
-            <div
-
-              className={styles.lcard} data-aos="fade-up"
-            >
-              <h4>Trust is the real UX</h4>
-              <p>
-                In security, perceived safety matters as much as actual safety.
-                The disclaimer and opt-in mattered as much as the model.
-              </p>
+          <div className={styles.limgrid}>
+            <div className={cx(styles.tix, styles.reveal, styles.d1)}>
+              <div className={styles.thead}>
+                <span>Scope</span>
+                <span>humanness</span>
+              </div>
+              <div className={cx(styles.trow, styles.trowBlue)}>
+                <div className={styles.tt}>Human, not identity</div>
+                <div className={styles.ts}>
+                  A gesture proves a live person is present — not <i>who</i> they
+                  are. So it&apos;s a CAPTCHA / second-factor, not a password
+                  replacement. Naming it “GestureCAPTCHA” keeps that honest.
+                </div>
+              </div>
             </div>
-            <div
-
-              className={styles.lcard} data-aos="fade-up"
-            >
-              <h4>Design with AI, not for it</h4>
-              <p>
-                The cognitive-offloading map kept the human in charge of consent
-                while AI handled the repetitive verification — a balance worth
-                defending.
-              </p>
+            <div className={cx(styles.tix, styles.reveal, styles.d2)}>
+              <div className={styles.thead}>
+                <span>Security</span>
+                <span>spoofing</span>
+              </div>
+              <div className={cx(styles.trow, styles.trowRed)}>
+                <div className={styles.tt}>A video could fake it</div>
+                <div className={styles.ts}>
+                  A replayed clip of a hand could fool a naïve check. A
+                  production version needs <b>liveness detection</b> — the
+                  obvious next research question.
+                </div>
+              </div>
             </div>
-            <div
-
-              className={styles.lcard} data-aos="fade-up"
-            >
-              <h4>Accessibility next</h4>
-              <p>
-                Gestures aren't universal. The next round needs gesture
-                alternatives and testing with users who can't perform standard
-                hand signs.
-              </p>
+            <div className={cx(styles.tix, styles.reveal, styles.d3)}>
+              <div className={styles.thead}>
+                <span>Accessibility</span>
+                <span>fallback</span>
+              </div>
+              <div className={cx(styles.trow, styles.trowGreen)}>
+                <div className={styles.tt}>Gestures aren&apos;t for everyone</div>
+                <div className={styles.ts}>
+                  They exclude some motor abilities — the same trap CAPTCHAs fall
+                  into. Every flow keeps a <b>“Try another method”</b> path, so
+                  the check is never the only door.
+                </div>
+              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* REFLECTION */}
+      <section className={styles.section}>
+        <div className={styles.wrap}>
+          <div className={cx(styles.ey, styles.reveal)}>Reflection</div>
+          <h2 className={cx(styles.claim, styles.reveal, styles.d1)}>
+            Trust isn&apos;t a feature you add at the end.
+          </h2>
+          <p className={cx(styles.lead, styles.reveal, styles.d2)}>
+            Training the model to recognize a hand was the easy half. The real
+            work was getting someone to feel safe letting a camera watch them for
+            a second — and making sure the people a CAPTCHA already fails
+            aren&apos;t failed again. That flipped how I design: the feeling comes
+            first, the feature serves it.
+          </p>
+          <div className={cx(styles.kicker, styles.mt44, styles.reveal)}>
+            The best security might not feel like security at all.
+            <br />
+            It might just feel like{" "}
+            <span className={styles.cGreen}>waving hello.</span>
           </div>
         </div>
       </section>
 
       <footer className={styles.footer}>
         <div className={styles.wrap}>
-          <div className={styles.big}>
-            Password-less security that feels human — fast, private, and a
-            little bit playful.
-          </div>
-          <p>
-            GestureCAPTCHA was an exercise in designing for trust: proving that
-            the moment we resent most online can be made effortless.
-          </p>
-          <div className={styles.fcredit}>
-            <span>Gesture Based Authentication · Deepali Babuta</span>
-            <span>NYU · UX & AI Final Project</span>
+          <div className={styles.logo}>Deepali</div>
+          <div className={styles.refs}>
+            Computer-vision concept · gesture recognition built with ML5.js.
+            &nbsp;Sources: Lazar et al. (2007) · Gadepally et al. (2018) · de
+            Winter &amp; Dodou (2011) · Google People + AI Guidebook · Baymard
+            Institute · Forrester.
           </div>
         </div>
       </footer>
