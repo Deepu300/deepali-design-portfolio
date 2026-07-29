@@ -976,6 +976,10 @@
 .footer {
   padding: 64px 0 84px;
   text-align: center;
+  /* components/Footer/footer.css sets a bare `footer { background-color }`
+     site-wide; this case study's footer sits on the page ground instead. */
+  background: transparent;
+  color: var(--ink);
 }
 
 .footer .logo {
