@@ -2,15 +2,15 @@ export const ProjectsList = [
   {
     id: "4bl0n1",
     thumbnail: ["adobe1.png", "adobe2.png"],
-    projectTitle: "Rethinking Ai Shape Tools",
+    projectTitle: "Shape Properties Panel",
     projectDesc:
-      "Collaborated with the CC Illustrator Team and redesigned Adobe Illustrator’s Shapes Panel ",
+      "Collaborated with the CC Illustrator Team to redesign Adobe Illustrator’s Shape Tools panel for discoverability.",
     tags: [
       { label: "AI", text: "#714C8F", bg: "#714C8F" },
       { label: "GenAI", text: "#556354", bg: "#BECFBC" },
       { label: "Internship", text: "#714C8F", bg: "#DDD3F4" },
     ],
-    link: "/work/rethink-ai-shapes",
+    link: "/tool-properties-panel.html",
   },
   {
     id: "sd3n2f",

@@ -90,14 +90,23 @@ const Project = ({ data }) => {
       </div>
 
       <div className="flex items-center justify-between project-itemmt-8 project-btns">
-        <Link
-          href={data.link}
-          target={data.link.includes("behance") ? "_blank" : ""}
-        >
-          <div className="px-8 py-1 text-sm md:text-xl rounded-3xl view h-min w-min">
-            View
-          </div>
-        </Link>
+        {data.link.endsWith(".html") || data.link.includes("http") ? (
+          <a
+            href={data.link}
+            target={data.link.includes("behance") || data.link.includes("http") ? "_blank" : undefined}
+            rel={data.link.includes("http") ? "noopener noreferrer" : undefined}
+          >
+            <div className="px-8 py-1 text-sm md:text-xl rounded-3xl view h-min w-min">
+              View
+            </div>
+          </a>
+        ) : (
+          <Link href={data.link}>
+            <div className="px-8 py-1 text-sm md:text-xl rounded-3xl view h-min w-min">
+              View
+            </div>
+          </Link>
+        )}
         <div
           className={isActive ? "active like " : "like cursor-pointer"}
           onClick={() => {
