@@ -1,5 +1,5 @@
 "use client";
-import { avigeaFont, louisGeorgeCafeFont } from "@/utils/fonts";
+import { avigeaFont, frauncesFont, louisGeorgeCafeFont } from "@/utils/fonts";
 import "./hero_comp.css";
 import Link from "next/link";
 import { motion as m } from "framer-motion";
@@ -40,9 +40,9 @@ const HeroHeader = () => {
     "One Pixel at a Time",
   ];
   return (
-    <div className="flex flex-col items-center w-full m-auto lg:my-12 hero-header h-screen min-h-screen lg:h-[90%]">
+    <div className="flex flex-col items-center w-full m-auto hero-header overflow-hidden">
       {/* MAIN WRAPPER: This structure is good */}
-      <div className="relative flex flex-col items-center justify-center w-full h-[70%] lg:min-h-[50vh] gap-12 md:gap-16 my-12 md:my-20 hero-header__wrapper">
+      <div className="relative flex flex-col items-center justify-center w-full flex-1 min-h-0 gap-6 md:gap-8 lg:gap-10 hero-header__wrapper">
         {/* TEXT CONTAINER: This remains constrained for readability */}
         {/* CHANGED: Removed the outer div with the problematic fixed width. Added padding here. */}
         <div className="max-w-5xl px-4 text-center z-50">
@@ -52,7 +52,7 @@ const HeroHeader = () => {
                 1. Removed all inline styles from the <p> tag.
                 2. Added responsive Tailwind classes for font size and color.
               */}
-            <p className="text-2xl text-[#363636] md:text-4xl lg:text-[2.5rem] font-normal line-height-small mt-24">
+            <p className="text-2xl text-[#363636] md:text-4xl lg:text-[2.5rem] font-normal line-height-small">
               {"I'm"}{" "}
               <a
                 href="https://www.youtube.com/watch?v=Mvg79yrgatY&t=3s"
@@ -61,15 +61,15 @@ const HeroHeader = () => {
                 className="inline-block z-50"
               >
                 <m.span
+                  className={`${frauncesFont.className} italic font-semibold`}
                   initial={{ fontStyle: "normal", fontWeight: 200 }}
                   animate={{
                     fontStyle: "italic",
-                    fontWeight: 300,
+                    fontWeight: 600,
                     transition: { delay: 1.5, duration: 0.6 },
                   }}
                   style={{
                     color: "#363636",
-                    fontFamily: avigeaFont.style.fontFamily,
                     textDecorationLine: "underline",
                     textDecorationColor: "#FFC240",
                     zIndex: 50,
@@ -85,8 +85,8 @@ const HeroHeader = () => {
         </div>
         <div className="text-center z-50">
           {/* CHANGED: Reduced font size for better hierarchy */}
-          <h3 className="text-base md:text-2xl lg:mt-20 line-height-large-between">
-            Currently pursuing MS{" "}
+          <h3 className="text-base md:text-2xl mt-3 md:mt-4 line-height-large-between">
+            MS Integrated Design and Media{" "}
             <Link href={"https://www.nyu.edu/"} target="_blank">
               @NYU
             </Link>{" "}
@@ -194,7 +194,7 @@ const HeroHeader = () => {
               viewBox="0 0 200 194"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="absolute w-32 -bottom-16 lg:-bottom-12 left-6 md:w-48 lg:left-[15%] animate-float [animation-delay:0.5s]"
+              className="absolute w-32 bottom-4 left-6 md:w-48 md:bottom-6 lg:left-[15%] lg:bottom-8 animate-float [animation-delay:0.5s]"
               // ADDED: Apply the variants
               variants={svgItemVariants}
             >
@@ -230,7 +230,7 @@ const HeroHeader = () => {
               height="197"
               viewBox="0 0 203 194"
               fill="none"
-              className="absolute w-32 -bottom-10 lg:bottom-0 right-2 md:w-48 lg:right-[10%] animate-float [animation-delay:1s]"
+              className="absolute w-32 bottom-4 right-2 md:w-48 md:bottom-6 lg:right-[10%] lg:bottom-8 animate-float [animation-delay:1s]"
               // ADDED: Apply the variants
               variants={svgItemVariants}
             >
@@ -262,9 +262,9 @@ const HeroHeader = () => {
       </div>
 
       {/* CHANGED: Added background and text color classes to match the new design */}
-      <div className="w-full py-3 overflow-hidden md:py-9 hero-infinite-scroll bg-[#363636] text-gray-200">
+      <div className="w-full py-2 overflow-hidden md:py-3 hero-infinite-scroll bg-[#363636] text-gray-200 shrink-0">
         <ul
-          className={`${avigeaFont.className} flex text-xs md:text-2xl gap-4 md:gap-12 tracking-wider w-max`}
+          className={`${frauncesFont.className} flex text-xs md:text-2xl font-light gap-4 md:gap-12 tracking-wider w-max`}
         >
           {infinite_scroll.map((item, idx) => (
             <li
@@ -275,14 +275,14 @@ const HeroHeader = () => {
               <svg
                 width="22"
                 height="22"
-                viewBox="0 0 27 27"
+                viewBox="0 0 24 24"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
-                className="w-3 md:w-6"
+                className="w-3 md:w-5"
+                aria-hidden="true"
               >
-                {/* CHANGED: Fill color to match new text color */}
                 <path
-                  d="M13.5 6.10352e-05L16.7031 5.76719L23.0459 3.95412L21.2329 10.297L27 13.5001L21.2329 16.7031L23.0459 23.046L16.7031 21.2329L13.5 27.0001L10.2969 21.2329L3.95406 23.046L5.76713 16.7031L0 13.5001L5.76713 10.297L3.95406 3.95412L10.2969 5.76719L13.5 6.10352e-05Z"
+                  d="M12 0.5C12.35 6.2 17.8 11.65 23.5 12C17.8 12.35 12.35 17.8 12 23.5C11.65 17.8 6.2 12.35 0.5 12C6.2 11.65 11.65 6.2 12 0.5Z"
                   fill="currentColor"
                 />
               </svg>

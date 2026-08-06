@@ -1,124 +1,113 @@
 "use client";
 
-import { avigeaFont } from "@/utils/fonts";
+import { frauncesFont } from "@/utils/fonts";
 import { navList } from "@/constants/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./navbar.css";
 import { motion as m } from "framer-motion";
 
-const Navbar = ({ isOpen, setIsOpen, hidden }) => {
+const Navbar = ({ isOpen, setIsOpen }) => {
   const pathname = usePathname();
-  console.log(pathname);
 
-  if (hidden) {
-    return null;
-  }
+  const isActive = (link) => {
+    if (link.activeScreen === "work") {
+      return (
+        pathname === "/" ||
+        pathname.startsWith("/work") ||
+        pathname.includes("tool-properties")
+      );
+    }
+    if (link.activeScreen === "play") {
+      return pathname.startsWith("/play");
+    }
+    if (link.activeScreen === "about") {
+      return pathname.startsWith("/about");
+    }
+    return false;
+  };
 
   return (
-    <nav
-      className={`max-w-screen-2xl w-11/12 flex items-center justify-between m-auto pt-6 pb-2 md:pt-12 md:pb-6 relative`}
-    >
-      <div className={`${avigeaFont.className} brand-logo md:text-4xl text-lg`}>
-        <Link href="/">Deepali.</Link>
-      </div>
+    <header className="site-header">
+      <nav className="site-nav" aria-label="Primary">
+        <Link href="/" className="brand">
+          <span className={`brand__name ${frauncesFont.className}`}>Deepali</span>
+          <img
+            src="/images/header-star.png"
+            alt=""
+            className="brand__star"
+            width={42}
+            height={43}
+            aria-hidden="true"
+          />
+          <span className="brand__role">Product Designer</span>
+        </Link>
 
-      <ul className={`nav-list hidden md:flex gap-7`}>
-        {navList.map((link, idx) => (
-          <Link
-            href={link.path}
-            key={idx}
-            target={link.path.includes("https") ? "_blank" : ""}
-          >
-            <li
-              style={
-                pathname.split("/").includes(link.activeScreen)
-                  ? { backgroundColor: `${link.color}` }
-                  : {}
-              }
-              className={`nav-list__item px-8 py-1 rounded-3xl md:text-lg`}
-            >
-              {link.title}
-            </li>
-          </Link>
-        ))}
-      </ul>
-
-      <div
-        className="flex ham-btn md:hidden"
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        {!isOpen ? (
-          <div className="ham-burger-open">
-            <svg
-              width="24"
-              height="19"
-              viewBox="0 0 24 19"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M23.4373 1.37695H0.450195"
-                stroke="var(--secondary-color)"
-                strokeWidth="1.76824"
-              />
-              <path
-                d="M23.4373 17.2915H0.450195"
-                stroke="var(--secondary-color)"
-                strokeWidth="1.76824"
-              />
-            </svg>
-          </div>
-        ) : (
-          <div className="ham-burger-close">
-            <svg
-              width="20"
-              height="19"
-              viewBox="0 0 20 19"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M19 1L1 18"
-                stroke="var(--secondary-color)"
-                stroke-width="1.76824"
-              />
-              <path
-                d="M19 18L1 1"
-                stroke="var(--secondary-color)"
-                stroke-width="1.76824"
-              />
-            </svg>
-          </div>
-        )}
-      </div>
-
-      {isOpen && (
-        <m.ul
-          className={`nav-list-mobile md:hidden absolute top-16 h-full w-full flex flex-col items-center gap-10 pt-12 ${avigeaFont.className}`}
-          initial={{ height: 0 }}
-          animate={{ height: "100%" }}
-          exit={{ height: 0 }}
-          transition={{ duration: 5 }}
-        >
-          <Link href={"/"} onClick={() => setIsOpen(false)}>
-            <div className="text-4xl nav-list__item">Home</div>
-          </Link>
-          {navList.map((link, idx) => (
-            <Link
-              href={link.path}
-              key={idx}
-              target={link.path.includes("https") ? "_blank" : ""}
-              onClick={() => setIsOpen(false)}
-            >
-              <li className={`nav-list__item text-4xl`}>
-                {idx == 0 ? "Projects" : link.title}
+        <ul className="nav-list">
+          {navList.map((link) => {
+            const active = isActive(link);
+            const external = link.path.includes("http");
+            return (
+              <li key={link.title}>
+                <Link
+                  href={link.path}
+                  target={external ? "_blank" : undefined}
+                  rel={external ? "noopener noreferrer" : undefined}
+                  className={`nav-pill${active ? " is-active" : ""}`}
+                  aria-current={active ? "page" : undefined}
+                >
+                  {link.title}
+                </Link>
               </li>
+            );
+          })}
+        </ul>
+
+        <button
+          type="button"
+          className="ham-btn"
+          aria-label={isOpen ? "Close menu" : "Open menu"}
+          aria-expanded={!!isOpen}
+          onClick={() => setIsOpen(!isOpen)}
+        >
+          {!isOpen ? (
+            <svg width="24" height="19" viewBox="0 0 24 19" fill="none" aria-hidden="true">
+              <path d="M23.4373 1.37695H0.450195" stroke="currentColor" strokeWidth="1.76824" />
+              <path d="M23.4373 17.2915H0.450195" stroke="currentColor" strokeWidth="1.76824" />
+            </svg>
+          ) : (
+            <svg width="20" height="19" viewBox="0 0 20 19" fill="none" aria-hidden="true">
+              <path d="M19 1L1 18" stroke="currentColor" strokeWidth="1.76824" />
+              <path d="M19 18L1 1" stroke="currentColor" strokeWidth="1.76824" />
+            </svg>
+          )}
+        </button>
+
+        {isOpen && (
+          <m.ul
+            className="nav-list-mobile"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.25 }}
+          >
+            <Link href="/" onClick={() => setIsOpen(false)}>
+              <li className="nav-list-mobile__item">Home</li>
             </Link>
-          ))}
-        </m.ul>
-      )}
-    </nav>
+            {navList.map((link) => (
+              <Link
+                href={link.path}
+                key={link.title}
+                target={link.path.includes("http") ? "_blank" : undefined}
+                rel={link.path.includes("http") ? "noopener noreferrer" : undefined}
+                onClick={() => setIsOpen(false)}
+              >
+                <li className="nav-list-mobile__item">{link.title}</li>
+              </Link>
+            ))}
+          </m.ul>
+        )}
+      </nav>
+    </header>
   );
 };
 

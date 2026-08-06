@@ -2,6 +2,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Afacad:ital,wght@0,400..700;1,400..700&display=swap");
 
 .hero-header {
+  height: calc(100dvh - 93px);
+  max-height: calc(100dvh - 93px);
+
   .hero-header__wrapper {
     .header__heading {
       h1 {
@@ -79,11 +82,15 @@
   }
 }
 
+@media screen and (max-width: 899px) {
+  .hero-header {
+    height: calc(100dvh - 72px);
+    max-height: calc(100dvh - 72px);
+  }
+}
+
 @media screen and (max-width: 767px) {
   .hero-header {
-    height: 35svh;
-    /* border: 1px solid red; */
-
     .hero-header__wrapper {
       .header__animation {
         .svg__wrapper {

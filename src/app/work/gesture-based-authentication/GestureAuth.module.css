@@ -45,7 +45,7 @@
 /* Nav */
 .nav {
   position: sticky;
-  top: 0;
+  top: 93px;
   z-index: 50;
   background: rgba(244, 240, 232, 0.88);
   backdrop-filter: blur(10px);
@@ -55,8 +55,14 @@
 .navWrap {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: 66px;
+  justify-content: flex-end;
+  height: 52px;
+}
+
+@media (max-width: 899px) {
+  .nav {
+    top: 72px;
+  }
 }
 
 .brand {

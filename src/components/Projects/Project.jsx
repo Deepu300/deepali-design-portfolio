@@ -1,7 +1,6 @@
 "use client";
-import { avigeaFont } from "@/utils/fonts";
 import Link from "next/link";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion as m } from "framer-motion";
 
 const Project = ({ data }) => {
@@ -9,6 +8,9 @@ const Project = ({ data }) => {
 
   const [isActive, setIsActive] = useState(false);
   const [isHovered, setHovered] = useState(false);
+  const [heartAnim, setHeartAnim] = useState(null); // "burst" | "unlike" | null
+  const heartBusy = useRef(false);
+  const heartTimer = useRef(null);
 
   const colorMap = {
     1: { text: "#883737", bg: "#DEC2C2" },
@@ -33,12 +35,68 @@ const Project = ({ data }) => {
 
   useEffect(() => {
     setIsActive(localStorage.hasOwnProperty(data.id));
-  }, []);
+  }, [data.id]);
+
   const setLike = (val) => {
-    val && !ISSERVER
-      ? localStorage.setItem(data.id, "")
-      : localStorage.removeItem(data.id);
+    if (ISSERVER) return;
+    val ? localStorage.setItem(data.id, "") : localStorage.removeItem(data.id);
   };
+
+  const clearHeartBusy = () => {
+    setHeartAnim(null);
+    heartBusy.current = false;
+    if (heartTimer.current) {
+      window.clearTimeout(heartTimer.current);
+      heartTimer.current = null;
+    }
+  };
+
+  const handleHeartClick = () => {
+    if (heartBusy.current) return;
+
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const next = !isActive;
+    setIsActive(next);
+    setLike(next);
+
+    if (prefersReduced) {
+      clearHeartBusy();
+      return;
+    }
+
+    heartBusy.current = true;
+    setHeartAnim(next ? "burst" : "unlike");
+
+    if (heartTimer.current) window.clearTimeout(heartTimer.current);
+    heartTimer.current = window.setTimeout(
+      () => clearHeartBusy(),
+      next ? 1000 : 450
+    );
+  };
+
+  const handleHeartAnimEnd = (event) => {
+    // Only clear when the sprite sheet animation finishes (not the scale pop).
+    if (
+      event.animationName !== "heart-bursts" &&
+      event.animationName !== "heart-unburst"
+    ) {
+      return;
+    }
+    clearHeartBusy();
+  };
+
+  const heartClassName = [
+    "like",
+    "cursor-pointer",
+    isActive ? "is-liked" : "",
+    heartAnim === "burst" ? "is-bursting" : "",
+    heartAnim === "unlike" ? "is-unliking" : "",
+  ]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div className="relative flex flex-col w-full p-5 md:w-1/2 md:p-6 lg:p-10 project-card">
@@ -79,9 +137,7 @@ const Project = ({ data }) => {
         </div>
       ) : null}
 
-      <div
-        className={`project-item project-title ${avigeaFont.className} text-xl pt-2 pb-3 lg:text-4xl`}
-      >
+      <div className="project-item project-title font-afacad font-medium text-xl pt-2 pb-3 lg:text-4xl">
         {data.projectTitle}
       </div>
 
@@ -93,7 +149,11 @@ const Project = ({ data }) => {
         {data.link.endsWith(".html") || data.link.includes("http") ? (
           <a
             href={data.link}
-            target={data.link.includes("behance") || data.link.includes("http") ? "_blank" : undefined}
+            target={
+              data.link.includes("behance") || data.link.includes("http")
+                ? "_blank"
+                : undefined
+            }
             rel={data.link.includes("http") ? "noopener noreferrer" : undefined}
           >
             <div className="px-8 py-1 text-sm md:text-xl rounded-3xl view h-min w-min">
@@ -108,12 +168,20 @@ const Project = ({ data }) => {
           </Link>
         )}
         <div
-          className={isActive ? "active like " : "like cursor-pointer"}
-          onClick={() => {
-            setIsActive(!isActive);
-            setLike(!isActive);
+          className={heartClassName}
+          role="button"
+          tabIndex={0}
+          aria-label={isActive ? "Unlike project" : "Like project"}
+          aria-pressed={isActive}
+          onClick={handleHeartClick}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              e.preventDefault();
+              handleHeartClick();
+            }
           }}
-        ></div>
+          onAnimationEnd={handleHeartAnimEnd}
+        />
       </div>
     </div>
   );

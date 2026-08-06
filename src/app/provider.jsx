@@ -8,10 +8,8 @@ const Provider = ({ children, ...props }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const newElement = React.cloneElement(children[0], {
-    isOpen: isOpen,
-    setIsOpen: () => {
-      setIsOpen(!isOpen);
-    },
+    isOpen,
+    setIsOpen,
   });
 
   return (

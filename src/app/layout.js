@@ -2,7 +2,7 @@ import "./globals.css";
 import { Footer } from "@/components";
 import RootNavbar from "@/components/RootNavbar";
 import Provider from "./provider";
-import { louisGeorgeCafeFont } from "@/utils/fonts";
+import { louisGeorgeCafeFont, frauncesFont } from "@/utils/fonts";
 import PageTransition from "../components/PageTransition";
 import AOSWrapper from "@/components/AOSWrapper";
 
@@ -23,11 +23,11 @@ export default function RootLayout({ children }) {
           crossOrigin="true"
         />
         <link
-          href="https://fonts.googleapis.com/css2?family=AR+One+Sans:wght@400..700&display=swap"
+          href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&family=AR+One+Sans:wght@400..700&display=swap"
           rel="stylesheet"
         />
       </head>
-      <body className={louisGeorgeCafeFont.className + " bg-main"}>
+      <body className={`${louisGeorgeCafeFont.className} ${frauncesFont.variable} bg-main`}>
         <Provider>
           <RootNavbar />
           <AOSWrapper />

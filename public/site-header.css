@@ -1,3 +1,4 @@
+/* Shared site header — matches React Navbar for standalone HTML case studies */
 .site-header {
   background: #eef0eb;
   border-bottom: 3px solid #363636;
@@ -16,13 +17,12 @@
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  position: relative;
   box-sizing: border-box;
   color: #363636;
-  font-family: "Afacad", "Avigea", system-ui, sans-serif;
+  font-family: "Afacad", system-ui, sans-serif;
 }
 
-.brand {
+.site-nav .brand {
   display: inline-flex;
   align-items: center;
   gap: 10px;
@@ -31,7 +31,8 @@
   min-width: 0;
 }
 
-.brand__name {
+.site-nav .brand__name {
+  font-family: "Fraunces", Georgia, serif;
   font-size: 29px;
   font-weight: 600;
   font-style: italic;
@@ -40,16 +41,16 @@
   white-space: nowrap;
 }
 
-.brand__star {
+.site-nav .brand__star {
   width: 42px;
   height: 43px;
   flex-shrink: 0;
   display: block;
-  animation: headerStarSpin 12s linear infinite;
+  animation: siteHeaderStarSpin 12s linear infinite;
   transform-origin: center;
 }
 
-.brand__role {
+.site-nav .brand__role {
   font-size: 20px;
   font-weight: 400;
   line-height: 1;
@@ -59,7 +60,7 @@
   margin-left: 4px;
 }
 
-.nav-list {
+.site-nav .nav-list {
   display: none;
   align-items: center;
   gap: 24px;
@@ -68,7 +69,7 @@
   padding: 0;
 }
 
-.nav-pill {
+.site-nav .nav-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -86,71 +87,29 @@
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
-.nav-pill:hover {
+.site-nav .nav-pill:hover {
   background: #d2d6cc;
   transform: translateY(-1px);
 }
 
-.nav-pill.is-active {
+.site-nav .nav-pill.is-active {
   background: #d2d6cc;
 }
 
-.ham-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 0;
-  background: transparent;
-  color: #363636;
-  cursor: pointer;
-  padding: 0;
-}
-
-.nav-list-mobile {
-  position: absolute;
-  inset: 100% 0 auto;
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-  margin: 0;
-  padding: 36px 20px 48px;
-  list-style: none;
-  background: #eef0eb;
-  border-bottom: 3px solid #363636;
-  font-family: "Afacad", "Avigea", system-ui, sans-serif;
-}
-
-.nav-list-mobile__item {
-  font-size: 1.75rem;
-  color: #363636;
-}
-
-@keyframes headerStarSpin {
+@keyframes siteHeaderStarSpin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .brand__star {
+  .site-nav .brand__star {
     animation: none;
-  }
-
-  .nav-pill:hover {
-    transform: none;
   }
 }
 
 @media (min-width: 900px) {
-  .nav-list {
+  .site-nav .nav-list {
     display: flex;
-  }
-
-  .ham-btn {
-    display: none;
   }
 }
 
@@ -160,16 +119,16 @@
     padding: 0 16px;
   }
 
-  .brand__name {
+  .site-nav .brand__name {
     font-size: 24px;
   }
 
-  .brand__star {
+  .site-nav .brand__star {
     width: 30px;
     height: 31px;
   }
 
-  .brand__role {
+  .site-nav .brand__role {
     display: none;
   }
 }

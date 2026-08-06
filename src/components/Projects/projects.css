@@ -79,16 +79,45 @@
       }
 
       .like {
-        /* border: 1px solid red; */
-
-        scale: 0.8;
+        --like-scale: 0.8;
         width: 97.5px;
         height: 78px;
+        flex-shrink: 0;
         background-image: url("../../../public/heart-frames-fast.png");
-        background-position: left;
+        background-repeat: no-repeat;
+        background-position: left center;
+        background-size: auto 100%;
+        scale: var(--like-scale);
+        transform-origin: center;
+        cursor: pointer;
+        transition: scale 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+        will-change: background-position, scale;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
 
-        &.active {
-          animation: heart-bursts 600ms steps(14) forwards;
+        &:hover {
+          --like-scale: 0.9;
+        }
+
+        &:active {
+          --like-scale: 0.74;
+          transition-duration: 0.12s;
+        }
+
+        &.is-liked:not(.is-unliking):not(.is-bursting) {
+          background-position: right center;
+        }
+
+        &.is-bursting {
+          animation:
+            heart-bursts 920ms steps(14) forwards,
+            heart-pop 920ms cubic-bezier(0.22, 1.2, 0.36, 1) both;
+        }
+
+        &.is-unliking {
+          animation:
+            heart-unburst 380ms steps(14) forwards,
+            heart-shrink 380ms cubic-bezier(0.4, 0, 0.2, 1) both;
         }
       }
     }
@@ -96,8 +125,62 @@
 }
 
 @keyframes heart-bursts {
+  from {
+    background-position: left center;
+  }
   to {
-    background-position: right;
+    background-position: right center;
+  }
+}
+
+@keyframes heart-unburst {
+  from {
+    background-position: right center;
+  }
+  to {
+    background-position: left center;
+  }
+}
+
+@keyframes heart-pop {
+  0% {
+    scale: 0.78;
+  }
+  35% {
+    scale: 0.96;
+  }
+  55% {
+    scale: 0.82;
+  }
+  75% {
+    scale: 0.88;
+  }
+  100% {
+    scale: 0.8;
+  }
+}
+
+@keyframes heart-shrink {
+  0% {
+    scale: 0.86;
+  }
+  100% {
+    scale: 0.8;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project__wrapper .project-card .project-btns .like {
+    transition: none;
+
+    &.is-bursting,
+    &.is-unliking {
+      animation: none;
+    }
+
+    &.is-liked {
+      background-position: right center;
+    }
   }
 }
 

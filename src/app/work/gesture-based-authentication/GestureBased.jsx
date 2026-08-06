@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import styles from "./GestureAuth.module.css"; // Update this path to where your styles are stored
 
 export default function GestureBased() {
@@ -52,12 +51,9 @@ export default function GestureBased() {
         />
       </Head>
 
-      <nav className={styles.nav}>
+      <nav className={styles.nav} aria-label="Case study sections">
         <div className={styles.wrapWide}>
           <div className={styles.navWrap}>
-            <Link href="/" className={styles.brand}>
-              Deepali<span>.</span>
-            </Link>
             <div className={styles.navlinks}>
               <a
                 href="#problem"
@@ -83,7 +79,6 @@ export default function GestureBased() {
               >
                 Impact
               </a>
-              <a href="#">Resume</a>
             </div>
           </div>
         </div>

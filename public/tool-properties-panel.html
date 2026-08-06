@@ -7,7 +7,8 @@
 <title>Tool Properties Panel · Deepali Babuta</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cousine:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&family=Cousine:ital,wght@0,400;0,700;1,400&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site-header.css">
 <style>
 /* ── Fonts (exact) ─────────────────────────── */
 @font-face {
@@ -104,7 +105,7 @@ button { font: inherit; }
 
 /* ── Progress ──────────────────────────────── */
 .progress {
-  position: fixed; top: 0; left: 0; right: 0; height: 2px; z-index: 100;
+  position: fixed; top: 93px; left: 0; right: 0; height: 2px; z-index: 100;
 }
 .progress__bar {
   height: 100%; width: 0%;
@@ -128,9 +129,9 @@ button { font: inherit; }
 .rail {
   grid-column: 1;
   position: sticky;
-  top: 0;
+  top: 96px;
   z-index: 90;
-  height: 100vh;
+  height: calc(100vh - 96px);
   width: var(--nav-col);
   display: flex;
   flex-direction: column;
@@ -447,6 +448,10 @@ button { font: inherit; }
   }
   .shell__content { grid-column: 3; max-width: none; padding-right: 32px; }
 }
+@media (max-width: 899px) {
+  .progress { top: 72px; }
+}
+
 @media (max-width: 860px) {
   .shell {
     grid-template-columns: 1fr;
@@ -1129,6 +1134,22 @@ button { font: inherit; }
 </head>
 
 <body>
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary">
+      <a href="/" class="brand">
+        <span class="brand__name">Deepali</span>
+        <img src="/images/header-star.png" alt="" class="brand__star" width="42" height="43" aria-hidden="true" />
+        <span class="brand__role">Product Designer</span>
+      </a>
+      <ul class="nav-list">
+        <li><a class="nav-pill is-active" href="/#projects" aria-current="page">Work</a></li>
+        <li><a class="nav-pill" href="/play">Play</a></li>
+        <li><a class="nav-pill" href="/about">About</a></li>
+        <li><a class="nav-pill" href="https://drive.google.com/file/d/1mu1f2F0DZpfI9OOF-7Qmq7IRn3VAzwIr/view?usp=drivesdk" target="_blank" rel="noopener noreferrer">Resume</a></li>
+      </ul>
+    </nav>
+  </header>
+
   <div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
 
   <div class="shell">

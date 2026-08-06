@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import Link from "next/link";
 import styles from "./SoundscapeNav.module.css";
 
 const SECTION_IDS = ["problem", "research", "insight", "solution"];
@@ -246,11 +245,8 @@ export default function SoundscapeNav() {
 
   return (
     <div className={styles.bodyContainer} ref={rootRef}>
-      <nav className={styles.nav}>
+      <nav className={styles.nav} aria-label="Case study sections">
         <div className={styles.navInner}>
-          <Link href="/" className={styles.brand}>
-            Deepali
-          </Link>
           <div className={styles.navlinks}>
             <a href="#problem" className={activeSection === "problem" ? styles.active : ""}>
               Problem

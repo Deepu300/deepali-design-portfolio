@@ -170,23 +170,21 @@
 
 /* Nav — reference: fixed, padding 16px 40px */
 .nav {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
+  position: sticky;
+  top: 93px;
   z-index: 50;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  padding: 16px 40px;
-  background: rgba(238, 240, 235, 0.82);
+  padding: 12px 40px;
+  background: rgba(238, 240, 235, 0.92);
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
 
 .navInner {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   width: 100%;
   max-width: none;
@@ -222,13 +220,15 @@
   color: var(--ink) !important;
 }
 
-@media (max-width: 760px) {
-  .navlinks {
-    display: none;
-  }
-
+@media (max-width: 899px) {
   .nav {
-    padding: 16px 24px;
+    top: 72px;
+  }
+}
+
+@media (max-width: 760px) {
+  .nav {
+    display: none;
   }
 }
 

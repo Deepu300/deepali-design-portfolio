@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState, useRef } from "react";
 import Head from "next/head";
-import Link from "next/link";
 import styles from "./HapticWallpapers.module.css";
 
 const PIVOTAL_ROWS = [
@@ -117,12 +116,9 @@ export default function HapticWallpapers() {
         />
       </Head>
 
-      <nav className={styles.nav}>
+      <nav className={styles.nav} aria-label="Case study sections">
         <div className={styles.wrapWide}>
           <div className={styles.navWrap}>
-            <Link href="/" className={styles.brand}>
-              Deepali.
-            </Link>
             <div className={styles.navlinks}>
               <a
                 href="#gap"
