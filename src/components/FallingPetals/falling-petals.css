@@ -1,0 +1,91 @@
+.home-projects {
+  position: relative;
+  overflow: hidden;
+}
+
+.falling-petals {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 1;
+  transition: opacity 2.8s ease;
+}
+
+.falling-petals.is-fading {
+  opacity: 0;
+}
+
+.falling-petals__petal {
+  position: absolute;
+  top: -48px;
+  display: block;
+  object-fit: contain;
+  will-change: transform, opacity;
+  animation-name: petal-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: none;
+  filter: drop-shadow(0 2px 4px rgba(40, 20, 30, 0.12));
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  20% {
+    transform: translate3d(
+        calc(var(--drift) * 0.25px + var(--sway) * 0.5px),
+        calc(var(--fall) * 0.2vh),
+        0
+      )
+      rotate(calc(var(--spin) * 0.2deg));
+  }
+  40% {
+    transform: translate3d(
+        calc(var(--drift) * 0.5px - var(--sway) * 0.6px),
+        calc(var(--fall) * 0.4vh),
+        0
+      )
+      rotate(calc(var(--spin) * 0.4deg));
+  }
+  60% {
+    transform: translate3d(
+        calc(var(--drift) * 0.7px + var(--sway) * 0.45px),
+        calc(var(--fall) * 0.6vh),
+        0
+      )
+      rotate(calc(var(--spin) * 0.6deg));
+  }
+  80% {
+    transform: translate3d(
+        calc(var(--drift) * 0.9px - var(--sway) * 0.3px),
+        calc(var(--fall) * 0.82vh),
+        0
+      )
+      rotate(calc(var(--spin) * 0.82deg));
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(
+        calc(var(--drift) * 1px),
+        calc(var(--fall) * 1vh),
+        0
+      )
+      rotate(calc(var(--spin) * 1deg));
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .falling-petals {
+    display: none;
+  }
+}

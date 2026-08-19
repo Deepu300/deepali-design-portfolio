@@ -1,0 +1,167 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --paper: #f4f1ea;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+  background: var(--paper);
+  font-family: "Georgia", "Palatino Linotype", Palatino, serif;
+}
+
+.stage {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 5.5vh 6vw 7vh;
+}
+
+.pond-frame {
+  position: relative;
+  width: min(88vw, 1280px);
+  height: min(80vh, 780px);
+  border-radius: 88px;
+  overflow: hidden;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0%, #000 8%, #000 92%, transparent 100%),
+    linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+  mask-composite: intersect;
+}
+
+#pond {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.grain {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.22;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+.soft-edge {
+  pointer-events: none;
+  position: absolute;
+  inset: -2px;
+  border-radius: 88px;
+  box-shadow:
+    inset 0 0 36px 18px var(--paper),
+    inset 0 0 72px 36px var(--paper),
+    inset 0 0 120px 58px rgba(244, 241, 234, 0.92);
+}
+
+.hint {
+  position: absolute;
+  left: 50%;
+  bottom: 1.5rem;
+  transform: translateX(-50%);
+  color: rgba(90, 110, 108, 0.7);
+  font-size: 0.82rem;
+  letter-spacing: 0.12em;
+  text-transform: lowercase;
+  pointer-events: none;
+  animation: fadeHint 5s ease forwards;
+}
+
+@keyframes fadeHint {
+  0%,
+  55% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.hero-copy {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  padding: 8% 10%;
+}
+
+.hero-copy .line {
+  grid-area: 1 / 1;
+  margin: 0;
+  max-width: none;
+  font-family: "Aboreto", serif;
+  font-weight: 400;
+  font-size: clamp(1.35rem, 2.8vw, 2.35rem);
+  line-height: 1.55;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 0 1px rgba(255,255,255,0.35), 0 2px 22px rgba(70, 110, 120, 0.28);
+  opacity: 0;
+  animation: sereneFade 24s ease-in-out infinite;
+}
+
+.hero-copy .line:nth-child(1) {
+  white-space: nowrap;
+}
+
+.hero-copy .line:nth-child(2),
+.hero-copy .line:nth-child(3) {
+  max-width: 18ch;
+  line-height: 1.45;
+}
+
+.hero-copy .line:nth-child(2) {
+  animation-delay: 8s;
+}
+
+.hero-copy .line:nth-child(3) {
+  font-size: clamp(1.1rem, 2.3vw, 1.95rem);
+  animation-delay: 16s;
+}
+
+@keyframes sereneFade {
+  0% {
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  24% {
+    opacity: 1;
+  }
+  32% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-copy .line {
+    animation: none;
+    opacity: 0;
+  }
+  .hero-copy .line:first-child {
+    opacity: 1;
+  }
+}

@@ -1,7 +1,7 @@
 /* Shared site header — matches React Navbar for standalone HTML case studies */
 .site-header {
-  background: #eef0eb;
-  border-bottom: 1.45px solid #363636;
+  background: #f4f1ea;
+  border-bottom: none;
   width: 100%;
   position: sticky;
   top: 0;
@@ -11,100 +11,85 @@
 .site-nav {
   max-width: 1920px;
   margin: 0 auto;
-  min-height: 93px;
+  min-height: 80px;
   padding: 0 clamp(20px, 2.2vw, 34px);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
   box-sizing: border-box;
-  color: #363636;
-  font-family: "Afacad", system-ui, sans-serif;
+  color: #9e9e9e;
+  font-family: "Cousine", ui-monospace, monospace;
 }
 
 .site-nav .brand {
   display: inline-flex;
-  align-items: center;
-  gap: 10px;
+  align-items: flex-end;
+  gap: 12px;
   text-decoration: none;
   color: inherit;
   min-width: 0;
 }
 
-.site-nav .brand__name {
-  font-family: "Fraunces", Georgia, serif;
-  font-size: 29px;
-  font-weight: 600;
-  font-style: italic;
+.site-nav .brand__dee {
+  font-family: "Cousine", ui-monospace, monospace;
+  font-size: 18px;
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.02em;
+  color: #9e9e9e;
   white-space: nowrap;
+  display: inline-block;
+  padding-bottom: 1px;
 }
 
-.site-nav .brand__star {
-  width: 42px;
-  height: 43px;
+.site-nav .brand__lotus {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  object-position: bottom center;
   flex-shrink: 0;
   display: block;
-  animation: siteHeaderStarSpin 12s linear infinite;
-  transform-origin: center;
+  align-self: flex-end;
 }
 
 .site-nav .brand__role {
-  font-size: 20px;
+  font-family: "Cousine", ui-monospace, monospace;
+  font-size: 18px;
   font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: #9e9e9e;
+  margin-left: 0;
   line-height: 1;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+  display: inline-block;
+  padding-bottom: 1px;
   white-space: nowrap;
-  margin-left: 4px;
 }
 
 .site-nav .nav-list {
   display: none;
   align-items: center;
-  gap: 24px;
+  gap: 36px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-.site-nav .nav-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 104px;
-  height: 34px;
-  padding: 0 18px;
-  border: 1.45px solid #363636;
-  border-radius: 999px;
-  background: #eef0eb;
-  color: #363636;
-  font-size: 16px;
+.site-nav .nav-link {
+  font-family: "Cousine", ui-monospace, monospace;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1;
+  letter-spacing: 0.02em;
+  color: #c9c9c9;
   text-decoration: none;
-  transition: background-color 0.2s ease, transform 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-.site-nav .nav-pill:hover {
-  background: #d2d6cc;
-  transform: translateY(-1px);
-}
-
-.site-nav .nav-pill.is-active {
-  background: #d2d6cc;
-}
-
-@keyframes siteHeaderStarSpin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .site-nav .brand__star {
-    animation: none;
-  }
+.site-nav .nav-link:hover,
+.site-nav .nav-link.is-active {
+  color: #9e9e9e;
 }
 
 @media (min-width: 900px) {
@@ -115,20 +100,20 @@
 
 @media (max-width: 899px) {
   .site-nav {
-    min-height: 72px;
+    min-height: 64px;
     padding: 0 16px;
-  }
-
-  .site-nav .brand__name {
-    font-size: 24px;
-  }
-
-  .site-nav .brand__star {
-    width: 30px;
-    height: 31px;
   }
 
   .site-nav .brand__role {
     display: none;
+  }
+
+  .site-nav .brand__dee {
+    font-size: 16px;
+  }
+
+  .site-nav .brand__lotus {
+    width: 30px;
+    height: 30px;
   }
 }

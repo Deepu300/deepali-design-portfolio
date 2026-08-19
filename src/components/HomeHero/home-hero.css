@@ -1,0 +1,29 @@
+.home-page {
+  --paper: #f4f1ea;
+  background: var(--paper);
+  min-height: 100vh;
+}
+
+.home-hero {
+  position: relative;
+  width: 100%;
+  height: calc(100dvh - 80px);
+  min-height: 520px;
+  background: var(--paper, #f4f1ea);
+  overflow: hidden;
+}
+
+.home-hero__iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: var(--paper, #f4f1ea);
+}
+
+@media (max-width: 899px) {
+  .home-hero {
+    height: calc(100dvh - 64px);
+    min-height: 440px;
+  }
+}

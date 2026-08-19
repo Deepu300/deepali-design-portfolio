@@ -37,7 +37,7 @@ html.aos-ready [data-aos="fade-up"].aos-animate {
 }
 
 :root {
-  --primary-color: #eef0eb;
+  --primary-color: #f4f1ea;
   --secondary-color: #363636;
   --accent-blue: #bccbea;
   --accent-pink: #c08fcf;
@@ -55,8 +55,8 @@ html.aos-ready [data-aos="fade-up"].aos-animate {
 }
 
 [data-theme="dark"] {
-  --primary-color: #363636;
-  --secondary-color: #eef0eb;
+  --primary-color: #f4f1ea;
+  --secondary-color: #363636;
 }
 
 body::-webkit-scrollbar-track {

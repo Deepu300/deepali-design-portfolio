@@ -1,14 +1,20 @@
 "use client";
 
-import { frauncesFont } from "@/utils/fonts";
 import { navList } from "@/constants/nav";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import "./navbar.css";
 import { motion as m } from "framer-motion";
+import { triggerPetalFall } from "@/components/FallingPetals/FallingPetals";
 
 const Navbar = ({ isOpen, setIsOpen }) => {
   const pathname = usePathname();
+
+  const handleNavClick = (link) => {
+    if (link.title === "Work") {
+      triggerPetalFall();
+    }
+  };
 
   const isActive = (link) => {
     if (link.activeScreen === "work") {
@@ -31,13 +37,13 @@ const Navbar = ({ isOpen, setIsOpen }) => {
     <header className="site-header">
       <nav className="site-nav" aria-label="Primary">
         <Link href="/" className="brand">
-          <span className={`brand__name ${frauncesFont.className}`}>Deepali</span>
+          <span className="brand__dee">Dee</span>
           <img
-            src="/images/header-star.png"
+            src="/images/lotus.png?v=2"
             alt=""
-            className="brand__star"
-            width={42}
-            height={43}
+            className="brand__lotus"
+            width={36}
+            height={36}
             aria-hidden="true"
           />
           <span className="brand__role">Product Designer</span>
@@ -53,8 +59,9 @@ const Navbar = ({ isOpen, setIsOpen }) => {
                   href={link.path}
                   target={external ? "_blank" : undefined}
                   rel={external ? "noopener noreferrer" : undefined}
-                  className={`nav-pill${active ? " is-active" : ""}`}
+                  className={`nav-link${active ? " is-active" : ""}`}
                   aria-current={active ? "page" : undefined}
+                  onClick={() => handleNavClick(link)}
                 >
                   {link.title}
                 </Link>
@@ -99,7 +106,10 @@ const Navbar = ({ isOpen, setIsOpen }) => {
                 key={link.title}
                 target={link.path.includes("http") ? "_blank" : undefined}
                 rel={link.path.includes("http") ? "noopener noreferrer" : undefined}
-                onClick={() => setIsOpen(false)}
+                onClick={() => {
+                  handleNavClick(link);
+                  setIsOpen(false);
+                }}
               >
                 <li className="nav-list-mobile__item">{link.title}</li>
               </Link>

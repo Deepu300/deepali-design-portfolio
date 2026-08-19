@@ -16,7 +16,7 @@ const Provider = ({ children, ...props }) => {
     <ThemeProvider
       storageKey="portfolio-theme"
       defaultTheme="light"
-      forcedTheme={pathname == "/about" ? "dark" : null}
+      forcedTheme="light"
     >
       {newElement}
       {isOpen ? (

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function PlayPage() {
   return (
-    <main className="font-afacad min-h-[60vh] bg-[#eef0eb] text-[#363636] px-6 py-16 md:py-24">
+    <main className="font-afacad min-h-[60vh] bg-[#f4f1ea] text-[#363636] px-6 py-16 md:py-24">
       <div className="max-w-3xl mx-auto text-center">
         <p className={`${frauncesFont.className} italic text-3xl md:text-5xl font-semibold mb-4`}>
           Play
