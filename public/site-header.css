@@ -1,7 +1,7 @@
 /* Shared site header — matches React Navbar for standalone HTML case studies */
 .site-header {
   background: #eef0eb;
-  border-bottom: 3px solid #363636;
+  border-bottom: 1.45px solid #363636;
   width: 100%;
   position: sticky;
   top: 0;

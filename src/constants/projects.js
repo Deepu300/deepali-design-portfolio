@@ -24,7 +24,7 @@ export const ProjectsList = [
       { label: "Gesture LLM", text: "#657290", bg: "#CBD4E5" },
       { label: "Computer Vision", text: "#6B5D5A", bg: "#E7DCC8" },
     ],
-    link: "/work/gesture-based-authentication",
+    link: "/gesture-authentication.html",
   },
   {
     id: "fm9b4k",

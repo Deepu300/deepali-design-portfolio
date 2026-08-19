@@ -1,6 +1,6 @@
 .site-header {
   background: #eef0eb;
-  border-bottom: 3px solid #363636;
+  border-bottom: 1.45px solid #363636;
   width: 100%;
   position: sticky;
   top: 0;
@@ -120,7 +120,7 @@
   padding: 36px 20px 48px;
   list-style: none;
   background: #eef0eb;
-  border-bottom: 3px solid #363636;
+  border-bottom: 1.45px solid #363636;
   font-family: "Afacad", "Avigea", system-ui, sans-serif;
 }
 

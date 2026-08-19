@@ -15,6 +15,16 @@ const nextConfig = {
         destination: "/tool-properties-panel.html",
         permanent: false,
       },
+      {
+        source: "/work/gesture-based-authentication",
+        destination: "/gesture-authentication.html",
+        permanent: false,
+      },
+      {
+        source: "/work/gesture-based-authentication/",
+        destination: "/gesture-authentication.html",
+        permanent: false,
+      },
     ];
   },
 };

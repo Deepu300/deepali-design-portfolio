@@ -1,6 +1,5 @@
-import React from "react";
-import GestureBased from "./GestureBased";
+import { redirect } from "next/navigation";
 
-export default function page() {
-  return <GestureBased />;
+export default function GestureBasedAuthenticationPage() {
+  redirect("/gesture-authentication.html");
 }
