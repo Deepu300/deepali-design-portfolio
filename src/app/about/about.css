@@ -1,0 +1,56 @@
+.about-page {
+  background: #f4f1ea;
+  color: #a6a6a6;
+  font-family: var(--font-afacad);
+}
+
+.about-heading {
+  margin: 0;
+  color: #737373;
+  font-family: var(--font-afacad);
+  font-size: clamp(1.6rem, 3vw, 2.25rem);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.about-copy {
+  color: #a6a6a6;
+  font-family: var(--font-afacad);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.about-contact {
+  color: #a6a6a6;
+  font-family: var(--font-afacad);
+  font-size: clamp(1rem, 1.4vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.55;
+}
+
+.about-contact__label {
+  color: #737373;
+  font-weight: 500;
+}
+
+.about-contact__value {
+  color: #a6a6a6;
+  font-weight: 400;
+}
+
+.about-card-title {
+  color: #737373;
+  font-family: var(--font-afacad);
+  font-size: clamp(1.25rem, 1.8vw, 1.7rem);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.about-card-body {
+  color: #737373;
+  font-family: var(--font-afacad);
+  font-size: clamp(0.95rem, 1.2vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.55;
+}

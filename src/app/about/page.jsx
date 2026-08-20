@@ -1,21 +1,18 @@
-import { avigeaFont } from "@/utils/fonts";
 import "./about.css";
 import ImageStackSlideshow from "@/components/ImageStack";
 
 const About = () => {
   return (
     <>
-      <main className="m-auto max-w-screen-2xl text-afacad pb-40  lg:px-0 font-afacad">
+      <main className="about-page m-auto max-w-screen-2xl pb-40 lg:px-0">
         <div className=" flex flex-col-reverse items-center justify-center gap-3 mx-auto md:my-8 md:max-lg:w-11/12 md:w-9/12  md:flex-row md:gap-0">
           <div className="flex flex-col lg:gap-8 p-8 lg:p-0 md:w-1/2 ">
-            <h2
-              className={`${avigeaFont.className} text-2xl md:text-4xl italic`}
-            >
+            <h2 className="about-heading">
               Hey fellow
               <br />
               human bean!
             </h2>
-            <div className="flex flex-col gap-4 text-xs md:gap-6 md:w-3/4 md:text-xl">
+            <div className="flex flex-col gap-4 about-copy md:gap-6 md:w-3/4">
               <p>
                 I&apos;m Deepali Babuta&#44; a Product Designer based in New
                 York&#44; currently in my final year of MS in Integrated Design
@@ -28,16 +25,16 @@ const About = () => {
                 petting dogs or painting eyes (yes v specific :) )
               </p>
 
-              <div className="mt-4">
+              <div className="mt-4 about-contact">
                 <p>
-                  <span className="font-bold text-2xl">Email:</span>{" "}
-                  <span className="font-thin text-xl">
+                  <span className="about-contact__label">Email:</span>{" "}
+                  <span className="about-contact__value">
                     deepalibabuta@gmail.com
                   </span>
                 </p>
                 <p>
-                  <span className="font-bold text-2xl">Phone no:</span>{" "}
-                  <span className="font-thin text-xl">+1 201-993-6070</span>
+                  <span className="about-contact__label">Phone no:</span>{" "}
+                  <span className="about-contact__value">+1 201-993-6070</span>
                 </p>
               </div>
             </div>
@@ -140,7 +137,7 @@ const About = () => {
       </section> */}
 
         <div className="max-w-5xl flex flex-col gap-20 mx-auto lg:p-0 p-8">
-          <h2 className={`${avigeaFont.className} text-2xl md:text-4xl italic`}>
+          <h2 className="about-heading">
             What Differentiates me as a Designer ?
           </h2>
           <div className="relative w-fit" data-aos="fade-up">
@@ -163,12 +160,12 @@ const About = () => {
                   />
                 </svg>
 
-                <h2 className="text-black text-3xl font-semibold">
+                <h2 className="about-card-title">
                   I design for emotion.
                 </h2>
               </div>
 
-              <div className="text-black leading-relaxed text-lg">
+              <div className="about-card-body">
                 <p>
                   I design to evoke emotion and reflection — creating moments
                   that feel as much as they function. From mapping emotions
@@ -215,12 +212,12 @@ const About = () => {
                   />
                 </svg>
 
-                <h2 className="text-black text-3xl font-semibold">
+                <h2 className="about-card-title">
                   I actively seek feedback.{" "}
                 </h2>
               </div>
 
-              <div className="text-black leading-relaxed text-lg">
+              <div className="about-card-body">
                 <p>
                   I see feedback as collaboration, not critique. I actively seek
                   out different perspectives — from mentors, peers, and users —
@@ -265,12 +262,12 @@ const About = () => {
                   />
                 </svg>
 
-                <h2 className="text-black text-3xl font-semibold">
+                <h2 className="about-card-title">
                   I adapt to the situation.{" "}
                 </h2>
               </div>
 
-              <div className="text-black leading-relaxed text-lg">
+              <div className="about-card-body">
                 <p>
                   I’ve learned to forgo the “perfect” design process — embracing
                   uncertainty, making the most of what’s at hand, and carrying a
