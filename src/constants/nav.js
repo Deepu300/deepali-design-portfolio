@@ -19,7 +19,7 @@ export const navList = [
   },
   {
     title: "Resume",
-    path: "https://drive.google.com/file/d/1mu1f2F0DZpfI9OOF-7Qmq7IRn3VAzwIr/view?usp=drivesdk",
+    path: "https://drive.google.com/file/d/1HYdBx19D3dtI-s927BtNuoEf9ACDUmiX/view",
     color: "#D2D6CC",
     activeScreen: "resume",
   },
