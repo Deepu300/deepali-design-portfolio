@@ -1,7 +1,6 @@
 import { avigeaFont } from "@/utils/fonts";
 import "./about.css";
 import ImageStackSlideshow from "@/components/ImageStack";
-import { Footer } from "@/components";
 
 const About = () => {
   return (
@@ -297,7 +296,6 @@ const About = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </>
   );
 };

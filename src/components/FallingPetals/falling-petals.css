@@ -10,7 +10,7 @@
   pointer-events: none;
   overflow: hidden;
   opacity: 1;
-  transition: opacity 2.8s ease;
+  transition: opacity 1.8s ease;
 }
 
 .falling-petals.is-fading {

@@ -10,14 +10,14 @@ const PETAL_SRCS = [
   "/images/petals/petal-4.png",
 ];
 
-const FALL_MS = 15000;
-const FADE_MS = 2800;
+const FALL_MS = 9000;
+const FADE_MS = 1800;
 const COUNT = 28;
 
 function makePetals() {
   return Array.from({ length: COUNT }, (_, i) => {
     const size = 18 + Math.random() * 26;
-    const duration = 12 + Math.random() * 6;
+    const duration = 8 + Math.random() * 2;
     // Negative delay so petals start already mid-fall (continuous stream)
     const delay = -(Math.random() * duration);
     const drift = (Math.random() - 0.5) * 160;
