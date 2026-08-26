@@ -1,11 +1,12 @@
 /* Shared site header — matches React Navbar for standalone HTML case studies */
 .site-header {
-  background: #f4f1ea;
+  background: var(--primary-color, #f4f1ea);
   border-bottom: none;
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 200;
+  transition: background-color var(--theme-fade, 0.8s cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 .site-nav {
@@ -127,6 +128,13 @@ footer.site-footer {
   font-family: "Cousine", ui-monospace, monospace;
   padding: 0;
   text-align: left;
+  transition: background-color var(--theme-fade, 0.8s cubic-bezier(0.4, 0, 0.2, 1));
+}
+
+html.dark .site-header,
+html.dark footer.site-footer {
+  background: #00262b;
+  background-color: #00262b;
 }
 
 footer.site-footer .site-footer__inner {

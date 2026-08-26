@@ -1,4 +1,5 @@
 import "./globals.css";
+import Script from "next/script";
 import { Footer } from "@/components";
 import RootNavbar from "@/components/RootNavbar";
 import Provider from "./provider";
@@ -14,8 +15,14 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <Script src="/theme-boot.js" strategy="beforeInteractive" />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: "html.dark,html.dark body{background-color:#00262b;transition:background-color .8s cubic-bezier(.4,0,.2,1)}",
+          }}
+        />
         {/* Google tag (gtag.js) */}
         <script
           async

@@ -30,6 +30,77 @@
   filter: drop-shadow(0 2px 4px rgba(40, 20, 30, 0.12));
 }
 
+.falling-petals__snow {
+  position: absolute;
+  top: -36px;
+  display: block;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 0 8px rgba(230, 246, 250, 0.45);
+  will-change: transform, opacity;
+  animation-name: snow-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: none;
+}
+
+.falling-petals__snow--crystal {
+  background: transparent;
+  box-shadow: none;
+  color: rgba(236, 248, 252, 0.88);
+  filter: drop-shadow(0 0 5px rgba(200, 230, 236, 0.35));
+}
+
+.falling-petals__snow--crystal svg {
+  display: block;
+}
+
+@keyframes snow-fall {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+    opacity: 0;
+  }
+  6% {
+    opacity: 1;
+  }
+  22% {
+    transform: translate3d(
+        calc(var(--drift) * 0.2px + var(--sway) * 0.7px),
+        calc(var(--fall) * 0.22vh),
+        0
+      )
+      rotate(calc(var(--spin) * 0.22deg));
+  }
+  48% {
+    transform: translate3d(
+        calc(var(--drift) * 0.45px - var(--sway) * 0.85px),
+        calc(var(--fall) * 0.5vh),
+        0
+      )
+      rotate(calc(var(--spin) * 0.5deg));
+  }
+  74% {
+    transform: translate3d(
+        calc(var(--drift) * 0.75px + var(--sway) * 0.4px),
+        calc(var(--fall) * 0.76vh),
+        0
+      )
+      rotate(calc(var(--spin) * 0.76deg));
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(
+        calc(var(--drift) * 1px),
+        calc(var(--fall) * 1vh),
+        0
+      )
+      rotate(calc(var(--spin) * 1deg));
+    opacity: 0;
+  }
+}
+
 @keyframes petal-fall {
   0% {
     transform: translate3d(0, 0, 0) rotate(0deg);

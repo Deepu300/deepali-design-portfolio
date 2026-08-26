@@ -1,10 +1,11 @@
 .site-header {
-  background: #f4f1ea;
+  background: var(--primary-color, #f4f1ea);
   border-bottom: none;
   width: 100%;
   position: sticky;
   top: 0;
   z-index: 200;
+  transition: background-color var(--theme-fade, 0.8s cubic-bezier(0.4, 0, 0.2, 1));
 }
 
 .site-nav {
@@ -116,7 +117,7 @@
   margin: 0;
   padding: 36px 20px 48px;
   list-style: none;
-  background: #f4f1ea;
+  background: var(--primary-color, #f4f1ea);
   border-bottom: none;
   font-family: "Cousine", ui-monospace, monospace;
 }

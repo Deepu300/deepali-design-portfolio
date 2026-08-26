@@ -18,9 +18,11 @@ const Provider = ({ children, ...props }) => {
 
   return (
     <ThemeProvider
+      attribute="class"
       storageKey="portfolio-theme"
       defaultTheme="light"
-      forcedTheme="light"
+      enableSystem={false}
+      disableTransitionOnChange={false}
     >
       {newElement}
       {isOpen ? (

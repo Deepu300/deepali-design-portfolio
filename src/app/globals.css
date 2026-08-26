@@ -36,8 +36,16 @@ html.aos-ready [data-aos="fade-up"].aos-animate {
   transform: translate3d(0, 0, 0);
 }
 
+@property --primary-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f4f1ea;
+}
+
 :root {
   --primary-color: #f4f1ea;
+  --night-color: #00262b;
+  --theme-fade: 0.8s cubic-bezier(0.4, 0, 0.2, 1);
   --secondary-color: #363636;
   --accent-blue: #bccbea;
   --accent-pink: #c08fcf;
@@ -54,9 +62,10 @@ html.aos-ready [data-aos="fade-up"].aos-animate {
     "Helvetica Neue", Arial;
 }
 
-[data-theme="dark"] {
-  --primary-color: #f4f1ea;
-  --secondary-color: #363636;
+.dark {
+  --primary-color: var(--night-color);
+  --secondary-color: #d7d4ce;
+  color-scheme: dark;
 }
 
 body::-webkit-scrollbar-track {
@@ -86,17 +95,29 @@ body::-webkit-scrollbar-thumb {
 
 html {
   scroll-behavior: smooth !important;
+  background-color: var(--primary-color);
+  transition: background-color var(--theme-fade);
 }
 
 body {
+  background-color: var(--primary-color);
   color: var(--secondary-color);
-  /* background-color: var(--secondary-color); */
+  transition: background-color var(--theme-fade), color var(--theme-fade);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html,
+  body,
+  .bg-main {
+    transition: none;
+  }
 }
 
 @layer utilities {
 }
 .bg-main {
   background-color: var(--primary-color);
+  transition: background-color var(--theme-fade);
 }
 .divider {
   /* Rectangle 10 */
@@ -211,20 +232,20 @@ body {
     --radius: 0.5rem;
   }
   .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 187 100% 8.4%;
+    --foreground: 36 12% 82%;
+    --card: 187 100% 8.4%;
+    --card-foreground: 36 12% 82%;
+    --popover: 187 100% 8.4%;
+    --popover-foreground: 36 12% 82%;
+    --primary: 36 12% 82%;
+    --primary-foreground: 187 100% 8.4%;
+    --secondary: 187 30% 14%;
+    --secondary-foreground: 36 12% 82%;
+    --muted: 187 30% 14%;
+    --muted-foreground: 0 0% 64%;
+    --accent: 187 30% 14%;
+    --accent-foreground: 36 12% 82%;
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 14.9%;

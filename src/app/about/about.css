@@ -1,7 +1,8 @@
 .about-page {
-  background: #f4f1ea;
+  background: var(--primary-color, #f4f1ea);
   color: #a6a6a6;
   font-family: var(--font-afacad);
+  transition: background-color var(--theme-fade, 0.8s ease);
 }
 
 .about-heading {
