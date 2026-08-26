@@ -88,10 +88,8 @@ b{font-weight:600;color:var(--ink);}
 .uibar span{width:11px;height:11px;border-radius:50%;background:#E3E3E8;}
 .uibar span:nth-child(1){background:#FF6A5E}.uibar span:nth-child(2){background:#FEBB2E}.uibar span:nth-child(3){background:#28C840}
 .uibar .u{margin-left:12px;font-size:12px;color:var(--muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
-.uibody{aspect-ratio:16/9;background:repeating-linear-gradient(135deg,#F6F6F8,#F6F6F8 14px,#F1F1F4 14px,#F1F1F4 28px);
- display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;color:var(--muted);}
-.uibody .play{width:64px;height:64px;border-radius:50%;background:#fff;box-shadow:0 12px 28px rgba(30,30,50,.14);display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--blue-x);}
-.uibody .t{font-weight:700;color:var(--ink);}.uibody .s{font-size:13.5px;}
+.uibody{aspect-ratio:16/9;background:#0b0b10;overflow:hidden;padding:0;}
+.uibody video{width:100%;height:100%;object-fit:cover;display:block;}
 
 .fricflow{display:flex;gap:10px;margin-top:30px;align-items:stretch;}
 .fnode{flex:1 1 0;min-width:118px;background:#fff;border:1.5px dashed var(--dash);border-radius:16px;padding:15px 14px;position:relative;display:flex;flex-direction:column;gap:9px;}
@@ -753,7 +751,13 @@ footer .refs {
 <!-- UI OVERVIEW -->
 <div class="wrap"><div class="uiframe reveal">
   <div class="uibar"><span></span><span></span><span></span><span class="u">gesturecaptcha · overview</span></div>
-  <div class="uibody"><div class="play">&#9654;</div><div class="t">UI overview goes here</div><div class="s">Drop your product walkthrough / demo video in this space.</div></div>
+  <div class="uibody">
+    <video
+      src="/gesture-ui-overview.mp4"
+      autoplay muted loop playsinline preload="auto"
+      aria-label="GestureCAPTCHA product walkthrough"
+    ></video>
+  </div>
 </div></div>
 
 <!-- SCENARIO INFOGRAPHIC -->
@@ -1202,6 +1206,13 @@ footer .refs {
   onScroll();
   window.addEventListener('scroll',onScroll,{passive:true});
   window.addEventListener('resize',onScroll,{passive:true});
+  document.querySelectorAll('.uibody video').forEach(function(vid){
+    vid.muted=true;
+    if(reduce){vid.pause();vid.removeAttribute('autoplay');return;}
+    var play=function(){vid.play().catch(function(){});};
+    play();
+    document.addEventListener('visibilitychange',function(){if(!document.hidden)play();});
+  });
 })();
 </script>
 
