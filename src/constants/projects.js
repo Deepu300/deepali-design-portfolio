@@ -72,16 +72,16 @@ export const ProjectsList = [
   // },
   {
     id: "u13vto",
-    thumbnail: ["hdfc1.png", "hdfc2.png"],
-    projectTitle: "BC Inspection Questionnaire",
+    thumbnail: ["desicart1.png", "desicart2.png"],
+    projectTitle: "Desi Cart",
     projectDesc:
-      "Reframed HDFC Bank's field inspection form around the officer's mental model — UX research and information architecture, not a UI.",
+      "E-commerce platform for Geographical Indicators, empowering users to discover authentic products online and providing MSMEs a platform to organically scale.",
     tags: [
-      { label: "Internship", text: "#4D5F86", bg: "#BCCBEA" },
-      { label: "UX Research", text: "#556354", bg: "#BECFBC" },
-      { label: "Information Architecture", text: "#714C8F", bg: "#DDD3F4" },
+      { label: "E-commerce", text: "#4D5F86", bg: "#BCCBEA" },
+      { label: "Branding", text: "#883737", bg: "#DEC2C2" },
+      { label: "Social Impact", text: "#883737", bg: "#DEC2C2" },
     ],
-    link: "/hdfc-bc-questionnaire.html",
+    link: "https://www.behance.net/gallery/179269803/Desi-Cart-Reviving-Indian-Art-Connecting-Consumers",
   },
   {
     id: "au5b9l",
