@@ -2,13 +2,14 @@ export const ProjectsList = [
   {
     id: "4bl0n1",
     thumbnail: ["adobe1.png", "adobe2.png"],
+    coverLogo: "images/adobe-wordmark-white.png",
     projectTitle: "Shape Properties Panel",
     projectDesc:
       "Collaborated with the CC Illustrator Team to redesign Adobe Illustrator’s Shape Tools panel for discoverability.",
     tags: [
+      { label: "Adobe Internship", text: "#714C8F", bg: "#DDD3F4" },
       { label: "AI", text: "#714C8F", bg: "#714C8F" },
       { label: "GenAI", text: "#556354", bg: "#BECFBC" },
-      { label: "Internship", text: "#714C8F", bg: "#DDD3F4" },
     ],
     link: "/tool-properties-panel.html",
   },
@@ -71,16 +72,16 @@ export const ProjectsList = [
   // },
   {
     id: "u13vto",
-    thumbnail: ["desicart1.png", "desicart2.png"],
-    projectTitle: "Desi Cart",
+    thumbnail: ["hdfc1.png", "hdfc2.png"],
+    projectTitle: "BC Inspection Questionnaire",
     projectDesc:
-      "E-commerce platform for Geographical Indicators, empowering users to discover authentic products online and providing MSMEs a platform to organically scale.",
+      "Reframed HDFC Bank's field inspection form around the officer's mental model — UX research and information architecture, not a UI.",
     tags: [
-      { label: "E-commerce", text: "#4D5F86", bg: "#BCCBEA" },
-      { label: "Branding", text: "#883737", bg: "#DEC2C2" },
-      { label: "Social Impact", text: "#883737", bg: "#DEC2C2" },
+      { label: "Internship", text: "#4D5F86", bg: "#BCCBEA" },
+      { label: "UX Research", text: "#556354", bg: "#BECFBC" },
+      { label: "Information Architecture", text: "#714C8F", bg: "#DDD3F4" },
     ],
-    link: "https://www.behance.net/gallery/179269803/Desi-Cart-Reviving-Indian-Art-Connecting-Consumers",
+    link: "/hdfc-bc-questionnaire.html",
   },
   {
     id: "au5b9l",

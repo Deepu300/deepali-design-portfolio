@@ -107,6 +107,17 @@
   z-index: 1;
 }
 
+.project-image img.project-image__logo {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.95rem;
+  z-index: 2;
+  width: clamp(3.6rem, 16%, 5.6rem);
+  height: auto;
+  object-fit: contain;
+  pointer-events: none;
+}
+
 .project-tags {
   display: flex;
   flex-wrap: wrap;

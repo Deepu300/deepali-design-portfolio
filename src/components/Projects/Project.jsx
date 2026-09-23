@@ -34,6 +34,13 @@ const Project = ({ data }) => {
             },
           }}
         />
+        {data.coverLogo ? (
+          <img
+            src={`/${data.coverLogo}`}
+            alt=""
+            className="project-image__logo"
+          />
+        ) : null}
       </div>
     </div>
   );
